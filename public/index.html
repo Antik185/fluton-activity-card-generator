@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Discord-X Activity Card</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Fluton Logo" class="header-logo">
+            <h1>Activity Card Generator</h1>
+            <p>Enter a Discord username to generate their Activity Card</p>
+        </header>
+
+        <main>
+            <div class="search-box">
+                <input type="text" id="usernameInput" placeholder="e.g. 77mcmustafa" autocomplete="off">
+                <button id="generateBtn"><i class="fas fa-magic"></i> Generate</button>
+            </div>
+
+            <div class="carousel-wrapper" id="carouselWrapper">
+                <div class="carousel" id="carouselContainer">
+                    <!-- Carousel items injected by JS -->
+                </div>
+            </div>
+
+            <div id="errorMsg" class="error-msg hidden"></div>
+
+            <div id="loadingSpinner" class="loader hidden"></div>
+
+            <div class="card-container hidden" id="cardContainer">
+                <div class="web3-card" id="activityCard">
+                    <!-- Glass effect overlay -->
+                    <div class="glass-overlay"></div>
+
+                    <div class="card-header">
+                        <div class="avatar-container">
+                            <img src="" alt="Avatar" id="userAvatar" class="avatar">
+                            <div class="rank-badge" id="rankBadge">Top 1%</div>
+                        </div>
+                        <div class="user-info">
+                            <h2 id="userNickname">Nickname</h2>
+                            <p class="username">@<span id="userUsername">username</span></p>
+                            <div class="roles-container" id="rolesContainer">
+                                <!-- Roles inserted dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-box discord">
+                            <div class="stat-icon"><i class="fab fa-discord"></i></div>
+                            <div class="stat-value" id="discordPoints">0</div>
+                            <div class="stat-label">Discord Messages</div>
+                        </div>
+                        <div class="stat-box x">
+                            <div class="stat-icon"><i class="fab fa-x-twitter"></i></div>
+                            <div class="stat-value" id="xPoints">0</div>
+                            <div class="stat-label">X Posts Shared</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: -0.5rem;">
+                        <div class="stat-box x" style="padding: 1rem;">
+                            <div class="stat-icon" style="font-size: 1rem; color: #ff2a75;"><i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-value" id="xLikes" style="font-size: 1.2rem;">0</div>
+                            <div class="stat-label">Likes</div>
+                        </div>
+                        <div class="stat-box x" style="padding: 1rem;">
+                            <div class="stat-icon" style="font-size: 1rem; color: #00ba7c;"><i
+                                    class="fas fa-retweet"></i></div>
+                            <div class="stat-value" id="xReposts" style="font-size: 1.2rem;">0</div>
+                            <div class="stat-label">Reposts</div>
+                        </div>
+                        <div class="stat-box x" style="padding: 1rem;">
+                            <div class="stat-icon" style="font-size: 1rem; color: #1da1f2;"><i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stat-value" id="xViews" style="font-size: 1.2rem;">0</div>
+                            <div class="stat-label">Views</div>
+                        </div>
+                    </div>
+
+                    <div class="total-score-box">
+                        <div class="score-label">Fluton Total Score</div>
+                        <div class="score-value" id="totalPoints">0</div>
+                    </div>
+
+                    <div class="card-footer">
+                        <span>Generated via Fluton Activity Tracker</span>
+                        <i class="fas fa-check-circle verified-icon"></i>
+                    </div>
+                </div>
+
+                <div class="actions" style="display: flex; gap: 1rem; width: 100%;">
+                    <button id="downloadBtn" class="download-btn" style="flex: 1; justify-content: center;"><i
+                            class="fas fa-download"></i> Download</button>
+                    <button id="shareBtn" class="share-btn" style="flex: 1; justify-content: center;"><i
+                            class="fab fa-x-twitter"></i> Share on X</button>
+                </div>
+
+                <div class="last-updated">Last updated: 2/21/2026</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
