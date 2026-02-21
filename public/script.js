@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const score = totalPoints.innerText;
         const rank = rankBadge.innerText;
         const text = `I just grabbed my Fluton Activity Card! 🃏✨\n\n🏆 Total Impact Score: ${score}\n📈 Rank: ${rank}\n\nCheck your stats here:`;
-        const targetUrl = 'https://fluton.app'; // Replace with the actual deployed URL later
+        const targetUrl = 'https://fluton-activity-card-generator.vercel.app/';
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(targetUrl)}`;
         window.open(url, '_blank', 'noopener,noreferrer');
     });

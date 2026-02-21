@@ -54,35 +54,40 @@ app.get('/api/user/:username', (req, res) => {
                 else if (topPercentile <= 10) percentileStr = "Top 10%";
                 else percentileStr = 'Top ' + Math.ceil(topPercentile) + '%';
 
-                // Parse roles JSON
-                let stringRoles = [];
-                try {
-                    const parsedRoles = JSON.parse(user.roles);
-                    // Discord roles format: [{ name: 'Role 1', color: '#hex' }]
-                    if (Array.isArray(parsedRoles)) {
-                        stringRoles = parsedRoles.map(r => r.name).filter(n => n !== '@everyone');
-                    }
-                } catch (e) { }
+                // Count actual X posts from the x_posts table (more reliable than users.x_posts)
+                db.get('SELECT COUNT(*) as actualXPosts FROM x_posts WHERE user_id = ?', [user.id], (err, xPostRow) => {
+                    const actualXPosts = (xPostRow && xPostRow.actualXPosts) ? xPostRow.actualXPosts : (user.x_posts || 0);
 
-                res.json({
-                    user: {
-                        id: user.id,
-                        username: user.username,
-                        nickname: user.nickname,
-                        avatar_url: user.avatar_url,
-                        discord_messages: user.discord_messages,
-                        x_posts: user.x_posts,
-                        x_likes: user.x_likes || 0,
-                        x_reposts: user.x_reposts || 0,
-                        x_views: user.x_views || 0,
-                        total_points: user.total_points,
-                        roles: stringRoles
-                    },
-                    stats: {
-                        rank,
-                        totalUsers,
-                        percentile: percentileStr
-                    }
+                    // Parse roles JSON
+                    let stringRoles = [];
+                    try {
+                        const parsedRoles = JSON.parse(user.roles);
+                        // Discord roles format: [{ name: 'Role 1', color: '#hex' }]
+                        if (Array.isArray(parsedRoles)) {
+                            stringRoles = parsedRoles.map(r => r.name).filter(n => n !== '@everyone');
+                        }
+                    } catch (e) { }
+
+                    res.json({
+                        user: {
+                            id: user.id,
+                            username: user.username,
+                            nickname: user.nickname,
+                            avatar_url: user.avatar_url,
+                            discord_messages: user.discord_messages,
+                            x_posts: actualXPosts,
+                            x_likes: user.x_likes || 0,
+                            x_reposts: user.x_reposts || 0,
+                            x_views: user.x_views || 0,
+                            total_points: user.total_points,
+                            roles: stringRoles
+                        },
+                        stats: {
+                            rank,
+                            totalUsers,
+                            percentile: percentileStr
+                        }
+                    });
                 });
             });
         });
