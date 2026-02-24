@@ -126,73 +126,6 @@ button:hover {
     display: none !important;
 }
 
-/* ── Filter toggle ── */
-.filter-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin: 0.75rem auto 0;
-}
-
-.filter-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.35);
-    transition: color 0.3s;
-    cursor: default;
-    user-select: none;
-}
-
-.filter-label.active {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.toggle-switch {
-    position: relative;
-    width: 44px;
-    height: 24px;
-    display: inline-block;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-switch .slider {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.toggle-switch .slider::before {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    left: 2px;
-    bottom: 2px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    transition: transform 0.3s;
-}
-
-.toggle-switch input:checked+.slider {
-    background: var(--primary-color);
-    border-color: var(--primary-glow);
-}
-
-.toggle-switch input:checked+.slider::before {
-    transform: translateX(20px);
-    background: #fff;
-}
-
 .error-msg {
     color: #ff4d4d;
     background: rgba(255, 77, 77, 0.1);
@@ -313,7 +246,6 @@ button:hover {
     border-radius: 20px;
     white-space: nowrap;
     box-shadow: 0 4px 10px rgba(0, 229, 255, 0.4);
-    text-shadow: 0 0 10px rgb(255 255 255 / 80%);
 }
 
 .user-info h2 {

@@ -18,6 +18,10 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
 
 app.get('/api/user/:username', (req, res) => {
     const searchTerm = req.params.username.trim().toLowerCase();
+    const activeOnly = req.query.active === 'true';
+
+    // Active-user filter clause
+    const ACTIVE_FILTER = '(discord_messages >= 20 OR x_posts >= 2)';
 
     // Find the user first
     db.get(`
@@ -33,14 +37,22 @@ app.get('/api/user/:username', (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Calculate Rank and Total Users
-        db.get('SELECT COUNT(*) as totalUsers FROM users', [], (err, totalRow) => {
+        // Calculate Rank and Total Users (optionally filtered to active)
+        const totalSql = activeOnly
+            ? `SELECT COUNT(*) as totalUsers FROM users WHERE ${ACTIVE_FILTER}`
+            : 'SELECT COUNT(*) as totalUsers FROM users';
+
+        db.get(totalSql, [], (err, totalRow) => {
             if (err) return res.status(500).json({ error: 'Database error' });
 
             const totalUsers = totalRow.totalUsers;
 
             // Find rank (how many users have MORE points than this user)
-            db.get('SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ?', [user.total_points], (err, rankRow) => {
+            const rankSql = activeOnly
+                ? `SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ? AND ${ACTIVE_FILTER}`
+                : 'SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ?';
+
+            db.get(rankSql, [user.total_points], (err, rankRow) => {
                 if (err) return res.status(500).json({ error: 'Database error' });
 
                 const rank = rankRow.higherRankCount + 1; // 1-based index
@@ -62,7 +74,6 @@ app.get('/api/user/:username', (req, res) => {
                     let stringRoles = [];
                     try {
                         const parsedRoles = JSON.parse(user.roles);
-                        // Discord roles format: [{ name: 'Role 1', color: '#hex' }]
                         if (Array.isArray(parsedRoles)) {
                             stringRoles = parsedRoles.map(r => r.name).filter(n => n !== '@everyone');
                         }
@@ -85,7 +96,8 @@ app.get('/api/user/:username', (req, res) => {
                         stats: {
                             rank,
                             totalUsers,
-                            percentile: percentileStr
+                            percentile: percentileStr,
+                            activeOnly: activeOnly
                         }
                     });
                 });

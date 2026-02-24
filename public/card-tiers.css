@@ -1,0 +1,580 @@
+/* ==========================================================
+   CARD TIERS — colours & animations from all_cards.html
+   Applied via JS class on .web3-card: card-top-50 / 10 / 1 / 01
+   This file is ISOLATED — it never touches site-wide styles.
+   ========================================================== */
+
+/* ============ SHARED KEYFRAMES ============ */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes borderFlow {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 200% 0%;
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-70px) translateX(8px);
+        opacity: 0;
+    }
+}
+
+@keyframes aurora {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ============ PARTICLES ============ */
+.particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    animation: particleFloat linear infinite;
+}
+
+.particle:nth-child(1) {
+    left: 12%;
+    bottom: 18%;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    width: 2px;
+    height: 2px;
+}
+
+.particle:nth-child(2) {
+    left: 28%;
+    bottom: 8%;
+    animation-duration: 5s;
+    animation-delay: 1s;
+}
+
+.particle:nth-child(3) {
+    left: 50%;
+    bottom: 28%;
+    animation-duration: 3.5s;
+    animation-delay: 0.5s;
+    width: 2px;
+    height: 2px;
+}
+
+.particle:nth-child(4) {
+    left: 68%;
+    bottom: 12%;
+    animation-duration: 4.5s;
+    animation-delay: 2s;
+}
+
+.particle:nth-child(5) {
+    left: 83%;
+    bottom: 22%;
+    animation-duration: 3.8s;
+    animation-delay: 1.5s;
+    width: 2px;
+    height: 2px;
+}
+
+.particle:nth-child(6) {
+    left: 40%;
+    bottom: 4%;
+    animation-duration: 5.2s;
+    animation-delay: 0.8s;
+}
+
+/* ============ TOP ACCENT LINE ============ */
+.top-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+    z-index: 2;
+}
+
+/* ============ CARD BG LAYER (aurora) ============ */
+.card-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: 300% 300%;
+    animation: aurora 6s ease infinite;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+/* Make sure card content sits above animated layers */
+.web3-card[class*="card-top-"]>.card-header,
+.web3-card[class*="card-top-"]>.stats-grid,
+.web3-card[class*="card-top-"]>.total-score-box,
+.web3-card[class*="card-top-"]>.card-footer,
+.web3-card[class*="card-top-"]>.glass-overlay {
+    position: relative;
+    z-index: 3;
+}
+
+/* Hide the default ::before overlay when a tier is active */
+.web3-card[class*="card-top-"]::before {
+    display: none;
+}
+
+/* Ensure all stat-box content is centered */
+.web3-card[class*="card-top-"] .stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ============================================================ */
+/* TOP 50% — SILVER                                              */
+/* ============================================================ */
+@keyframes silverGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(168, 178, 192, 0.2), 0 0 40px rgba(168, 178, 192, 0.08);
+    }
+
+    50% {
+        box-shadow: 0 0 35px rgba(190, 200, 215, 0.35), 0 0 70px rgba(168, 178, 192, 0.15);
+    }
+}
+
+.web3-card.card-top-50 {
+    background: linear-gradient(135deg, #0e1018 0%, #131820 30%, #0a0d14 70%, #0e1018 100%);
+    border-color: rgba(168, 178, 192, 0.3);
+    animation: silverGlow 5s ease-in-out infinite;
+}
+
+.card-top-50 .card-bg-layer {
+    background: linear-gradient(135deg, rgba(100, 115, 140, 0.15) 0%, rgba(168, 178, 192, 0.06) 25%, rgba(60, 75, 100, 0.12) 50%, rgba(150, 165, 185, 0.08) 75%, rgba(80, 95, 120, 0.16) 100%);
+}
+
+.card-top-50 .particle {
+    background: #A8B2C0;
+}
+
+.card-top-50 .top-accent {
+    background: linear-gradient(90deg, transparent, #A8B2C0, #D0D8E4, #A8B2C0, transparent);
+    background-size: 200% 100%;
+}
+
+.card-top-50 .avatar {
+    border-color: rgba(168, 178, 192, 0.5);
+    box-shadow: 0 0 20px rgba(168, 178, 192, 0.3);
+}
+
+.card-top-50 .rank-badge {
+    background: linear-gradient(135deg, #6a7585, #A8B2C0, #6a7585);
+    color: #0a0e18;
+    box-shadow: 0 0 10px rgba(168, 178, 192, 0.5);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.card-top-50 .user-info .username {
+    color: rgba(168, 185, 210, 0.5);
+}
+
+.card-top-50 .role-tag {
+    background: rgba(168, 178, 192, 0.08);
+    border: 1px solid rgba(168, 178, 192, 0.15);
+    color: rgba(200, 215, 235, 0.8);
+}
+
+
+
+.card-top-50 .stat-box {
+    background: rgba(168, 178, 192, 0.05);
+    border: 1px solid rgba(168, 178, 192, 0.1);
+}
+
+.card-top-50 .stat-box::before {
+    background: linear-gradient(90deg, transparent, rgba(168, 178, 192, 0.35), transparent) !important;
+}
+
+.card-top-50 .stat-label {
+    color: rgba(168, 185, 210, 0.6);
+}
+
+.card-top-50 .total-score-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 178, 192, 0.2);
+}
+
+.card-top-50 .score-label {
+    color: rgba(200, 215, 235, 0.85);
+}
+
+.card-top-50 .score-value {
+    color: #A8B2C0;
+    text-shadow: 0 0 20px rgba(168, 178, 192, 0.6), 0 0 40px rgba(168, 178, 192, 0.3);
+}
+
+.card-top-50 .card-footer {
+    color: rgba(168, 178, 192, 0.3);
+    border-top-color: rgba(168, 178, 192, 0.15);
+}
+
+/* ============================================================ */
+/* TOP 10% — PURPLE (swapped)                                    */
+/* ============================================================ */
+
+.web3-card.card-top-10 {
+    background: linear-gradient(135deg, #0d0520 0%, #110828 30%, #08031a 70%, #0d0620 100%);
+    border-color: rgba(168, 85, 247, 0.4);
+    animation: purpleGlow 4s ease-in-out infinite;
+}
+
+.card-top-10 .card-bg-layer {
+    background: linear-gradient(135deg, rgba(120, 50, 200, 0.18) 0%, rgba(168, 85, 247, 0.08) 25%, rgba(70, 20, 150, 0.14) 50%, rgba(140, 70, 230, 0.1) 75%, rgba(100, 40, 180, 0.2) 100%);
+}
+
+.card-top-10 .particle {
+    background: #A855F7;
+}
+
+.card-top-10 .top-accent {
+    background: linear-gradient(90deg, transparent, #A855F7, #7C3AED, #A855F7, transparent);
+    background-size: 200% 100%;
+}
+
+.card-top-10 .avatar {
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.card-top-10 .rank-badge {
+    background: linear-gradient(135deg, #5a1aaa, #A855F7, #5a1aaa);
+    color: #08031a;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.card-top-10 .user-info .username {
+    color: rgba(180, 120, 255, 0.5);
+}
+
+.card-top-10 .role-tag {
+    background: rgba(168, 85, 247, 0.08);
+    border: 1px solid rgba(168, 85, 247, 0.18);
+    color: rgba(210, 170, 255, 0.85);
+}
+
+.card-top-10 .stat-box {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.12);
+}
+
+.card-top-10 .stat-box::before {
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4), transparent) !important;
+}
+
+.card-top-10 .stat-label {
+    color: rgba(180, 120, 255, 0.6);
+}
+
+.card-top-10 .total-score-box {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.card-top-10 .score-label {
+    color: rgba(210, 170, 255, 0.9);
+}
+
+.card-top-10 .score-value {
+    color: #A855F7;
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.9), 0 0 50px rgba(140, 70, 230, 0.4);
+}
+
+.card-top-10 .card-footer {
+    color: rgba(168, 85, 247, 0.3);
+    border-top-color: rgba(168, 85, 247, 0.15);
+}
+
+/* ============================================================ */
+/* TOP 1% — CYAN (swapped)                                       */
+/* ============================================================ */
+@keyframes cyanGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.3), 0 0 50px rgba(0, 180, 220, 0.12);
+    }
+
+    50% {
+        box-shadow: 0 0 45px rgba(0, 220, 255, 0.5), 0 0 90px rgba(0, 200, 240, 0.22);
+    }
+}
+
+.web3-card.card-top-1 {
+    background: linear-gradient(135deg, #001520 0%, #001a26 30%, #000d18 70%, #001020 100%);
+    border-color: rgba(0, 212, 255, 0.4);
+    animation: cyanGlow 4s ease-in-out infinite;
+}
+
+.card-top-1 .card-bg-layer {
+    background: linear-gradient(135deg, rgba(0, 150, 200, 0.15) 0%, rgba(0, 212, 255, 0.07) 25%, rgba(0, 80, 130, 0.12) 50%, rgba(14, 165, 233, 0.09) 75%, rgba(0, 120, 180, 0.18) 100%);
+}
+
+.card-top-1 .particle {
+    background: #00D4FF;
+}
+
+.card-top-1 .top-accent {
+    background: linear-gradient(90deg, transparent, #00D4FF, #0EA5E9, #00D4FF, transparent);
+    background-size: 200% 100%;
+}
+
+.card-top-1 .avatar {
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.card-top-1 .rank-badge {
+    background: linear-gradient(135deg, #006080, #00D4FF, #006080);
+    color: #000d18;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.card-top-1 .user-info .username {
+    color: rgba(0, 200, 240, 0.5);
+}
+
+.card-top-1 .role-tag {
+    background: rgba(0, 212, 255, 0.07);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    color: rgba(150, 230, 255, 0.85);
+}
+
+.card-top-1 .stat-box {
+    background: rgba(0, 212, 255, 0.04);
+    border: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+.card-top-1 .stat-box::before {
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent) !important;
+}
+
+.card-top-1 .stat-label {
+    color: rgba(0, 200, 240, 0.6);
+}
+
+.card-top-1 .total-score-box {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(0, 212, 255, 0.22);
+}
+
+.card-top-1 .score-label {
+    color: rgba(150, 230, 255, 0.9);
+}
+
+.card-top-1 .score-value {
+    color: #00D4FF;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.9), 0 0 45px rgba(0, 200, 240, 0.4);
+}
+
+.card-top-1 .card-footer {
+    color: rgba(0, 200, 240, 0.3);
+    border-top-color: rgba(0, 212, 255, 0.15);
+}
+
+/* ============================================================ */
+/* TOP 0.1% — GOLD                                               */
+/* ============================================================ */
+@keyframes goldenGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 30px rgba(255, 180, 0, 0.35), 0 0 65px rgba(255, 140, 0, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 55px rgba(255, 210, 0, 0.55), 0 0 110px rgba(255, 170, 0, 0.25);
+    }
+}
+
+@keyframes scorePulseGold {
+
+    0%,
+    100% {
+        text-shadow: 0 0 20px rgba(255, 210, 50, 0.8), 0 0 40px rgba(255, 180, 0, 0.4);
+    }
+
+    50% {
+        text-shadow: 0 0 30px rgba(255, 225, 80, 1), 0 0 60px rgba(255, 200, 0, 0.7);
+    }
+}
+
+.web3-card.card-top-01 {
+    background: linear-gradient(135deg, #1a1200 0%, #1f1600 30%, #0d0900 70%, #161000 100%);
+    border-color: rgba(255, 215, 0, 0.5);
+    animation: goldenGlow 4s ease-in-out infinite;
+}
+
+.card-top-01 .card-bg-layer {
+    background: linear-gradient(135deg, rgba(180, 120, 0, 0.18) 0%, rgba(255, 180, 0, 0.08) 25%, rgba(100, 60, 0, 0.15) 50%, rgba(255, 200, 0, 0.1) 75%, rgba(150, 90, 0, 0.2) 100%);
+}
+
+.card-top-01 .particle {
+    background: #FFD700;
+}
+
+.card-top-01 .top-accent {
+    background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+    background-size: 200% 100%;
+}
+
+.card-top-01 .avatar {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 200, 0, 0.3);
+}
+
+.card-top-01 .rank-badge {
+    background: linear-gradient(135deg, #B8860B, #FFD700, #B8860B);
+    color: #1a0f00;
+    box-shadow: 0 0 12px rgba(255, 200, 0, 0.7);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.card-top-01 .user-info .username {
+    color: rgba(255, 200, 100, 0.5);
+}
+
+.card-top-01 .role-tag {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 200, 100, 0.15);
+    color: rgba(255, 230, 180, 0.85);
+}
+
+
+
+.card-top-01 .stat-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 180, 0, 0.12);
+}
+
+.card-top-01 .stat-box::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 180, 0, 0.4), transparent) !important;
+}
+
+.card-top-01 .stat-label {
+    color: rgba(255, 200, 100, 0.6);
+}
+
+.card-top-01 .total-score-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 180, 0, 0.25);
+}
+
+.card-top-01 .score-label {
+    color: rgba(255, 220, 140, 0.9);
+}
+
+.card-top-01 .score-value {
+    color: #FFD700;
+    animation: scorePulseGold 3s ease-in-out infinite;
+}
+
+.card-top-01 .card-footer {
+    color: rgba(255, 180, 0, 0.3);
+    border-top-color: rgba(255, 180, 0, 0.15);
+}
+
+/* ============ EXPORT MODE OVERRIDES ============ */
+/* Kill animations & backdrop-filter for clean html2canvas render */
+/* but KEEP particles, aurora bg, top-accent visible */
+.web3-card.export-mode[class*="card-top-"] {
+    animation: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+.web3-card.export-mode .particles .particle {
+    animation: none !important;
+    opacity: 0.8 !important;
+}
+
+.web3-card.export-mode .top-accent {
+    animation: none !important;
+}
+
+.web3-card.export-mode .card-bg-layer {
+    animation: none !important;
+}
+
+.web3-card.export-mode::before {
+    display: none !important;
+}
+
+.web3-card.card-top-50.export-mode {
+    background: linear-gradient(135deg, #0e1018 0%, #131820 30%, #0a0d14 70%, #0e1018 100%) !important;
+    border: 1px solid rgba(168, 178, 192, 0.5) !important;
+}
+
+.web3-card.card-top-10.export-mode {
+    background: linear-gradient(135deg, #0d0520 0%, #110828 30%, #08031a 70%, #0d0620 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.5) !important;
+}
+
+.web3-card.card-top-1.export-mode {
+    background: linear-gradient(135deg, #001520 0%, #001a26 30%, #000d18 70%, #001020 100%) !important;
+    border: 1px solid rgba(0, 212, 255, 0.5) !important;
+}
+
+.web3-card.card-top-01.export-mode {
+    background: linear-gradient(135deg, #1a1200 0%, #1f1600 30%, #0d0900 70%, #161000 100%) !important;
+    border: 1px solid rgba(255, 215, 0, 0.5) !important;
+}

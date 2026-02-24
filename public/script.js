@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const xPoints = document.getElementById('xPoints');
     const xLikes = document.getElementById('xLikes');
     const xReposts = document.getElementById('xReposts');
+    const xComments = document.getElementById('xComments');
     const xViews = document.getElementById('xViews');
     const totalPoints = document.getElementById('totalPoints');
 
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         xPoints.innerHTML = '0';
         xLikes.innerHTML = '0';
         xReposts.innerHTML = '0';
+        if (xComments) xComments.innerHTML = '0';
         xViews.innerHTML = '0';
         totalPoints.innerHTML = '0';
 
@@ -154,13 +156,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         userNickname.textContent = user.nickname || user.username;
         userUsername.textContent = user.username;
-        rankBadge.textContent = stats.percentile;
+        rankBadge.innerHTML = '#' + stats.rank + '<br>' + stats.percentile;
+
+        // Apply tier class for card-tiers.css colours & animations
+        const cardElement = document.getElementById('activityCard');
+        const topRatio = (stats.rank / stats.totalUsers) * 100;
+        // Strip old tier classes
+        cardElement.classList.remove('card-top-50', 'card-top-10', 'card-top-1', 'card-top-01');
+
+        if (topRatio <= 0.1 || stats.rank <= 10) {
+            cardElement.classList.add('card-top-01');
+        } else if (topRatio <= 1) {
+            cardElement.classList.add('card-top-1');
+        } else if (topRatio <= 10) {
+            cardElement.classList.add('card-top-10');
+        } else if (topRatio <= 50) {
+            cardElement.classList.add('card-top-50');
+        }
 
         // Animate numbers
         animateValue(discordPoints, 0, user.discord_messages, 1000);
         animateValue(xPoints, 0, user.x_posts, 1000);
         animateValue(xLikes, 0, user.x_likes || 0, 1000);
         animateValue(xReposts, 0, user.x_reposts || 0, 1000);
+        if (xComments) animateValue(xComments, 0, user.x_comments || 0, 1000);
         animateValue(xViews, 0, user.x_views || 0, 1000);
         animateValue(totalPoints, 0, user.total_points, 1500);
 
@@ -231,13 +250,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function downloadCard() {
         const cardElement = document.getElementById('activityCard');
 
-        // Add export-mode class to suppress ::before gradients and 3d box-shadows 
-        // that cause rendering bugs and seams in html2canvas
+        // Add export-mode to get a clean render
         cardElement.classList.add('export-mode');
 
         html2canvas(cardElement, {
-            scale: 2, // High resolution
-            backgroundColor: '#151828', // Use an opaque fallback
+            scale: 2,
+            backgroundColor: '#0a0d14',
             useCORS: true,
             logging: false,
             allowTaint: true
@@ -250,9 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
             link.click();
         }).catch(err => {
             cardElement.classList.remove('export-mode');
-
             console.error('Error generating image:', err);
-            alert('Could not generate the image. Ensure avatars allow cross-origin requests.');
+            alert('Could not generate the image.');
         });
     }
 });
