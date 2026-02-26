@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') fetchUserData();
     });
 
+    const timeframeSelect = document.getElementById('timeframeSelect');
+    if (timeframeSelect) {
+        timeframeSelect.addEventListener('change', () => {
+            if (!cardContainer.classList.contains('hidden')) {
+                fetchUserData();
+            }
+        });
+    }
+
     downloadBtn.addEventListener('click', downloadCard);
 
     shareBtn.addEventListener('click', () => {
@@ -128,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Artificial delay for smooth loading UX when requests are too fast locally
             await new Promise(r => setTimeout(r, 600));
 
-            const response = await fetch('/api/user/' + encodeURIComponent(username));
+            const period = timeframeSelect ? timeframeSelect.value : 'all';
+            const response = await fetch('/api/user/' + encodeURIComponent(username) + '?period=' + period);
             const data = await response.json();
 
             if (!response.ok) {
@@ -179,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateValue(xPoints, 0, user.x_posts, 1000);
         animateValue(xLikes, 0, user.x_likes || 0, 1000);
         animateValue(xReposts, 0, user.x_reposts || 0, 1000);
-        if (xComments) animateValue(xComments, 0, user.x_comments || 0, 1000);
+        if (xComments) animateValue(xComments, 0, user.x_replies || 0, 1000);
         animateValue(xViews, 0, user.x_views || 0, 1000);
         animateValue(totalPoints, 0, user.total_points, 1500);
 

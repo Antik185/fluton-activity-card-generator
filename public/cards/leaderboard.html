@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluton Leaderboard</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #07070d;
+  font-family: 'Segoe UI', Ubuntu, sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes borderFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes goldGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,200,0,0.8), 0 0 24px rgba(255,180,0,0.4); }
+  50% { box-shadow: 0 0 20px rgba(255,220,0,1), 0 0 40px rgba(255,180,0,0.6); }
+}
+@keyframes purpleGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(168,85,247,0.8), 0 0 24px rgba(140,60,220,0.4); }
+  50% { box-shadow: 0 0 20px rgba(180,100,255,1), 0 0 40px rgba(150,80,240,0.6); }
+}
+@keyframes cyanGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(0,212,255,0.8), 0 0 24px rgba(0,180,220,0.4); }
+  50% { box-shadow: 0 0 20px rgba(0,220,255,1), 0 0 40px rgba(0,200,240,0.6); }
+}
+@keyframes silverGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(168,178,192,0.6), 0 0 16px rgba(150,160,175,0.3); }
+  50% { box-shadow: 0 0 14px rgba(190,200,215,0.8), 0 0 28px rgba(168,178,192,0.4); }
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes topThreeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ============ LAYOUT ============ */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ============ HEADER ============ */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.header-title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #A8B2C0, #fff, #A8B2C0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+
+.header-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ============ FILTERS ============ */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+/* ============ TOP 3 PODIUM ============ */
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: topThreeFloat ease-in-out infinite;
+}
+
+.podium-item:nth-child(1) { animation-duration: 3.2s; animation-delay: 0.4s; }
+.podium-item:nth-child(2) { animation-duration: 3s; }
+.podium-item:nth-child(3) { animation-duration: 3.5s; animation-delay: 0.8s; }
+
+.podium-avatar-wrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.podium-avatar-ring {
+  border-radius: 50%;
+  padding: 2.5px;
+  background-size: 200% 200%;
+  animation: borderFlow 2s linear infinite;
+}
+
+.podium-avatar-ring.first  { width: 80px; height: 80px; background: linear-gradient(135deg, #B8860B, #FFD700, #FFA500, #FFD700, #B8860B); animation: borderFlow 2s linear infinite, goldGlow 3s ease-in-out infinite; }
+.podium-avatar-ring.second { width: 68px; height: 68px; background: linear-gradient(135deg, #5a1aaa, #A855F7, #5a1aaa); animation: borderFlow 2.5s linear infinite, purpleGlow 3s ease-in-out infinite; }
+.podium-avatar-ring.third  { width: 60px; height: 60px; background: linear-gradient(135deg, #006080, #00D4FF, #006080); animation: borderFlow 3s linear infinite, cyanGlow 3s ease-in-out infinite; }
+
+.podium-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: #111;
+}
+
+.podium-crown {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+}
+
+.podium-rank {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+
+.podium-rank.gold   { color: #FFD700; }
+.podium-rank.purple { color: #A855F7; }
+.podium-rank.cyan   { color: #00D4FF; }
+
+.podium-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.podium-score {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+}
+
+.podium-block {
+  margin-top: 8px;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  min-width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.podium-block.first  { height: 70px; background: linear-gradient(180deg, rgba(255,200,0,0.15), rgba(255,180,0,0.05)); border-top: 2px solid rgba(255,200,0,0.3); color: rgba(255,200,0,0.4); }
+.podium-block.second { height: 50px; background: linear-gradient(180deg, rgba(168,85,247,0.12), rgba(140,60,220,0.04)); border-top: 2px solid rgba(168,85,247,0.3); color: rgba(168,85,247,0.4); }
+.podium-block.third  { height: 36px; background: linear-gradient(180deg, rgba(0,212,255,0.1), rgba(0,180,220,0.03)); border-top: 2px solid rgba(0,212,255,0.25); color: rgba(0,212,255,0.35); }
+
+/* ============ TABLE ============ */
+.table-wrap {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 52px 1fr 110px 110px 110px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 52px 1fr 110px 110px 110px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: center;
+  animation: fadeSlideIn 0.4s ease both;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.row:last-child { border-bottom: none; }
+.row:hover { background: rgba(255,255,255,0.03); }
+
+/* animation delays */
+.row:nth-child(1) { animation-delay: 0.05s; }
+.row:nth-child(2) { animation-delay: 0.10s; }
+.row:nth-child(3) { animation-delay: 0.15s; }
+.row:nth-child(4) { animation-delay: 0.20s; }
+.row:nth-child(5) { animation-delay: 0.25s; }
+.row:nth-child(6) { animation-delay: 0.30s; }
+.row:nth-child(7) { animation-delay: 0.35s; }
+.row:nth-child(8) { animation-delay: 0.40s; }
+.row:nth-child(9) { animation-delay: 0.45s; }
+.row:nth-child(10) { animation-delay: 0.50s; }
+
+.rank-cell {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+}
+
+.rank-cell.top1    { color: #FFD700; }
+.rank-cell.top2    { color: rgba(255,255,255,0.6); }
+.rank-cell.top3    { color: rgba(255,255,255,0.45); }
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar-ring {
+  border-radius: 50%;
+  padding: 2px;
+  background-size: 200% 200%;
+}
+
+/* tier rings */
+.ring-gold   { width: 40px; height: 40px; background: linear-gradient(135deg, #B8860B, #FFD700, #B8860B); animation: borderFlow 2s linear infinite, goldGlow 3s ease-in-out infinite; }
+.ring-purple { width: 40px; height: 40px; background: linear-gradient(135deg, #5a1aaa, #A855F7, #5a1aaa); animation: borderFlow 2.5s linear infinite, purpleGlow 3s ease-in-out infinite; }
+.ring-cyan   { width: 40px; height: 40px; background: linear-gradient(135deg, #006080, #00D4FF, #006080); animation: borderFlow 3s linear infinite, cyanGlow 3s ease-in-out infinite; }
+.ring-silver { width: 40px; height: 40px; background: linear-gradient(135deg, #6a7585, #A8B2C0, #6a7585); animation: borderFlow 4s linear infinite, silverGlow 4s ease-in-out infinite; }
+.ring-none   { width: 40px; height: 40px; background: rgba(255,255,255,0.08); }
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.tier-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #07070d;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.user-handle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+
+.tier-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.badge-gold   { background: rgba(255,200,0,0.15); color: #FFD700; border: 1px solid rgba(255,200,0,0.3); }
+.badge-purple { background: rgba(168,85,247,0.15); color: #A855F7; border: 1px solid rgba(168,85,247,0.3); }
+.badge-cyan   { background: rgba(0,212,255,0.12); color: #00D4FF; border: 1px solid rgba(0,212,255,0.25); }
+.badge-silver { background: rgba(168,178,192,0.12); color: #A8B2C0; border: 1px solid rgba(168,178,192,0.25); }
+
+.score-cell {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.score-cell.gold   { color: #FFD700; text-shadow: 0 0 10px rgba(255,200,0,0.4); }
+.score-cell.purple { color: #A855F7; text-shadow: 0 0 10px rgba(168,85,247,0.4); }
+.score-cell.cyan   { color: #00D4FF; text-shadow: 0 0 10px rgba(0,212,255,0.4); }
+.score-cell.silver { color: #A8B2C0; }
+.score-cell.white  { color: rgba(255,255,255,0.6); }
+
+.dc-cell {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+.x-cell {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+/* ============ FOOTER STATS ============ */
+.footer-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.fstat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.fstat-value {
+  font-family: 'Courier New', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.fstat-label {
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-title">Leaderboard</div>
+    <div class="header-sub">Fluton Activity Tracker</div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-btn active">All Time</div>
+    <div class="filter-btn">This Month</div>
+    <div class="filter-btn">This Week</div>
+    <div class="filter-btn">Discord</div>
+    <div class="filter-btn">X / Twitter</div>
+  </div>
+
+  <!-- Podium top 3 -->
+  <div class="podium">
+
+    <!-- 2nd -->
+    <div class="podium-item">
+      <div class="podium-avatar-wrap">
+        <div class="podium-avatar-ring second"><div class="podium-avatar">🎯</div></div>
+      </div>
+      <div class="podium-rank purple">#2</div>
+      <div class="podium-name">crypto_wolf</div>
+      <div class="podium-score">14 820 pts</div>
+      <div class="podium-block second">2</div>
+    </div>
+
+    <!-- 1st -->
+    <div class="podium-item">
+      <div class="podium-avatar-wrap">
+        <div class="podium-crown">👑</div>
+        <div class="podium-avatar-ring first"><div class="podium-avatar">🔥</div></div>
+      </div>
+      <div class="podium-rank gold">#1</div>
+      <div class="podium-name">thekingavi_</div>
+      <div class="podium-score">21 430 pts</div>
+      <div class="podium-block first">1</div>
+    </div>
+
+    <!-- 3rd -->
+    <div class="podium-item">
+      <div class="podium-avatar-wrap">
+        <div class="podium-avatar-ring third"><div class="podium-avatar">⚡</div></div>
+      </div>
+      <div class="podium-rank cyan">#3</div>
+      <div class="podium-name">spartan_andi</div>
+      <div class="podium-score">11 290 pts</div>
+      <div class="podium-block third">3</div>
+    </div>
+
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <div>#</div>
+      <div>User</div>
+      <div style="text-align:right">Total</div>
+      <div style="text-align:right">DC</div>
+      <div style="text-align:right">X Score</div>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="row">
+      <div class="rank-cell top1">#1</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-gold"><div class="avatar">🔥</div></div>
+          <div class="tier-dot" style="background:#FFD700"></div>
+        </div>
+        <div>
+          <div class="user-name">thekingavi_ <span class="tier-badge badge-gold">0.1%</span></div>
+          <div class="user-handle">@thekingavi_</div>
+        </div>
+      </div>
+      <div class="score-cell gold">21 430</div>
+      <div class="dc-cell">5 790</div>
+      <div class="x-cell">15 640</div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="row">
+      <div class="rank-cell top2">#2</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-gold"><div class="avatar">🎯</div></div>
+          <div class="tier-dot" style="background:#FFD700"></div>
+        </div>
+        <div>
+          <div class="user-name">crypto_wolf <span class="tier-badge badge-gold">0.1%</span></div>
+          <div class="user-handle">@crypto_wolf</div>
+        </div>
+      </div>
+      <div class="score-cell gold">14 820</div>
+      <div class="dc-cell">4 200</div>
+      <div class="x-cell">10 620</div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="row">
+      <div class="rank-cell top3">#3</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-gold"><div class="avatar">⚡</div></div>
+          <div class="tier-dot" style="background:#FFD700"></div>
+        </div>
+        <div>
+          <div class="user-name">spartan_andi <span class="tier-badge badge-gold">0.1%</span></div>
+          <div class="user-handle">@andirimex</div>
+        </div>
+      </div>
+      <div class="score-cell gold">11 290</div>
+      <div class="dc-cell">3 957</div>
+      <div class="x-cell">7 333</div>
+    </div>
+
+    <!-- Row 4 -->
+    <div class="row">
+      <div class="rank-cell">#4</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-purple"><div class="avatar">🌙</div></div>
+          <div class="tier-dot" style="background:#A855F7"></div>
+        </div>
+        <div>
+          <div class="user-name">night_trader <span class="tier-badge badge-purple">1%</span></div>
+          <div class="user-handle">@night_trader</div>
+        </div>
+      </div>
+      <div class="score-cell purple">9 840</div>
+      <div class="dc-cell">6 100</div>
+      <div class="x-cell">3 740</div>
+    </div>
+
+    <!-- Row 5 -->
+    <div class="row">
+      <div class="rank-cell">#5</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-purple"><div class="avatar">🎮</div></div>
+          <div class="tier-dot" style="background:#A855F7"></div>
+        </div>
+        <div>
+          <div class="user-name">defi_king <span class="tier-badge badge-purple">1%</span></div>
+          <div class="user-handle">@defi_king</div>
+        </div>
+      </div>
+      <div class="score-cell purple">8 120</div>
+      <div class="dc-cell">5 430</div>
+      <div class="x-cell">2 690</div>
+    </div>
+
+    <!-- Row 6 -->
+    <div class="row">
+      <div class="rank-cell">#6</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-cyan"><div class="avatar">🚀</div></div>
+          <div class="tier-dot" style="background:#00D4FF"></div>
+        </div>
+        <div>
+          <div class="user-name">moon_chaser <span class="tier-badge badge-cyan">5%</span></div>
+          <div class="user-handle">@moon_chaser</div>
+        </div>
+      </div>
+      <div class="score-cell cyan">5 630</div>
+      <div class="dc-cell">3 200</div>
+      <div class="x-cell">2 430</div>
+    </div>
+
+    <!-- Row 7 -->
+    <div class="row">
+      <div class="rank-cell">#7</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-cyan"><div class="avatar">🦊</div></div>
+          <div class="tier-dot" style="background:#00D4FF"></div>
+        </div>
+        <div>
+          <div class="user-name">fox_protocol <span class="tier-badge badge-cyan">5%</span></div>
+          <div class="user-handle">@fox_protocol</div>
+        </div>
+      </div>
+      <div class="score-cell cyan">4 910</div>
+      <div class="dc-cell">2 870</div>
+      <div class="x-cell">2 040</div>
+    </div>
+
+    <!-- Row 8 -->
+    <div class="row">
+      <div class="rank-cell">#8</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-silver"><div class="avatar">🌊</div></div>
+          <div class="tier-dot" style="background:#A8B2C0"></div>
+        </div>
+        <div>
+          <div class="user-name">wave_rider <span class="tier-badge badge-silver">25%</span></div>
+          <div class="user-handle">@wave_rider</div>
+        </div>
+      </div>
+      <div class="score-cell silver">2 340</div>
+      <div class="dc-cell">1 900</div>
+      <div class="x-cell">440</div>
+    </div>
+
+    <!-- Row 9 -->
+    <div class="row">
+      <div class="rank-cell">#9</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-silver"><div class="avatar">🐉</div></div>
+          <div class="tier-dot" style="background:#A8B2C0"></div>
+        </div>
+        <div>
+          <div class="user-name">dragon_eth <span class="tier-badge badge-silver">25%</span></div>
+          <div class="user-handle">@dragon_eth</div>
+        </div>
+      </div>
+      <div class="score-cell silver">1 980</div>
+      <div class="dc-cell">1 650</div>
+      <div class="x-cell">330</div>
+    </div>
+
+    <!-- Row 10 -->
+    <div class="row">
+      <div class="rank-cell">#10</div>
+      <div class="user-cell">
+        <div class="avatar-wrap">
+          <div class="avatar-ring ring-none"><div class="avatar">🌟</div></div>
+        </div>
+        <div>
+          <div class="user-name">star_gazer</div>
+          <div class="user-handle">@star_gazer</div>
+        </div>
+      </div>
+      <div class="score-cell white">1 240</div>
+      <div class="dc-cell">1 240</div>
+      <div class="x-cell">—</div>
+    </div>
+
+  </div>
+
+  <!-- Footer stats -->
+  <div class="footer-stats">
+    <div class="fstat">
+      <div class="fstat-value">1 284</div>
+      <div class="fstat-label">Participants</div>
+    </div>
+    <div class="fstat">
+      <div class="fstat-value">2.4M</div>
+      <div class="fstat-label">DC Messages</div>
+    </div>
+    <div class="fstat">
+      <div class="fstat-value">48K</div>
+      <div class="fstat-label">X Posts</div>
+    </div>
+    <div class="fstat">
+      <div class="fstat-value">12.8M</div>
+      <div class="fstat-label">Total Views</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

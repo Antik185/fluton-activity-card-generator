@@ -7,6 +7,9 @@ const { pick } = require('stream-json/filters/Pick');
 const { streamArray } = require('stream-json/streamers/StreamArray');
 
 const jsonDir = path.join(__dirname, 'json');
+const banlist = JSON.parse(fs.readFileSync('banlist.json', 'utf8'));
+const bannedUsers = new Set(banlist.users);
+const bannedPosts = new Set(banlist.posts.map(p => p.split('?')[0]));
 
 function extractXLinks(content) {
     if (!content) return [];
@@ -52,7 +55,7 @@ function startParsing() {
         updateXPostCountStmt = db.prepare(`
             UPDATE users 
             SET x_posts = x_posts + 1,
-                total_points = total_points + 1
+                total_points = total_points + 10
             WHERE id = ?
         `);
 
@@ -91,22 +94,28 @@ function processNextFile() {
     pipeline.on('data', data => {
         const msg = data.value;
         const author = msg.author;
-        if (!author || author.isBot) return;
+        // Skip banned users and bots
+        if (!author || author.isBot || bannedUsers.has(author.name)) {
+            return;
+        }
 
         processedMessages++;
-        const rolesJson = JSON.stringify(author.roles || []);
+        const roles = JSON.stringify(author.roles || []);
 
         // Queue user upsert
-        insertUserStmt.run(author.id, author.name, author.nickname, author.avatarUrl, rolesJson);
+        insertUserStmt.run(author.id, author.name, author.nickname, author.avatarUrl, roles);
 
         // Queue X links
         const xLinks = extractXLinks(msg.content);
         for (const link of xLinks) {
-            insertXPostStmt.run(link, author.id, msg.timestamp, function (err) {
-                if (!err && this.changes > 0) {
-                    updateXPostCountStmt.run(author.id);
-                }
-            });
+            const cleanLink = link.split('?')[0];
+            if (!bannedPosts.has(cleanLink)) {
+                insertXPostStmt.run(cleanLink, author.id, msg.timestamp, function (err) {
+                    if (!err && this.changes > 0) {
+                        updateXPostCountStmt.run(author.id);
+                    }
+                });
+            }
         }
     });
 

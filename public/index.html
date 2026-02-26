@@ -4,141 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web3 Discord-X Activity Card</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="card-tiers.css?v=1">
-    <!-- Font Awesome (local) -->
-    <link rel="stylesheet" href="fontawesome/css/all.min.css">
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;900&display=swap"
-        rel="stylesheet">
-    <!-- html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- gif.js for animated GIF export -->
-    <script src="gif.js"></script>
+    <title>Fluton Leaderboard</title>
+    <link rel="stylesheet" href="leaderboard.css?v=23">
+    <!-- Font Awesome -->
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="global-nav.css?v=5" rel="stylesheet">
+    <script src="global-nav.js?v=5" defer></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <img src="logo.png" alt="Fluton Logo" class="header-logo">
-            <h1>Activity Card Generator</h1>
-            <p>Enter a Discord username to generate their Activity Card</p>
-        </header>
+        <!-- Header -->
+        <div class="header" style="margin-top: 24px;">
+            <h1 class="header-title">Leaderboard</h1>
+        </div>
 
-        <main>
-            <div class="search-box">
-                <input type="text" id="usernameInput" placeholder="e.g. 77mcmustafa" autocomplete="off">
-                <button id="generateBtn"><i class="fas fa-magic"></i> Generate</button>
+
+
+        <div id="loading" class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i> Loading data...
+        </div>
+
+        <div id="leaderboardContent" class="hidden">
+            <!-- Top Stats -->
+            <div class="top-stats" id="topStats">
+                <!-- Dynamically populated -->
             </div>
 
-            <div class="carousel-wrapper" id="carouselWrapper">
-                <div class="carousel" id="carouselContainer">
-                    <!-- Carousel items injected by JS -->
+            <!-- Controls Row -->
+            <div class="controls-row">
+                <!-- Time Filters -->
+                <div class="filters">
+                    <button class="filter-btn active" data-period="all">All Time</button>
+                    <button class="filter-btn" data-period="month">Month</button>
+                    <button class="filter-btn" data-period="week">Week</button>
+                </div>
+                <!-- Platform Filters -->
+                <div class="platform-filters">
+                    <button class="platform-btn active" data-platform="all">All</button>
+                    <button class="platform-btn" data-platform="discord">Discord</button>
+                    <button class="platform-btn" data-platform="x">X Only</button>
+                </div>
+            </div>
+            <!-- Podium top 3 -->
+            <div class="podium" id="podiumContainer">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-wrap">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search by nickname..." aria-label="Search user">
                 </div>
             </div>
 
-            <div id="errorMsg" class="error-msg hidden"></div>
-
-            <div id="loadingSpinner" class="loader hidden"></div>
-
-            <div class="card-container hidden" id="cardContainer">
-                <div class="web3-card" id="activityCard">
-                    <!-- Animated layers (controlled by card-tiers.css) -->
-                    <div class="card-bg-layer"></div>
-                    <div class="particles">
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                    </div>
-                    <div class="top-accent"></div>
-                    <!-- Glass effect overlay -->
-                    <div class="glass-overlay"></div>
-
-                    <div class="card-header">
-                        <div class="avatar-container">
-                            <img src="" alt="Avatar" id="userAvatar" class="avatar">
-                            <div class="rank-badge" id="rankBadge">Top 1%</div>
-                        </div>
-                        <div class="user-info">
-                            <h2 id="userNickname">Nickname</h2>
-                            <p class="username">@<span id="userUsername">username</span></p>
-                            <div class="roles-container" id="rolesContainer">
-                                <!-- Roles inserted dynamically -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-box discord">
-                            <div class="stat-icon"><i class="fab fa-discord"></i></div>
-                            <div class="stat-value" id="discordPoints">0</div>
-                            <div class="stat-label">Discord Messages</div>
-                        </div>
-                        <div class="stat-box x">
-                            <div class="stat-icon"><i class="fab fa-x-twitter"></i></div>
-                            <div class="stat-value" id="xPoints">0</div>
-                            <div class="stat-label">X Posts Shared</div>
-                        </div>
-                    </div>
-
-                    <div class="stats-grid"
-                        style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: -0.5rem; gap: 0.5rem;">
-                        <div class="stat-box x" style="padding: 1rem;">
-                            <div class="stat-icon" style="font-size: 1rem; color: #ff2a75;"><i class="fas fa-heart"></i>
-                            </div>
-                            <div class="stat-value" id="xLikes" style="font-size: 1.2rem;">0</div>
-                            <div class="stat-label">Likes</div>
-                        </div>
-                        <div class="stat-box x" style="padding: 1rem;">
-                            <div class="stat-icon" style="font-size: 1rem; color: #00ba7c;"><i
-                                    class="fas fa-retweet"></i></div>
-                            <div class="stat-value" id="xReposts" style="font-size: 1.2rem;">0</div>
-                            <div class="stat-label">Reposts</div>
-                        </div>
-                        <div class="stat-box x" style="padding: 1rem;">
-                            <div class="stat-icon" style="font-size: 1rem; color: #9b8ec4;"><i
-                                    class="fas fa-comment"></i>
-                            </div>
-                            <div class="stat-value" id="xComments" style="font-size: 1.2rem;">0</div>
-                            <div class="stat-label">Comments</div>
-                        </div>
-                        <div class="stat-box x" style="padding: 1rem;">
-                            <div class="stat-icon" style="font-size: 1rem; color: #1da1f2;"><i class="fas fa-eye"></i>
-                            </div>
-                            <div class="stat-value" id="xViews" style="font-size: 1.2rem;">0</div>
-                            <div class="stat-label">Views</div>
-                        </div>
-                    </div>
-
-                    <div class="total-score-box">
-                        <div class="score-label">Fluton Total Score</div>
-                        <div class="score-value" id="totalPoints">0</div>
-                    </div>
-
-                    <div class="card-footer">
-                        <span>Generated via Fluton Activity Tracker</span>
-                        <i class="fas fa-check-circle verified-icon"></i>
-                    </div>
+            <!-- Table -->
+            <div class="table-wrap">
+                <div class="table-header">
+                    <div>#</div>
+                    <div>User</div>
+                    <div style="text-align:right" id="totalHeader">Total</div>
+                    <div style="text-align:right">DC</div>
+                    <div style="text-align:right">X <span class="hide-mobile">Score</span></div>
                 </div>
 
-                <div class="actions" style="display: flex; gap: 1rem; width: 100%;">
-                    <button id="downloadBtn" class="download-btn" style="flex: 1; justify-content: center;"><i
-                            class="fas fa-download"></i> Download</button>
-                    <button id="shareBtn" class="share-btn" style="flex: 1; justify-content: center;"><i
-                            class="fab fa-x-twitter"></i> Share on X</button>
+                <div id="tableBody">
+                    <!-- Dynamically populated -->
                 </div>
-
-                <div class="last-updated">Last updated: 2/21/2026</div>
             </div>
-        </main>
+
+            <!-- Pagination -->
+            <div class="pagination hidden" id="paginationControls">
+                <button id="prevPageBtn"><i class="fas fa-chevron-left"></i></button>
+                <div class="page-info" id="pageInfo">Page 1</div>
+                <button id="nextPageBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="leaderboard.js?v=22"></script>
 </body>
 
 </html>

@@ -12,8 +12,10 @@
   "type": "commonjs",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.2.0",
+    "axios": "^1.13.5",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "miniget": "^4.2.3",
     "sqlite3": "^5.1.7",
     "stream-json": "^1.9.1"
   }

@@ -62,6 +62,7 @@ header h1 {
     font-weight: 900;
     background: linear-gradient(90deg, var(--secondary-color), var(--primary-glow));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
 }
@@ -766,5 +767,16 @@ button:hover {
     .actions {
         flex-direction: column;
         gap: 0.5rem;
+    }
+
+    .stat-label-comments {
+        font-size: 0 !important;
+        letter-spacing: 0 !important;
+    }
+
+    .stat-label-comments::after {
+        content: "Cmts";
+        font-size: 0.75rem;
+        letter-spacing: 1px;
     }
 }

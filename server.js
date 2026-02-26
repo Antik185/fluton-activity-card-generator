@@ -90,6 +90,7 @@ app.get('/api/user/:username', (req, res) => {
                             x_likes: user.x_likes || 0,
                             x_reposts: user.x_reposts || 0,
                             x_views: user.x_views || 0,
+                            x_replies: user.x_replies || 0,
                             total_points: user.total_points,
                             roles: stringRoles
                         },
