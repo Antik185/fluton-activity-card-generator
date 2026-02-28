@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fluton Leaderboard</title>
-    <link rel="stylesheet" href="leaderboard.css?v=23">
+    <link rel="stylesheet" href="leaderboard.css?v=26">
+    <link rel="stylesheet" href="leaderboard-mobile.css?v=5">
     <!-- Font Awesome -->
     <link href="fontawesome/css/all.min.css" rel="stylesheet">
     <link href="global-nav.css?v=5" rel="stylesheet">
@@ -39,11 +40,19 @@
                     <button class="filter-btn" data-period="month">Month</button>
                     <button class="filter-btn" data-period="week">Week</button>
                 </div>
-                <!-- Platform Filters -->
-                <div class="platform-filters">
-                    <button class="platform-btn active" data-platform="all">All</button>
-                    <button class="platform-btn" data-platform="discord">Discord</button>
-                    <button class="platform-btn" data-platform="x">X Only</button>
+                <!-- Platform Filters + Compare Toggle -->
+                <div class="controls-right">
+                    <div class="platform-filters">
+                        <button class="platform-btn active" data-platform="all">All</button>
+                        <button class="platform-btn" data-platform="discord">Discord</button>
+                        <button class="platform-btn" data-platform="x">X Only</button>
+                    </div>
+                    <div class="compare-toggle disabled" id="compareToggle">
+                        <span class="compare-toggle-label">Pro</span>
+                        <div class="toggle-switch">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Podium top 3 -->
@@ -65,8 +74,8 @@
                     <div>#</div>
                     <div>User</div>
                     <div style="text-align:right" id="totalHeader">Total</div>
-                    <div style="text-align:right">DC</div>
-                    <div style="text-align:right">X <span class="hide-mobile">Score</span></div>
+                    <div style="text-align:right" class="th-dc">DC</div>
+                    <div style="text-align:right" class="th-x">X <span class="hide-mobile">Score</span></div>
                 </div>
 
                 <div id="tableBody">
@@ -85,7 +94,7 @@
         </div>
     </div>
 
-    <script src="leaderboard.js?v=22"></script>
+    <script src="leaderboard.js?v=25"></script>
 </body>
 
 </html>

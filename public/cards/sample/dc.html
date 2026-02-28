@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluton — DC Expand</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  font-family: 'Segoe UI', Ubuntu, sans-serif;
+  color: #fff;
+  padding: 32px 24px;
+}
+
+.container { max-width: 900px; margin: 0 auto; }
+
+.table-wrap {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-head {
+  display: grid;
+  grid-template-columns: 54px 1fr 140px 120px 120px;
+  padding: 10px 20px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.row-wrap {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.row-wrap:last-child { border-bottom: none; }
+
+.table-row {
+  display: grid;
+  grid-template-columns: 54px 1fr 140px 120px 120px;
+  padding: 13px 20px;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s;
+}
+.table-row:hover { background: rgba(88,101,242,0.04); }
+.row-wrap.expanded .table-row { background: rgba(88,101,242,0.05); border-bottom: 1px solid rgba(88,101,242,0.1); }
+
+.row-rank {
+  font-family: 'Courier New', monospace;
+  font-size: 13px; font-weight: 700;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.r1 { color: #FFD700; }
+.r2 { color: #c4b5fd; }
+.r3 { color: rgba(255,255,255,0.45); }
+
+.rank-change { font-size: 9px; font-weight: 700; }
+.up   { color: #22c55e; }
+.down { color: #ef4444; }
+.same { color: rgba(255,255,255,0.25); }
+
+.row-user { display: flex; align-items: center; gap: 11px; }
+
+.row-ava-wrap { position: relative; flex-shrink: 0; }
+
+.row-ava {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #1a1a2e;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  border: 2px solid rgba(255,255,255,0.08);
+}
+
+.online-dot {
+  position: absolute; bottom: 1px; right: 1px;
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid #0a0a0f;
+}
+
+.row-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.row-handle { font-size: 10px; color: rgba(255,255,255,0.28); }
+
+.tier-badge {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 5px; margin-left: 7px; vertical-align: middle;
+}
+.tb-01 { background: rgba(255,200,0,0.12); color: #FFD700; border: 1px solid rgba(255,200,0,0.3); }
+.tb-1  { background: rgba(139,92,246,0.14); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+
+.score-cell { text-align: right; }
+.score-main {
+  font-family: 'Courier New', monospace;
+  font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+}
+.dc-color { color: #818cf8; }
+.cw { color: rgba(255,255,255,0.6); }
+
+.delta-sm { font-size: 10px; font-weight: 700; display: flex; align-items: center; }
+
+.score-sub { font-size: 10px; color: rgba(255,255,255,0.25); font-family: 'Courier New', monospace; margin-top: 2px; }
+
+.expand-arrow {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  color: rgba(255,255,255,0.15); font-size: 11px;
+  transition: transform 0.25s, color 0.2s;
+}
+.row-wrap.expanded .expand-arrow {
+  transform: translateY(-50%) rotate(180deg);
+  color: #818cf8;
+}
+
+/* DETAIL PANEL */
+.detail-panel {
+  display: none;
+  padding: 6px 20px 18px 20px;
+  gap: 12px;
+  align-items: stretch;
+}
+.row-wrap.expanded .detail-panel { display: flex; }
+
+/* CHART */
+.chart-card {
+  flex: 1.6;
+  background: rgba(88,101,242,0.05);
+  border: 1px solid rgba(88,101,242,0.15);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  min-width: 0;
+}
+
+.chart-title {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(129,140,248,0.5);
+  margin-bottom: 8px;
+}
+
+.chart-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.chart-this {
+  font-family: 'Courier New', monospace;
+  font-size: 20px; font-weight: 700;
+  color: #818cf8;
+}
+
+.chart-delta-block { text-align: right; }
+.chart-delta-val { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; }
+.chart-delta-pct { font-size: 10px; font-family: 'Courier New', monospace; }
+
+.bar-chart {
+  display: flex; align-items: flex-end; gap: 5px;
+  height: 52px; margin-bottom: 6px;
+}
+
+.bar {
+  flex: 1; border-radius: 3px 3px 0 0; min-height: 4px;
+}
+
+.chart-footer {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: rgba(255,255,255,0.2);
+}
+
+/* STATS SIDE */
+.stats-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* STREAK CARD */
+.streak-card {
+  background: rgba(88,101,242,0.08);
+  border: 1px solid rgba(88,101,242,0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.streak-fire { font-size: 24px; }
+
+.streak-info {}
+.streak-val {
+  font-family: 'Courier New', monospace;
+  font-size: 20px; font-weight: 700;
+  color: #ff8c42;
+  text-shadow: 0 0 12px rgba(255,140,66,0.4);
+  line-height: 1;
+}
+.streak-lbl { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; margin-top: 2px; }
+
+/* MINI STATS GRID */
+.mini-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 7px;
+}
+
+.mini-stat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 10px 10px 8px;
+  text-align: center;
+}
+
+.mini-stat-val {
+  font-family: 'Courier New', monospace;
+  font-size: 15px; font-weight: 700;
+  color: #818cf8;
+  margin-bottom: 3px;
+}
+
+.mini-stat-lbl {
+  font-size: 9px; color: rgba(255,255,255,0.25);
+  letter-spacing: 0.8px; text-transform: uppercase;
+}
+
+.mini-stat-sub {
+  font-size: 9px;
+  font-family: 'Courier New', monospace;
+  margin-top: 2px;
+}
+
+/* ACTIVITY HEATMAP ROW */
+.heatmap-row {
+  display: flex;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.heatmap-day {
+  flex: 1;
+  height: 6px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="table-wrap">
+    <div class="table-head">
+      <div>#</div>
+      <div>Member</div>
+      <div style="text-align:right">DC Score</div>
+      <div style="text-align:right">Messages</div>
+      <div style="text-align:right">Avg / Day</div>
+    </div>
+
+    <!-- ROW 1 — expanded, стабильный рост -->
+    <div class="row-wrap expanded" id="r1">
+      <div class="table-row" onclick="toggleRow('r1')">
+        <div class="row-rank r1">
+          #1
+          <span class="rank-change up">↑ was #2</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">👤</div>
+            <div class="online-dot" style="background:#22c55e"></div>
+          </div>
+          <div>
+            <div class="row-name">Biswa | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@biswaff</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main dc-color">13.9K <span class="delta-sm up">↑+1.8K</span></div>
+          <div class="score-sub">last month: 12.1K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">4 821</div>
+          <div class="score-sub">last: 4 102</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">160</div>
+          <div class="score-sub">last: 137</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <div class="detail-panel">
+        <!-- Chart -->
+        <div class="chart-card">
+          <div class="chart-title">Messages per week</div>
+          <div class="chart-top">
+            <div class="chart-this">4 821</div>
+            <div class="chart-delta-block">
+              <div class="chart-delta-val up">↑ +719</div>
+              <div class="chart-delta-pct up" style="color:rgba(34,197,94,0.6)">+17.5% vs last mo</div>
+            </div>
+          </div>
+          <div class="bar-chart" id="chart-r1"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <!-- 7-day heatmap -->
+          <div style="margin-top:10px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Last 7 days</div>
+            <div class="heatmap-row" id="heat-r1"></div>
+          </div>
+        </div>
+
+        <!-- Stats side -->
+        <div class="stats-side">
+          <!-- Streak -->
+          <div class="streak-card">
+            <div class="streak-fire">🔥</div>
+            <div class="streak-info">
+              <div class="streak-val">21 days</div>
+              <div class="streak-lbl">Current streak</div>
+            </div>
+          </div>
+
+          <!-- Mini stats -->
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <div class="mini-stat-val">34</div>
+              <div class="mini-stat-lbl">Active days</div>
+              <div class="mini-stat-sub" style="color:rgba(34,197,94,0.6)">↑ +4</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-val">160</div>
+              <div class="mini-stat-lbl">Avg / day</div>
+              <div class="mini-stat-sub" style="color:rgba(34,197,94,0.6)">↑ +23</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-val">312</div>
+              <div class="mini-stat-lbl">Best day</div>
+              <div class="mini-stat-sub" style="color:rgba(255,255,255,0.25)">→ same</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 — expanded, flat -->
+    <div class="row-wrap expanded" id="r2">
+      <div class="table-row" onclick="toggleRow('r2')">
+        <div class="row-rank r2">
+          #2
+          <span class="rank-change down">↓ was #1</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🏴‍☠️</div>
+            <div class="online-dot" style="background:#a855f7"></div>
+          </div>
+          <div>
+            <div class="row-name">Pirate | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@sajalpradhan</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main dc-color">10.4K <span class="delta-sm same" style="color:rgba(255,255,255,0.25)">→ 0</span></div>
+          <div class="score-sub">last month: 10.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">3 612</div>
+          <div class="score-sub">last: 3 618</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">120</div>
+          <div class="score-sub">last: 121</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <div class="detail-panel">
+        <div class="chart-card">
+          <div class="chart-title">Messages per week</div>
+          <div class="chart-top">
+            <div class="chart-this">3 612</div>
+            <div class="chart-delta-block">
+              <div class="chart-delta-val same" style="color:rgba(255,255,255,0.35)">→ -6</div>
+              <div class="chart-delta-pct" style="color:rgba(255,255,255,0.2)">flat vs last mo</div>
+            </div>
+          </div>
+          <div class="bar-chart" id="chart-r2"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div style="margin-top:10px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Last 7 days</div>
+            <div class="heatmap-row" id="heat-r2"></div>
+          </div>
+        </div>
+
+        <div class="stats-side">
+          <div class="streak-card" style="border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.03)">
+            <div class="streak-fire">💤</div>
+            <div class="streak-info">
+              <div class="streak-val" style="color:rgba(255,255,255,0.4);text-shadow:none;">5 days</div>
+              <div class="streak-lbl">Current streak</div>
+            </div>
+          </div>
+
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <div class="mini-stat-val">30</div>
+              <div class="mini-stat-lbl">Active days</div>
+              <div class="mini-stat-sub" style="color:rgba(239,68,68,0.7)">↓ -2</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-val">120</div>
+              <div class="mini-stat-lbl">Avg / day</div>
+              <div class="mini-stat-sub" style="color:rgba(255,255,255,0.25)">→ same</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-val">198</div>
+              <div class="mini-stat-lbl">Best day</div>
+              <div class="mini-stat-sub" style="color:rgba(239,68,68,0.7)">↓ -44</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3 — collapsed -->
+    <div class="row-wrap" id="r3">
+      <div class="table-row" onclick="toggleRow('r3')">
+        <div class="row-rank r3">
+          #3
+          <span class="rank-change same">→ same</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🎯</div>
+            <div class="online-dot" style="background:#22c55e"></div>
+          </div>
+          <div>
+            <div class="row-name">SATISH - 404 <span class="tier-badge tb-1">1%</span></div>
+            <div class="row-handle">@satishskda</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main dc-color">9.3K <span class="delta-sm up">↑+1.9K</span></div>
+          <div class="score-sub">last month: 7.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">3 210</div>
+          <div class="score-sub">last: 2 540</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">107</div>
+          <div class="score-sub">last: 85</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="chart-card">
+          <div class="chart-title">Messages per week</div>
+          <div class="chart-top">
+            <div class="chart-this">3 210</div>
+            <div class="chart-delta-block">
+              <div class="chart-delta-val up">↑ +670</div>
+              <div class="chart-delta-pct up" style="color:rgba(34,197,94,0.6)">+26.4% vs last mo</div>
+            </div>
+          </div>
+          <div class="bar-chart" id="chart-r3"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div style="margin-top:10px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Last 7 days</div>
+            <div class="heatmap-row" id="heat-r3"></div>
+          </div>
+        </div>
+        <div class="stats-side">
+          <div class="streak-card">
+            <div class="streak-fire">🔥</div>
+            <div class="streak-info">
+              <div class="streak-val">12 days</div>
+              <div class="streak-lbl">Current streak</div>
+            </div>
+          </div>
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <div class="mini-stat-val">28</div>
+              <div class="mini-stat-lbl">Active days</div>
+              <div class="mini-stat-sub" style="color:rgba(34,197,94,0.6)">↑ +6</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-val">107</div>
+              <div class="mini-stat-lbl">Avg / day</div>
+              <div class="mini-stat-sub" style="color:rgba(34,197,94,0.6)">↑ +22</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-stat-val">241</div>
+              <div class="mini-stat-lbl">Best day</div>
+              <div class="mini-stat-sub" style="color:rgba(34,197,94,0.6)">↑ +43</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function makeBars(id, values, color, dimColor) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const max = Math.max(...values);
+  values.forEach((v, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.height = Math.max(6, Math.round((v / max) * 100)) + '%';
+    const isLast = i === values.length - 1;
+    bar.style.background = isLast ? color : dimColor;
+    bar.style.opacity = isLast ? 1 : (0.2 + (i / values.length) * 0.5);
+    el.appendChild(bar);
+  });
+}
+
+function makeHeatmap(id, values) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const max = Math.max(...values);
+  values.forEach(v => {
+    const day = document.createElement('div');
+    day.className = 'heatmap-day';
+    const intensity = v / max;
+    if (v === 0) {
+      day.style.background = 'rgba(255,255,255,0.05)';
+    } else {
+      const alpha = 0.2 + intensity * 0.8;
+      day.style.background = `rgba(129,140,248,${alpha})`;
+    }
+    el.appendChild(day);
+  });
+}
+
+// Biswa — стабильный рост
+makeBars('chart-r1', [2800, 3200, 3600, 4000, 4102, 4821], '#818cf8', '#2d3060');
+makeHeatmap('heat-r1', [180, 210, 145, 200, 0, 160, 312]);
+
+// Pirate — flat
+makeBars('chart-r2', [3500, 3550, 3600, 3580, 3618, 3612], '#818cf8', '#2d3060');
+makeHeatmap('heat-r2', [120, 0, 140, 110, 130, 0, 95]);
+
+// SATISH — растёт
+makeBars('chart-r3', [1800, 2100, 2400, 2600, 2540, 3210], '#818cf8', '#2d3060');
+makeHeatmap('heat-r3', [90, 120, 105, 0, 200, 145, 241]);
+
+function toggleRow(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html>

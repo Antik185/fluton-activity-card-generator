@@ -1,0 +1,569 @@
+/* ============================================================
+   LEADERBOARD — MOBILE / RESPONSIVE
+   Separate file for easier editing.
+   Breakpoints: 960px | 600px | 400px
+   ============================================================ */
+
+/* ---- 650px (mobile) ---- */
+@media (max-width: 650px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    .header-title {
+        font-size: 26px;
+        letter-spacing: -0.5px;
+    }
+
+    /* ============ CONTROLS ROW ============ */
+    .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin-bottom: 24px;
+    }
+
+    .filters {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Platform buttons full-width; Pro toggle right-aligned on wrap */
+    .controls-right {
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .platform-filters {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filter-btn,
+    .platform-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    /* ============ SEARCH ============ */
+    .search-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .search-wrap {
+        width: 100%;
+    }
+
+    /* ============ PODIUM — full width ============ */
+    .podium {
+        width: 100%;
+        align-items: flex-end;
+        gap: 6px;
+        margin-bottom: 30px;
+    }
+
+    .podium-item {
+        flex: 1;
+        margin: 0;
+    }
+
+    .podium-avatar-ring.first {
+        width: 65px;
+        height: 65px;
+    }
+
+    .podium-avatar-ring.second {
+        width: 55px;
+        height: 55px;
+    }
+
+    .podium-avatar-ring.third {
+        width: 45px;
+        height: 45px;
+    }
+
+    .podium-block {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .podium-block.first {
+        height: 70px;
+        font-size: 18px;
+        padding-top: 15px;
+    }
+
+    .podium-block.second {
+        height: 50px;
+        font-size: 16px;
+        padding-top: 10px;
+    }
+
+    .podium-block.third {
+        height: 35px;
+        font-size: 14px;
+        padding-top: 8px;
+    }
+
+    /* Name wraps to next line instead of ellipsis */
+    .podium-name {
+        font-size: 13px;
+        margin-bottom: 4px;
+        max-width: 100%;
+        white-space: normal;
+        word-break: break-word;
+        overflow: visible;
+        text-overflow: unset;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    /* ============ TABLE ============ */
+    .table-header,
+    .row {
+        grid-template-columns: 38px 1fr 68px 50px 50px !important;
+        padding: 10px 8px;
+        gap: 4px;
+    }
+
+    /* user-cell: hard-clip so nothing can expand the grid column */
+    .user-cell {
+        min-width: 0;
+    }
+
+    /* user-info: flex-basis 0 means it ONLY grows to fill available space —
+       the block itself cannot push the grid column wider */
+    .user-info {
+        flex: 1 1 0;
+        /* grow=1, shrink=1, basis=0 → never wider than grid allows */
+        min-width: 0;
+        overflow: hidden;
+    }
+
+
+
+    /* Name & handle: fill parent width, truncate with ellipsis */
+    .user-name {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    .user-handle {
+        font-size: 10px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    .score-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        text-align: right;
+        min-width: 0;
+        font-size: 14px;
+    }
+
+    .dc-cell,
+    .x-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        text-align: right;
+        min-width: 0;
+        font-size: 13px;
+    }
+
+    /* Pro mode: delta stacks BELOW score (not beside) */
+    .score-main {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1px;
+        font-size: 13px;
+        line-height: 1.1;
+    }
+
+    .score-cell .score-main {
+        font-size: 14px;
+    }
+
+    /* Keep score-sub hidden — delta already shows period comparison */
+    .score-sub {
+        display: none !important;
+    }
+
+    .delta {
+        font-size: 9px;
+        padding: 0 2px;
+    }
+
+    .table-header {
+        font-size: 8px;
+    }
+
+    .avatar-ring,
+    .ring-gold,
+    .ring-gold-glow,
+    .ring-purple,
+    .ring-purple-glow,
+    .ring-cyan,
+    .ring-cyan-glow,
+    .ring-silver,
+    .ring-silver-glow,
+    .ring-none {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .tier-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .rank-cell {
+        font-size: 12px;
+    }
+
+    /* ============ DETAIL PANELS (general) ============ */
+    .detail-panel {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 5px 15px;
+    }
+
+    .chart-card {
+        min-height: unset;
+    }
+
+    /* ============ DISCORD PANEL — streak & mini-stats ============ */
+
+    /* Streak: fire LEFT of data, both clustered to the RIGHT edge */
+    .streak-card {
+        padding: 10px 12px;
+        flex-direction: row;
+        /* DOM order: fire then info → fire LEFT, info RIGHT */
+        justify-content: flex-end;
+        /* push both to the right edge */
+        gap: 10px;
+    }
+
+    .streak-info {
+        flex: 0 0 auto;
+        /* don't grow — only as wide as content */
+        text-align: left;
+    }
+
+    .streak-val {
+        font-size: 16px;
+    }
+
+    /* Mini-stats: label on LEFT, value on RIGHT */
+    .mini-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .mini-stat {
+        display: flex;
+        flex-direction: row-reverse;
+        /* val (DOM first) → right; lbl → left */
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+    }
+
+    .mini-stat-val {
+        font-size: 13px;
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    .mini-stat-lbl {
+        font-size: 10px;
+        opacity: 0.6;
+        text-align: left;
+    }
+
+    /* ============ X BREAKDOWN — horizontal rows ============
+       Row 1: Posts | Views | Likes   (span 2 each in 6-col grid)
+       Row 2: Reposts     | Comments  (span 3 each in 6-col grid)
+    ============================================================ */
+    .x-breakdown {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+    }
+
+    .x-stat.st-posts {
+        order: 1;
+        grid-column: span 2 !important;
+    }
+
+    .x-stat.st-reposts {
+        order: 2;
+        grid-column: span 2 !important;
+    }
+
+    .x-stat.st-likes {
+        order: 3;
+        grid-column: span 2 !important;
+    }
+
+    .x-stat.st-views {
+        order: 4;
+        grid-column: span 3 !important;
+    }
+
+    .x-stat.st-comments {
+        order: 5;
+        grid-column: span 3 !important;
+    }
+
+    .x-stat {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 10px;
+        gap: 4px;
+    }
+
+    .x-stat-val {
+        font-size: 13px;
+    }
+
+    .x-stat-delta {
+        font-size: 12px;
+    }
+
+    .x-stat-lbl {
+        font-size: 9px;
+    }
+
+    /* ============ X-ONLY PRO PANEL ============
+       Stack: [Chart + x-breakdown] → [ER Card horizontal]
+    ============================================================ */
+    .detail-panel-x .detail-top-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Chart delta: no wrap, tighter spacing, smaller text for large numbers */
+    .detail-panel-x .chart-delta {
+        flex-wrap: nowrap;
+        gap: 4px;
+        align-items: center;
+    }
+
+    .detail-panel-x .chart-delta-val {
+        font-size: 10px;
+        white-space: nowrap;
+        /* keep arrow + number on one line */
+    }
+
+    .detail-panel-x .chart-delta-pct {
+        font-size: 9px;
+        white-space: nowrap;
+    }
+
+    /* Hide verbose "vs previous week/month" — saves space, period is clear from filters */
+    .detail-panel-x .chart-delta-vs {
+        display: none;
+    }
+
+    /* ER card: full-width horizontal strip */
+    .detail-panel-x .er-card {
+        max-width: unset;
+        flex: none;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+        padding: 12px 14px !important;
+    }
+
+    .detail-panel-x .er-card .chart-title {
+        display: none;
+    }
+
+    /* X Score section */
+    .detail-panel-x .er-card .er-main {
+        margin: 0;
+        flex: 1;
+        text-align: center;
+    }
+
+    .detail-panel-x .er-card .er-val {
+        font-size: 20px;
+    }
+
+    .detail-panel-x .er-card .er-lbl {
+        font-size: 9px;
+    }
+
+    /* Vertical dividers */
+    .detail-panel-x .er-card .er-divider {
+        width: 1px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.07);
+        margin: 0 8px;
+        flex-shrink: 0;
+    }
+
+    .detail-panel-x .er-card .er-bar-container {
+        display: none;
+    }
+
+    /* ER%: value on top, label below (reorder via CSS) */
+    .detail-panel-x .er-card .er-mult-section {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .detail-panel-x .er-card .er-mult-val {
+        font-size: 20px;
+        order: 1;
+        /* value first = on top */
+    }
+
+    .detail-panel-x .er-card .er-mult-title {
+        order: 2;
+        /* label second = below value */
+        margin-bottom: 0;
+        margin-top: 2px;
+    }
+
+    .detail-panel-x .er-card .er-mult-max {
+        display: none;
+    }
+
+    /* Previous period comparison: compact, single line */
+    .detail-panel-x .er-card .er-compare-section {
+        flex: 1;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .detail-panel-x .er-card .er-compare-lbl {
+        font-size: 8px;
+        margin-bottom: 3px;
+    }
+
+    .detail-panel-x .er-card .er-compare-row {
+        flex-wrap: nowrap;
+        /* prevent arrow going to second line */
+        gap: 3px;
+        font-size: 10px;
+        justify-content: center;
+    }
+
+    /* ============ TOP STATS ============ */
+    .top-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .tstat-box {
+        padding: 12px;
+    }
+
+    .tstat-value {
+        font-size: 18px;
+    }
+
+    .hide-mobile {
+        display: none !important;
+    }
+
+    /* Compact ER Card on mobile (general / Discord panel) */
+    .er-card {
+        padding: 12px 16px !important;
+    }
+
+    .er-mult-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    .er-mult-title {
+        margin-bottom: 0;
+    }
+
+    .er-mult-val {
+        font-size: 20px;
+    }
+
+    .er-mult-max {
+        margin-top: 0;
+        font-size: 9px;
+    }
+}
+
+/* ---- 400px (extra small) ---- */
+@media (max-width: 400px) {
+    .header-title {
+        font-size: 21px;
+    }
+
+    .table-header,
+    .row {
+        grid-template-columns: 32px 1fr 62px 46px 46px !important;
+        gap: 3px;
+        padding: 8px 4px;
+    }
+
+    .user-name {
+        font-size: 11px;
+        /* width is now 100% of parent; parent is constrained by grid */
+    }
+
+    .rank-cell {
+        font-size: 11px;
+    }
+
+    .score-main {
+        font-size: 11px;
+    }
+
+    /* X breakdown: even smaller text on very small phones */
+    .x-stat-val {
+        font-size: 11px;
+    }
+
+    .x-stat-delta {
+        font-size: 9px;
+    }
+
+
+
+    .chart-delta {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    /* X panel: still force nowrap for chart-delta */
+    .detail-panel-x .chart-delta {
+        flex-wrap: nowrap;
+    }
+}

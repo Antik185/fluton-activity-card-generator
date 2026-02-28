@@ -16,6 +16,17 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
     }
 });
 
+const dbTimePath = path.join(__dirname, 'database_time.sqlite');
+const dbTime = new sqlite3.Database(dbTimePath, sqlite3.OPEN_READONLY, (err) => {
+    if (err) console.error('Error connecting to database_time:', err.message);
+});
+
+function addDaysStr(dateStr, days) {
+    const d = new Date(dateStr + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().split('T')[0];
+}
+
 app.get('/api/user/:username', (req, res) => {
     const searchTerm = req.params.username.trim().toLowerCase();
     const activeOnly = req.query.active === 'true';
@@ -104,6 +115,55 @@ app.get('/api/user/:username', (req, res) => {
                 });
             });
         });
+    });
+});
+
+// Daily activity data for DC panel (heatmap, streak, mini-stats)
+app.get('/api/user-daily/:username', (req, res) => {
+    const username = req.params.username;
+    const period   = req.query.period || 'week';
+
+    const today = new Date().toISOString().split('T')[0];
+    let startDate;
+    if (period === 'week')       startDate = addDaysStr(today, -6);
+    else if (period === 'month') startDate = today.substring(0, 7) + '-01';
+    else                         startDate = '2020-01-01';
+
+    db.get('SELECT id FROM users WHERE LOWER(username) = LOWER(?)', [username], (err, userRow) => {
+        if (err || !userRow) return res.status(404).json({ error: 'User not found' });
+        const userId = userRow.id;
+
+        dbTime.all(
+            'SELECT date, discord_messages FROM user_daily_activity WHERE user_id = ? ORDER BY date ASC',
+            [userId],
+            (err2, allRows) => {
+                if (err2) return res.status(500).json({ error: 'DB error' });
+
+                const rowMap = {};
+                allRows.forEach(r => { rowMap[r.date] = r.discord_messages || 0; });
+
+                // Heatmap — last 7 days oldest→newest
+                const heatmap = [];
+                for (let i = 6; i >= 0; i--) heatmap.push(rowMap[addDaysStr(today, -i)] || 0);
+
+                // Streak — consecutive days ending today (or yesterday if no data today)
+                let streak = 0;
+                let checkDate = (rowMap[today] || 0) > 0 ? today : addDaysStr(today, -1);
+                for (let i = 0; i < 365; i++) {
+                    if ((rowMap[checkDate] || 0) > 0) { streak++; checkDate = addDaysStr(checkDate, -1); }
+                    else break;
+                }
+
+                // Period stats
+                const periodRows = allRows.filter(r => r.date >= startDate);
+                const activeDays = periodRows.filter(r => (r.discord_messages || 0) > 0).length;
+                const totalMsgs  = periodRows.reduce((s, r) => s + (r.discord_messages || 0), 0);
+                const avgPerDay  = activeDays > 0 ? Math.round(totalMsgs / activeDays) : 0;
+                const bestDay    = periodRows.reduce((mx, r) => Math.max(mx, r.discord_messages || 0), 0);
+
+                res.json({ heatmap, streak, activeDays, avgPerDay, bestDay });
+            }
+        );
     });
 });
 

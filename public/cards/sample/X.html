@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluton — DC & X Only Views</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  font-family: 'Segoe UI', Ubuntu, sans-serif;
+  color: #fff;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.container { max-width: 900px; margin: 0 auto; width: 100%; }
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* FILTERS */
+.filters-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.filter-group {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+}
+
+.filter-btn.active-purple {
+  background: rgba(124,58,237,0.35);
+  color: #c4b5fd;
+  border: 1px solid rgba(139,92,246,0.4);
+}
+
+.filter-btn.active-dc {
+  background: rgba(88,101,242,0.35);
+  color: #818cf8;
+  border: 1px solid rgba(88,101,242,0.4);
+}
+
+.filter-btn.active-x {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.compare-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  padding: 8px 14px;
+  user-select: none;
+}
+
+.compare-toggle.dc-mode {
+  background: rgba(88,101,242,0.08);
+  border: 1px solid rgba(88,101,242,0.35);
+}
+
+.compare-toggle.x-mode {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.toggle-label { font-size: 12px; font-weight: 600; }
+.dc-mode .toggle-label { color: #818cf8; }
+.x-mode  .toggle-label { color: rgba(255,255,255,0.6); }
+
+.toggle-switch {
+  width: 34px; height: 18px;
+  border-radius: 9px;
+  position: relative;
+}
+.dc-mode .toggle-switch { background: #5865f2; }
+.x-mode  .toggle-switch { background: rgba(255,255,255,0.4); }
+
+.toggle-knob {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 19px;
+}
+
+/* TABLE */
+.table-wrap {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-head-dc {
+  display: grid;
+  grid-template-columns: 54px 1fr 140px 120px 120px;
+  padding: 10px 20px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.table-head-x {
+  display: grid;
+  grid-template-columns: 54px 1fr 140px 110px 110px 110px;
+  padding: 10px 20px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.row-wrap {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.row-wrap:last-child { border-bottom: none; }
+
+.table-row-dc {
+  display: grid;
+  grid-template-columns: 54px 1fr 140px 120px 120px;
+  padding: 13px 20px;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.table-row-x {
+  display: grid;
+  grid-template-columns: 54px 1fr 140px 110px 110px 110px;
+  padding: 13px 20px;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.table-row-dc:hover, .table-row-x:hover { background: rgba(255,255,255,0.02); }
+.row-wrap.expanded .table-row-dc,
+.row-wrap.expanded .table-row-x { background: rgba(255,255,255,0.03); }
+
+.row-rank {
+  font-family: 'Courier New', monospace;
+  font-size: 13px; font-weight: 700;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.r1 { color: #FFD700; }
+.r2 { color: #c4b5fd; }
+.r3 { color: rgba(255,255,255,0.5); }
+.rn { color: rgba(255,255,255,0.22); }
+
+.rank-change { font-size: 9px; font-weight: 700; }
+.up   { color: #22c55e; }
+.down { color: #ef4444; }
+.same { color: rgba(255,255,255,0.25); }
+
+.row-user { display: flex; align-items: center; gap: 11px; }
+
+.row-ava-wrap { position: relative; flex-shrink: 0; }
+
+.row-ava {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #1a1a2e;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  border: 2px solid rgba(255,255,255,0.08);
+}
+
+.online-dot {
+  position: absolute; bottom: 1px; right: 1px;
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid #0a0a0f;
+}
+
+.row-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.row-handle { font-size: 10px; color: rgba(255,255,255,0.28); }
+
+.tier-badge {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 5px; margin-left: 7px; vertical-align: middle;
+}
+.tb-01 { background: rgba(255,200,0,0.12); color: #FFD700; border: 1px solid rgba(255,200,0,0.3); }
+.tb-1  { background: rgba(139,92,246,0.14); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+
+.score-cell { text-align: right; }
+.score-main {
+  font-family: 'Courier New', monospace;
+  font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+}
+.score-main.dc-color { color: #818cf8; }
+.score-main.x-color  { color: #06b6d4; }
+.score-main.cw { color: rgba(255,255,255,0.6); }
+
+.delta-sm { font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 2px; }
+
+.score-sub { font-size: 10px; color: rgba(255,255,255,0.25); font-family: 'Courier New', monospace; margin-top: 2px; }
+
+.expand-arrow {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  color: rgba(255,255,255,0.15); font-size: 11px;
+  transition: transform 0.25s, color 0.2s;
+}
+.row-wrap.expanded .expand-arrow { transform: translateY(-50%) rotate(180deg); }
+.row-wrap.expanded.dc-row .expand-arrow { color: #5865f2; }
+.row-wrap.expanded.x-row  .expand-arrow { color: #fff; }
+
+/* ===== DETAIL PANELS ===== */
+.detail-panel {
+  display: none;
+  padding: 4px 20px 18px 74px;
+  gap: 12px;
+}
+.row-wrap.expanded .detail-panel { display: flex; }
+
+.chart-card {
+  flex: 1;
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  min-width: 0;
+}
+
+.chart-card.dc-card {
+  background: rgba(88,101,242,0.06);
+  border: 1px solid rgba(88,101,242,0.18);
+}
+
+.chart-card.x-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+}
+
+.chart-card.er-card {
+  background: rgba(6,182,212,0.05);
+  border: 1px solid rgba(6,182,212,0.18);
+  min-width: 140px;
+  max-width: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chart-title {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.dc-card .chart-title { color: rgba(129,140,248,0.6); }
+.x-card  .chart-title { color: rgba(255,255,255,0.3); }
+.er-card .chart-title { color: rgba(6,182,212,0.6); }
+
+.chart-values {
+  display: flex; justify-content: space-between; margin-bottom: 4px;
+}
+
+.chart-this { font-family: 'Courier New', monospace; font-size: 15px; font-weight: 700; }
+.chart-last { font-size: 11px; color: rgba(255,255,255,0.3); font-family: 'Courier New', monospace; align-self: flex-end; padding-bottom: 1px; }
+
+.bar-chart {
+  display: flex; align-items: flex-end; gap: 4px;
+  height: 44px; margin-bottom: 6px;
+}
+
+.bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  min-height: 4px;
+}
+
+.chart-footer {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: rgba(255,255,255,0.2);
+}
+
+.chart-delta {
+  display: flex; align-items: center; gap: 6px; margin-top: 6px;
+}
+
+.chart-delta-val { font-size: 12px; font-weight: 700; font-family: 'Courier New', monospace; }
+.chart-delta-pct { font-size: 11px; font-family: 'Courier New', monospace; }
+
+/* DC specific stats */
+.dc-extra-stats {
+  display: flex; gap: 6px; margin-top: 8px;
+}
+
+.dc-stat {
+  flex: 1;
+  background: rgba(88,101,242,0.08);
+  border: 1px solid rgba(88,101,242,0.15);
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.dc-stat-val { font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700; color: #818cf8; }
+.dc-stat-lbl { font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 0.8px; text-transform: uppercase; margin-top: 2px; }
+
+/* ER% big display */
+.er-big {
+  text-align: center;
+  margin: 8px 0;
+}
+
+.er-big-val {
+  font-family: 'Courier New', monospace;
+  font-size: 28px; font-weight: 700;
+  color: #06b6d4;
+  text-shadow: 0 0 16px rgba(6,182,212,0.4);
+}
+
+.er-big-lbl {
+  font-size: 9px; color: rgba(6,182,212,0.5);
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+
+.er-bar-wrap {
+  margin: 10px 0 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.er-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #0891b2, #06b6d4);
+}
+
+.er-compare {
+  display: flex; justify-content: space-between;
+  font-size: 10px;
+}
+
+.er-compare-val { font-family: 'Courier New', monospace; font-weight: 700; }
+
+/* X breakdown */
+.x-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.x-stat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.x-stat-val { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); }
+.x-stat-lbl { font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 0.8px; text-transform: uppercase; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<!-- ============ DISCORD ONLY ============ -->
+
+
+<!-- ============ X ONLY ============ -->
+<div class="container">
+  <div class="section-label">— X Only Mode —</div>
+
+  <div class="filters-row">
+    <div style="display:flex;gap:8px;">
+      <div class="filter-group">
+        <div class="filter-btn">All Time</div>
+        <div class="filter-btn">Month</div>
+        <div class="filter-btn active-purple">Week</div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-btn">All</div>
+        <div class="filter-btn">Discord</div>
+        <div class="filter-btn active-x">X Only</div>
+      </div>
+    </div>
+    <div class="compare-toggle x-mode">
+      <div class="toggle-label">vs last week</div>
+      <div class="toggle-switch"><div class="toggle-knob"></div></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-head-x">
+      <div>#</div>
+      <div>Member</div>
+      <div style="text-align:right">X Score</div>
+      <div style="text-align:right">Posts</div>
+      <div style="text-align:right">Views</div>
+      <div style="text-align:right">ER%</div>
+    </div>
+
+    <!-- X ROW 1 — expanded -->
+    <div class="row-wrap expanded x-row" id="x1">
+      <div class="table-row-x" onclick="toggleRow('x1')">
+        <div class="row-rank r1">
+          #1
+          <span class="rank-change same">→ same</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🦁</div>
+            <div class="online-dot" style="background:#22c55e"></div>
+          </div>
+          <div>
+            <div class="row-name">KippoXBT | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@kippoxbt</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main x-color">4.0K <span class="delta-sm up">↑+0.5K</span></div>
+          <div class="score-sub">last week: 3.5K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">24 <span class="delta-sm up" style="font-size:9px">↑+4</span></div>
+          <div class="score-sub">last: 20</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">18.4K</div>
+          <div class="score-sub">last: 15.2K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main" style="color:#22c55e">7.2%</div>
+          <div class="score-sub">last: 5.8%</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <div class="detail-panel">
+        <!-- X Score Chart -->
+        <div class="chart-card x-card">
+          <div class="chart-title">X Score trend</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#06b6d4">4.0K</div>
+            <div class="chart-last">3.5K last wk</div>
+          </div>
+          <div class="bar-chart" id="x1-score"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta">
+            <span class="chart-delta-val up">↑ +0.5K</span>
+            <span class="chart-delta-pct up" style="color:rgba(34,197,94,0.6)">+14.3%</span>
+          </div>
+          <!-- X breakdown -->
+          <div class="x-breakdown">
+            <div class="x-stat"><div class="x-stat-val">24</div><div class="x-stat-lbl">Posts</div></div>
+            <div class="x-stat"><div class="x-stat-val">18.4K</div><div class="x-stat-lbl">Views</div></div>
+            <div class="x-stat"><div class="x-stat-val">312</div><div class="x-stat-lbl">Likes</div></div>
+            <div class="x-stat"><div class="x-stat-val">48</div><div class="x-stat-lbl">Reposts</div></div>
+          </div>
+        </div>
+
+        <!-- ER% Card — ключевая фича X режима -->
+        <div class="chart-card er-card">
+          <div class="chart-title">Engagement Rate</div>
+          <div class="er-big">
+            <div class="er-big-val">7.2%</div>
+            <div class="er-big-lbl">this week</div>
+          </div>
+          <div class="er-bar-wrap">
+            <div class="er-bar-fill" style="width: 72%"></div>
+          </div>
+          <div class="er-compare">
+            <span style="font-size:9px;color:rgba(255,255,255,0.25)">last week</span>
+            <span class="er-compare-val up">5.8% → 7.2% ↑</span>
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06)">
+            <div style="font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">ER mult</div>
+            <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;color:#06b6d4">× 1.50 <span style="font-size:10px;color:rgba(6,182,212,0.5)">(max)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- X ROW 2 -->
+    <div class="row-wrap x-row" id="x2">
+      <div class="table-row-x" onclick="toggleRow('x2')">
+        <div class="row-rank r2">#2 <span class="rank-change up" style="font-size:9px">↑ was #4</span></div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🎯</div>
+            <div class="online-dot" style="background:#06b6d4"></div>
+          </div>
+          <div>
+            <div class="row-name">SATISH - 404 <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@satishskda</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main x-color">3.1K <span class="delta-sm up">↑+1.2K</span></div>
+          <div class="score-sub">last week: 1.9K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">18</div>
+          <div class="score-sub">last: 12</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">9.2K</div>
+          <div class="score-sub">last: 6.1K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main" style="color:#22c55e">9.8%</div>
+          <div class="score-sub">last: 6.2%</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="chart-card x-card">
+          <div class="chart-title">X Score trend</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#06b6d4">3.1K</div>
+            <div class="chart-last">1.9K last wk</div>
+          </div>
+          <div class="bar-chart" id="x2-score"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta">
+            <span class="chart-delta-val up">↑ +1.2K</span>
+            <span class="chart-delta-pct up" style="color:rgba(34,197,94,0.6)">+63.2%</span>
+          </div>
+          <div class="x-breakdown">
+            <div class="x-stat"><div class="x-stat-val">18</div><div class="x-stat-lbl">Posts</div></div>
+            <div class="x-stat"><div class="x-stat-val">9.2K</div><div class="x-stat-lbl">Views</div></div>
+            <div class="x-stat"><div class="x-stat-val">198</div><div class="x-stat-lbl">Likes</div></div>
+            <div class="x-stat"><div class="x-stat-val">31</div><div class="x-stat-lbl">Reposts</div></div>
+          </div>
+        </div>
+        <div class="chart-card er-card">
+          <div class="chart-title">Engagement Rate</div>
+          <div class="er-big">
+            <div class="er-big-val">9.8%</div>
+            <div class="er-big-lbl">this week</div>
+          </div>
+          <div class="er-bar-wrap">
+            <div class="er-bar-fill" style="width:98%"></div>
+          </div>
+          <div class="er-compare">
+            <span style="font-size:9px;color:rgba(255,255,255,0.25)">last week</span>
+            <span class="er-compare-val up">6.2% → 9.8% ↑</span>
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06)">
+            <div style="font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">ER mult</div>
+            <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;color:#06b6d4">× 1.50 <span style="font-size:10px;color:rgba(6,182,212,0.5)">(max)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function makeBars(id, values, color, dimColor) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const max = Math.max(...values);
+  values.forEach((v, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.height = Math.max(8, Math.round((v / max) * 100)) + '%';
+    bar.style.background = i === values.length - 1 ? color : dimColor;
+    bar.style.opacity = i === values.length - 1 ? 1 : (0.25 + (i / values.length) * 0.45);
+    el.appendChild(bar);
+  });
+}
+
+// DC charts
+makeBars('dc1-msg',   [2800,3100,3400,3800,4102,4821], '#818cf8', '#2d3060');
+makeBars('dc1-score', [8200,9400,10500,11200,12100,13900], '#818cf8', '#2d3060');
+makeBars('dc2-msg',   [3400,3500,3550,3600,3618,3612], '#818cf8', '#2d3060');
+makeBars('dc2-score', [9800,10000,10100,10200,10400,10400], '#818cf8', '#2d3060');
+
+// X charts
+makeBars('x1-score', [1800,2200,2600,3000,3500,4000], '#06b6d4', '#064e5a');
+makeBars('x2-score', [600,900,1100,1400,1900,3100],  '#06b6d4', '#064e5a');
+
+function toggleRow(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html>

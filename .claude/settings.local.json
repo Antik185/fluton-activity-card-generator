@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node snapshot_leaderboard.js)",
+      "Bash(node generate_leaderboard.js)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(netstat -ano)",
+      "Bash(node build_daily_snapshots.js)",
+      "Bash(node -e \":*)",
+      "Bash(python3 -c \":*)",
+      "Bash(where python3)",
+      "Bash(where python)"
+    ]
+  }
+}

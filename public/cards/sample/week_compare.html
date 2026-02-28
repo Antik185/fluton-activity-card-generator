@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluton Leaderboard — Week Compare</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  font-family: 'Segoe UI', Ubuntu, sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  padding: 32px 24px;
+}
+
+.container { max-width: 900px; margin: 0 auto; }
+
+/* FILTERS ROW */
+.filters-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filter-left { display: flex; align-items: center; gap: 8px; }
+
+.filter-group {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn.active {
+  background: rgba(124,58,237,0.35);
+  color: #c4b5fd;
+  border: 1px solid rgba(139,92,246,0.4);
+}
+
+/* COMPARE TOGGLE */
+.compare-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.compare-toggle.on {
+  border-color: rgba(6,182,212,0.4);
+  background: rgba(6,182,212,0.07);
+}
+
+.compare-toggle-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.2s;
+}
+
+.compare-toggle.on .compare-toggle-label { color: #06b6d4; }
+
+.toggle-switch {
+  width: 34px;
+  height: 18px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 9px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.compare-toggle.on .toggle-switch { background: #06b6d4; }
+
+.toggle-knob {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 3px;
+  transition: transform 0.2s;
+}
+
+.compare-toggle.on .toggle-knob { transform: translateX(16px); }
+
+/* TABLE */
+.table-wrap {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-head {
+  display: grid;
+  grid-template-columns: 54px 1fr 130px 110px 110px;
+  padding: 10px 20px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+/* ROW WRAPPER */
+.row-wrap {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.15s;
+}
+.row-wrap:last-child { border-bottom: none; }
+.row-wrap:hover { background: rgba(124,58,237,0.04); }
+.row-wrap.expanded { background: rgba(6,182,212,0.03); border-bottom-color: rgba(6,182,212,0.1); }
+
+/* MAIN ROW */
+.table-row {
+  display: grid;
+  grid-template-columns: 54px 1fr 130px 110px 110px;
+  padding: 13px 20px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.row-rank {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.row-rank.r1 { color: #FFD700; }
+.row-rank.r2 { color: #C8D2E8; }
+.row-rank.r3 { color: #a855f7; }
+
+.rank-change {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: none;
+}
+.compare-on .rank-change { display: block; }
+.rank-change.up   { color: #22c55e; }
+.rank-change.down { color: #ef4444; }
+.rank-change.same { color: rgba(255,255,255,0.25); }
+
+.row-user { display: flex; align-items: center; gap: 11px; }
+
+.row-ava-wrap { position: relative; flex-shrink: 0; }
+
+.row-ava {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: #131627;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  border: 2px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+
+.row-ava img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+.online-dot {
+  position: absolute;
+  bottom: 1px; right: 1px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid #0a0a0f;
+}
+
+.row-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.row-handle { font-size: 10px; color: rgba(255,255,255,0.28); }
+
+.tier-badge {
+  display: inline-block;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 5px;
+  margin-left: 7px; vertical-align: middle;
+}
+.tb-01 { background: rgba(255,200,0,0.12); color: #FFD700; border: 1px solid rgba(255,200,0,0.3); }
+.tb-1  { background: rgba(139,92,246,0.14); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+.tb-5  { background: rgba(6,182,212,0.1); color: #06b6d4; border: 1px solid rgba(6,182,212,0.25); }
+
+/* SCORE CELLS */
+.score-cell {
+  text-align: right;
+}
+
+.score-main {
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.score-main.c01 { color: #FFD700; }
+.score-main.c2  { color: #06b6d4; }
+.score-main.c3  { color: #a855f7; }
+.score-main.cw  { color: rgba(255,255,255,0.6); }
+
+.delta {
+  font-size: 11px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  gap: 2px;
+}
+.compare-on .delta { display: flex; }
+
+.delta.up   { color: #22c55e; }
+.delta.down { color: #ef4444; }
+.delta.same { color: rgba(255,255,255,0.25); }
+
+.score-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.28);
+  font-family: 'Courier New', monospace;
+  margin-top: 1px;
+  text-align: right;
+  display: none;
+}
+.compare-on .score-sub { display: block; }
+
+/* EXPAND ARROW */
+.expand-arrow {
+  position: absolute;
+  right: 16px;
+  color: rgba(255,255,255,0.15);
+  font-size: 12px;
+  transition: transform 0.2s, color 0.2s;
+  display: none;
+}
+.compare-on .expand-arrow { display: block; }
+.row-wrap.expanded .expand-arrow { transform: rotate(180deg); color: #06b6d4; }
+
+.table-row { position: relative; }
+
+/* EXPANDED DETAIL PANEL */
+.detail-panel {
+  display: none;
+  padding: 0 20px 16px 74px;
+  gap: 12px;
+}
+
+.row-wrap.expanded .detail-panel { display: flex; }
+
+.detail-col {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.detail-col.this-week { border-color: rgba(6,182,212,0.2); }
+.detail-col.last-week { border-color: rgba(255,255,255,0.06); }
+
+.detail-period {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.this-week .detail-period { color: #06b6d4; }
+.last-week .detail-period { color: rgba(255,255,255,0.25); }
+
+.detail-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.detail-stat {}
+.detail-stat-val {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.last-week .detail-stat-val { color: rgba(255,255,255,0.5); }
+.detail-stat-lbl {
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.detail-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 0 4px;
+}
+
+/* CHANGE SUMMARY */
+.change-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-width: 130px;
+}
+
+.change-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.change-lbl {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+}
+
+.change-val {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.change-val.up   { color: #22c55e; }
+.change-val.down { color: #ef4444; }
+.change-val.same { color: rgba(255,255,255,0.25); }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- FILTERS + TOGGLE -->
+  <div class="filters-row">
+    <div class="filter-left">
+      <div class="filter-group">
+        <div class="filter-btn">All Time</div>
+        <div class="filter-btn">Month</div>
+        <div class="filter-btn active">Week</div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-btn active">All</div>
+        <div class="filter-btn">Discord</div>
+        <div class="filter-btn">X Only</div>
+      </div>
+    </div>
+
+    <div class="compare-toggle" id="compareToggle" onclick="toggleCompare()">
+      <div class="compare-toggle-label">vs last week</div>
+      <div class="toggle-switch">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap" id="tableWrap">
+    <div class="table-head">
+      <div>#</div>
+      <div>Member</div>
+      <div style="text-align:right">Total</div>
+      <div style="text-align:right">Discord</div>
+      <div style="text-align:right">X Score</div>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="row-wrap" id="row1">
+      <div class="table-row" onclick="toggleRow('row1')">
+        <div class="row-rank r1">
+          #1
+          <span class="rank-change same">→ same</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">👤</div>
+            <div class="online-dot" style="background:#22c55e"></div>
+          </div>
+          <div>
+            <div class="row-name">Biswa | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@biswaff</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main c01">
+            15.9K
+            <span class="delta up">↑ +2.3K</span>
+          </div>
+          <div class="score-sub">last week: 13.6K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">13.9K <span class="delta up" style="font-size:10px">↑+1.8K</span></div>
+          <div class="score-sub">last: 12.1K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">2.0K <span class="delta up" style="font-size:10px">↑+0.5K</span></div>
+          <div class="score-sub">last: 1.5K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-col this-week">
+          <div class="detail-period">This week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">15.9K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">13.9K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">2.0K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="detail-col last-week">
+          <div class="detail-period">Last week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">13.6K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">12.1K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">1.5K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="change-col">
+          <div class="change-item"><span class="change-lbl">Total</span><span class="change-val up">↑ +2.3K</span></div>
+          <div class="change-item"><span class="change-lbl">Discord</span><span class="change-val up">↑ +1.8K</span></div>
+          <div class="change-item"><span class="change-lbl">X Score</span><span class="change-val up">↑ +0.5K</span></div>
+          <div class="change-item"><span class="change-lbl">Rank</span><span class="change-val same">→ #1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="row-wrap" id="row2">
+      <div class="table-row" onclick="toggleRow('row2')">
+        <div class="row-rank r2">
+          #2
+          <span class="rank-change up">↑ was #4</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🎯</div>
+            <div class="online-dot" style="background:#06b6d4"></div>
+          </div>
+          <div>
+            <div class="row-name">SATISH - 404 <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@satishskda</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main c2">12.4K <span class="delta up">↑ +3.1K</span></div>
+          <div class="score-sub">last week: 9.3K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">9.3K <span class="delta up" style="font-size:10px">↑+1.9K</span></div>
+          <div class="score-sub">last: 7.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">3.1K <span class="delta up" style="font-size:10px">↑+1.2K</span></div>
+          <div class="score-sub">last: 1.9K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-col this-week">
+          <div class="detail-period">This week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">12.4K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">9.3K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">3.1K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="detail-col last-week">
+          <div class="detail-period">Last week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">9.3K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">7.4K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">1.9K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="change-col">
+          <div class="change-item"><span class="change-lbl">Total</span><span class="change-val up">↑ +3.1K</span></div>
+          <div class="change-item"><span class="change-lbl">Discord</span><span class="change-val up">↑ +1.9K</span></div>
+          <div class="change-item"><span class="change-lbl">X Score</span><span class="change-val up">↑ +1.2K</span></div>
+          <div class="change-item"><span class="change-lbl">Rank</span><span class="change-val up">↑ #4 → #2</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="row-wrap" id="row3">
+      <div class="table-row" onclick="toggleRow('row3')">
+        <div class="row-rank r3">
+          #3
+          <span class="rank-change down">↓ was #2</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🏴‍☠️</div>
+            <div class="online-dot" style="background:#a855f7"></div>
+          </div>
+          <div>
+            <div class="row-name">Pirate | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@sajalpradhan</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main c3">11.8K <span class="delta down">↓ -0.6K</span></div>
+          <div class="score-sub">last week: 12.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">10.4K <span class="delta same" style="font-size:10px">→ 0</span></div>
+          <div class="score-sub">last: 10.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">1.4K <span class="delta down" style="font-size:10px">↓-0.6K</span></div>
+          <div class="score-sub">last: 2.0K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-col this-week">
+          <div class="detail-period">This week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">11.8K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">10.4K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">1.4K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="detail-col last-week">
+          <div class="detail-period">Last week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">12.4K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">10.4K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">2.0K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="change-col">
+          <div class="change-item"><span class="change-lbl">Total</span><span class="change-val down">↓ -0.6K</span></div>
+          <div class="change-item"><span class="change-lbl">Discord</span><span class="change-val same">→ 0</span></div>
+          <div class="change-item"><span class="change-lbl">X Score</span><span class="change-val down">↓ -0.6K</span></div>
+          <div class="change-item"><span class="change-lbl">Rank</span><span class="change-val down">↓ #2 → #3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 4 -->
+    <div class="row-wrap" id="row4">
+      <div class="table-row" onclick="toggleRow('row4')">
+        <div class="row-rank">
+          #4
+          <span class="rank-change down">↓ was #3</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🤖</div>
+            <div class="online-dot" style="background:#22c55e"></div>
+          </div>
+          <div>
+            <div class="row-name">AlPina Who? <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@alpina0230</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">11.0K <span class="delta up">↑ +0.4K</span></div>
+          <div class="score-sub">last week: 10.6K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">8.9K <span class="delta up" style="font-size:10px">↑+0.3K</span></div>
+          <div class="score-sub">last: 8.6K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">2.1K <span class="delta up" style="font-size:10px">↑+0.1K</span></div>
+          <div class="score-sub">last: 2.0K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-col this-week">
+          <div class="detail-period">This week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">11.0K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">8.9K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">2.1K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="detail-col last-week">
+          <div class="detail-period">Last week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">10.6K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">8.6K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">2.0K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="change-col">
+          <div class="change-item"><span class="change-lbl">Total</span><span class="change-val up">↑ +0.4K</span></div>
+          <div class="change-item"><span class="change-lbl">Discord</span><span class="change-val up">↑ +0.3K</span></div>
+          <div class="change-item"><span class="change-lbl">X Score</span><span class="change-val up">↑ +0.1K</span></div>
+          <div class="change-item"><span class="change-lbl">Rank</span><span class="change-val down">↓ #3 → #4</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 5 -->
+    <div class="row-wrap" id="row5">
+      <div class="table-row" onclick="toggleRow('row5')">
+        <div class="row-rank">
+          #5
+          <span class="rank-change same">→ same</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🦁</div>
+            <div class="online-dot" style="background:#fbbf24"></div>
+          </div>
+          <div>
+            <div class="row-name">KippoXBT | Fluton Maxi <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@kippoxbt</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">10.6K <span class="delta up">↑ +1.0K</span></div>
+          <div class="score-sub">last week: 9.6K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">6.7K <span class="delta up" style="font-size:10px">↑+0.5K</span></div>
+          <div class="score-sub">last: 6.2K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">4.0K <span class="delta up" style="font-size:10px">↑+0.5K</span></div>
+          <div class="score-sub">last: 3.5K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-col this-week">
+          <div class="detail-period">This week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">10.6K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">6.7K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">4.0K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="detail-col last-week">
+          <div class="detail-period">Last week</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val">9.6K</div><div class="detail-stat-lbl">Total</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">6.2K</div><div class="detail-stat-lbl">Discord</div></div>
+            <div class="detail-divider"></div>
+            <div class="detail-stat"><div class="detail-stat-val">3.5K</div><div class="detail-stat-lbl">X Score</div></div>
+          </div>
+        </div>
+        <div class="change-col">
+          <div class="change-item"><span class="change-lbl">Total</span><span class="change-val up">↑ +1.0K</span></div>
+          <div class="change-item"><span class="change-lbl">Discord</span><span class="change-val up">↑ +0.5K</span></div>
+          <div class="change-item"><span class="change-lbl">X Score</span><span class="change-val up">↑ +0.5K</span></div>
+          <div class="change-item"><span class="change-lbl">Rank</span><span class="change-val same">→ #5</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleCompare() {
+  const toggle = document.getElementById('compareToggle');
+  const table  = document.getElementById('tableWrap');
+  toggle.classList.toggle('on');
+  table.classList.toggle('compare-on');
+
+  // close all expanded rows when turning off
+  if (!toggle.classList.contains('on')) {
+    document.querySelectorAll('.row-wrap.expanded').forEach(r => r.classList.remove('expanded'));
+  }
+}
+
+function toggleRow(id) {
+  const toggle = document.getElementById('compareToggle');
+  if (!toggle.classList.contains('on')) return;
+  const row = document.getElementById(id);
+  row.classList.toggle('expanded');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluton — Row Expand with Charts</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  font-family: 'Segoe UI', Ubuntu, sans-serif;
+  color: #fff;
+  padding: 32px 24px;
+}
+
+.container { max-width: 900px; margin: 0 auto; }
+
+/* FILTERS */
+.filters-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.filter-group {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: rgba(124,58,237,0.35);
+  color: #c4b5fd;
+  border: 1px solid rgba(139,92,246,0.4);
+}
+
+.compare-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(6,182,212,0.07);
+  border: 1px solid rgba(6,182,212,0.4);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.compare-toggle-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #06b6d4;
+}
+
+.toggle-switch {
+  width: 34px; height: 18px;
+  background: #06b6d4;
+  border-radius: 9px;
+  position: relative;
+}
+
+.toggle-knob {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 19px;
+}
+
+/* TABLE */
+.table-wrap {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-head {
+  display: grid;
+  grid-template-columns: 54px 1fr 130px 110px 110px;
+  padding: 10px 20px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.row-wrap {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.row-wrap:last-child { border-bottom: none; }
+
+/* MAIN ROW */
+.table-row {
+  display: grid;
+  grid-template-columns: 54px 1fr 130px 110px 110px;
+  padding: 13px 20px;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s;
+}
+.table-row:hover { background: rgba(124,58,237,0.04); }
+.row-wrap.expanded .table-row { background: rgba(6,182,212,0.04); }
+
+.row-rank {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.row-rank.r1 { color: #FFD700; }
+.row-rank.r2 { color: #06b6d4; }
+.row-rank.r3 { color: #a855f7; }
+.row-rank.rn { color: rgba(255,255,255,0.22); }
+
+.rank-change { font-size: 9px; font-weight: 700; }
+.rank-change.up   { color: #22c55e; }
+.rank-change.down { color: #ef4444; }
+.rank-change.same { color: rgba(255,255,255,0.25); }
+
+.row-user { display: flex; align-items: center; gap: 11px; }
+
+.row-ava-wrap { position: relative; flex-shrink: 0; }
+
+.row-ava {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  border: 2px solid rgba(255,255,255,0.08);
+}
+
+.online-dot {
+  position: absolute;
+  bottom: 1px; right: 1px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid #0a0a0f;
+}
+
+.row-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.row-handle { font-size: 10px; color: rgba(255,255,255,0.28); }
+
+.tier-badge {
+  display: inline-block;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 5px;
+  margin-left: 7px; vertical-align: middle;
+}
+.tb-01 { background: rgba(255,200,0,0.12); color: #FFD700; border: 1px solid rgba(255,200,0,0.3); }
+
+.score-cell { text-align: right; }
+
+.score-main {
+  font-family: 'Courier New', monospace;
+  font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+}
+.score-main.c01 { color: #FFD700; }
+.score-main.c2  { color: #06b6d4; }
+.score-main.c3  { color: #a855f7; }
+.score-main.cw  { color: rgba(255,255,255,0.6); }
+
+.delta { font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 2px; }
+.delta.up   { color: #22c55e; }
+.delta.down { color: #ef4444; }
+
+.score-sub { font-size: 10px; color: rgba(255,255,255,0.25); font-family: 'Courier New', monospace; margin-top: 2px; }
+
+.expand-arrow {
+  position: absolute;
+  right: 16px; top: 50%; transform: translateY(-50%);
+  color: rgba(255,255,255,0.15);
+  font-size: 11px;
+  transition: transform 0.25s, color 0.2s;
+}
+.row-wrap.expanded .expand-arrow {
+  transform: translateY(-50%) rotate(180deg);
+  color: #06b6d4;
+}
+
+/* ===== DETAIL PANEL WITH CHARTS ===== */
+.detail-panel {
+  display: none;
+  padding: 4px 20px 18px 74px;
+  gap: 12px;
+}
+
+.row-wrap.expanded .detail-panel { display: flex; }
+
+.chart-card {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  min-width: 0;
+}
+
+.chart-title {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+
+.chart-values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.chart-this {
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.chart-last {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Courier New', monospace;
+  align-self: flex-end;
+  padding-bottom: 1px;
+}
+
+/* BAR CHART */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 44px;
+  margin-bottom: 6px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  transition: opacity 0.2s;
+  min-height: 4px;
+}
+
+.bar:hover { opacity: 0.8; }
+
+.chart-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+}
+
+.chart-delta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.chart-delta-val {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+.chart-delta-val.up   { color: #22c55e; }
+.chart-delta-val.down { color: #ef4444; }
+
+.chart-delta-pct {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Courier New', monospace;
+}
+.chart-delta-pct.up   { color: rgba(34,197,94,0.6); }
+.chart-delta-pct.down { color: rgba(239,68,68,0.6); }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="filters-row">
+    <div style="display:flex;gap:8px;">
+      <div class="filter-group">
+        <div class="filter-btn">All Time</div>
+        <div class="filter-btn">Month</div>
+        <div class="filter-btn active">Week</div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-btn active">All</div>
+        <div class="filter-btn">Discord</div>
+        <div class="filter-btn">X Only</div>
+      </div>
+    </div>
+    <div class="compare-toggle">
+      <div class="compare-toggle-label">vs last week</div>
+      <div class="toggle-switch"><div class="toggle-knob"></div></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-head">
+      <div>#</div>
+      <div>Member</div>
+      <div style="text-align:right">Total</div>
+      <div style="text-align:right">Discord</div>
+      <div style="text-align:right">X Score</div>
+    </div>
+
+    <!-- ROW 1 — EXPANDED для демо -->
+    <div class="row-wrap expanded" id="row1">
+      <div class="table-row" onclick="toggleRow('row1')">
+        <div class="row-rank r1">
+          #1
+          <span class="rank-change same">→ same</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">👤</div>
+            <div class="online-dot" style="background:#22c55e"></div>
+          </div>
+          <div>
+            <div class="row-name">Biswa | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@biswaff</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main c01">15.9K <span class="delta up">↑ +2.3K</span></div>
+          <div class="score-sub">last week: 13.6K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">13.9K <span class="delta up" style="font-size:10px">↑+1.8K</span></div>
+          <div class="score-sub">last: 12.1K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">2.0K <span class="delta up" style="font-size:10px">↑+0.5K</span></div>
+          <div class="score-sub">last: 1.5K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <!-- DETAIL PANEL WITH CHARTS -->
+      <div class="detail-panel">
+
+        <!-- TOTAL SCORE CHART -->
+        <div class="chart-card">
+          <div class="chart-title">Total Score</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#FFD700">15.9K</div>
+            <div class="chart-last">13.6K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart-total"></div>
+          <div class="chart-footer">
+            <span>6w ago</span>
+            <span>now</span>
+          </div>
+          <div class="chart-delta">
+            <span class="chart-delta-val up">↑ +2.3K</span>
+            <span class="chart-delta-pct up">+16.9%</span>
+          </div>
+        </div>
+
+        <!-- DISCORD CHART -->
+        <div class="chart-card">
+          <div class="chart-title">Discord</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#a855f7">13.9K</div>
+            <div class="chart-last">12.1K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart-dc"></div>
+          <div class="chart-footer">
+            <span>6w ago</span>
+            <span>now</span>
+          </div>
+          <div class="chart-delta">
+            <span class="chart-delta-val up">↑ +1.8K</span>
+            <span class="chart-delta-pct up">+14.9%</span>
+          </div>
+        </div>
+
+        <!-- X SCORE CHART -->
+        <div class="chart-card">
+          <div class="chart-title">X Score</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#06b6d4">2.0K</div>
+            <div class="chart-last">1.5K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart-x"></div>
+          <div class="chart-footer">
+            <span>6w ago</span>
+            <span>now</span>
+          </div>
+          <div class="chart-delta">
+            <span class="chart-delta-val up">↑ +0.5K</span>
+            <span class="chart-delta-pct up">+33.3%</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="row-wrap" id="row2">
+      <div class="table-row" onclick="toggleRow('row2')">
+        <div class="row-rank r2">
+          #2
+          <span class="rank-change up">↑ was #4</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🎯</div>
+            <div class="online-dot" style="background:#06b6d4"></div>
+          </div>
+          <div>
+            <div class="row-name">SATISH - 404 <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@satishskda</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main c2">12.4K <span class="delta up">↑ +3.1K</span></div>
+          <div class="score-sub">last week: 9.3K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">9.3K <span class="delta up" style="font-size:10px">↑+1.9K</span></div>
+          <div class="score-sub">last: 7.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">3.1K <span class="delta up" style="font-size:10px">↑+1.2K</span></div>
+          <div class="score-sub">last: 1.9K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="chart-card">
+          <div class="chart-title">Total Score</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#06b6d4">12.4K</div>
+            <div class="chart-last">9.3K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart2-total"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta"><span class="chart-delta-val up">↑ +3.1K</span><span class="chart-delta-pct up">+33.3%</span></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Discord</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#a855f7">9.3K</div>
+            <div class="chart-last">7.4K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart2-dc"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta"><span class="chart-delta-val up">↑ +1.9K</span><span class="chart-delta-pct up">+25.7%</span></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">X Score</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#06b6d4">3.1K</div>
+            <div class="chart-last">1.9K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart2-x"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta"><span class="chart-delta-val up">↑ +1.2K</span><span class="chart-delta-pct up">+63.2%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="row-wrap" id="row3">
+      <div class="table-row" onclick="toggleRow('row3')">
+        <div class="row-rank r3">
+          #3
+          <span class="rank-change down">↓ was #2</span>
+        </div>
+        <div class="row-user">
+          <div class="row-ava-wrap">
+            <div class="row-ava">🏴‍☠️</div>
+            <div class="online-dot" style="background:#a855f7"></div>
+          </div>
+          <div>
+            <div class="row-name">Pirate | Fluton <span class="tier-badge tb-01">0.1%</span></div>
+            <div class="row-handle">@sajalpradhan</div>
+          </div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main c3">11.8K <span class="delta down">↓ -0.6K</span></div>
+          <div class="score-sub">last week: 12.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">10.4K <span class="delta" style="color:rgba(255,255,255,0.25)">→ 0</span></div>
+          <div class="score-sub">last: 10.4K</div>
+        </div>
+        <div class="score-cell">
+          <div class="score-main cw">1.4K <span class="delta down" style="font-size:10px">↓-0.6K</span></div>
+          <div class="score-sub">last: 2.0K</div>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="detail-panel">
+        <div class="chart-card">
+          <div class="chart-title">Total Score</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#a855f7">11.8K</div>
+            <div class="chart-last">12.4K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart3-total"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta"><span class="chart-delta-val down">↓ -0.6K</span><span class="chart-delta-pct down">-4.8%</span></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Discord</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#a855f7">10.4K</div>
+            <div class="chart-last">10.4K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart3-dc"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta"><span class="chart-delta-val" style="color:rgba(255,255,255,0.3)">→ 0</span><span class="chart-delta-pct">0%</span></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">X Score</div>
+          <div class="chart-values">
+            <div class="chart-this" style="color:#06b6d4">1.4K</div>
+            <div class="chart-last">2.0K last wk</div>
+          </div>
+          <div class="bar-chart" id="chart3-x"></div>
+          <div class="chart-footer"><span>6w ago</span><span>now</span></div>
+          <div class="chart-delta"><span class="chart-delta-val down">↓ -0.6K</span><span class="chart-delta-pct down">-30%</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Generate bars
+function makeBars(containerId, values, color, dimColor) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const max = Math.max(...values);
+  values.forEach((v, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    const isLast = i === values.length - 1;
+    const heightPct = Math.max(8, Math.round((v / max) * 100));
+    bar.style.height = heightPct + '%';
+    bar.style.background = isLast ? color : dimColor;
+    bar.style.opacity = isLast ? '1' : (0.3 + (i / values.length) * 0.4);
+    el.appendChild(bar);
+  });
+}
+
+// Row 1 - steady growth
+makeBars('chart-total',  [7.2, 8.8, 10.1, 11.4, 13.6, 15.9], '#FFD700',  '#4a3800');
+makeBars('chart-dc',     [6.1, 7.4,  8.6,  9.8, 12.1, 13.9], '#a855f7',  '#3b1f6e');
+makeBars('chart-x',     [1.1, 1.4,  1.5,  1.6,  1.5,  2.0], '#06b6d4',  '#064e5a');
+
+// Row 2 - spike this week
+makeBars('chart2-total', [5.0, 6.2, 7.1, 7.8, 9.3, 12.4], '#06b6d4', '#064e5a');
+makeBars('chart2-dc',    [4.0, 4.8, 5.5, 6.0, 7.4,  9.3], '#a855f7', '#3b1f6e');
+makeBars('chart2-x',    [1.0, 1.4, 1.6, 1.8, 1.9,  3.1], '#06b6d4', '#064e5a');
+
+// Row 3 - drop this week
+makeBars('chart3-total', [9.0, 10.5, 11.8, 12.9, 12.4, 11.8], '#a855f7', '#3b1f6e');
+makeBars('chart3-dc',    [8.0,  9.0, 10.0, 10.2, 10.4, 10.4], '#a855f7', '#3b1f6e');
+makeBars('chart3-x',    [1.0,  1.5,  1.8,  2.7,  2.0,  1.4], '#06b6d4', '#064e5a');
+
+function toggleRow(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html>
