@@ -51,7 +51,7 @@ async function runTest() {
         }
     ];
 
-    const testUsers = ['biswaff', 'satishskda', 'vladislavbulldozer'];
+    const testUsers = ['biswaff', 'satishskda', 'antik185', 'msabar'];
 
     for (const p of periods) {
         console.log(`--- Testing Period: ${p.name.toUpperCase()} ---`);
@@ -102,10 +102,26 @@ async function runTest() {
             const currentDB = await getStats(p.currentRange);
 
             console.log(`User: ${username}`);
-            if (jsonUser.totalPoints !== currentDB.total) {
-                console.log(`  [Mismatch] Current Total: JSON=${jsonUser.totalPoints}, DB=${currentDB.total}`);
+
+            // Check DC Messages
+            if (jsonUser.discordMessages !== currentDB.dc) {
+                console.log(`  [Mismatch] Discord: JSON=${jsonUser.discordMessages}, DB=${currentDB.dc}`);
             } else {
-                console.log(`  [OK] Current Total: ${jsonUser.totalPoints}`);
+                console.log(`  [OK] Discord: ${jsonUser.discordMessages}`);
+            }
+
+            // Check X Score
+            if (jsonUser.xScore !== currentDB.xScore) {
+                console.log(`  [Mismatch] X Score: JSON=${jsonUser.xScore}, DB=${currentDB.xScore}`);
+            } else {
+                console.log(`  [OK] X Score: ${jsonUser.xScore}`);
+            }
+
+            // Check Total
+            if (jsonUser.totalPoints !== currentDB.total) {
+                console.log(`  [Mismatch] Total: JSON=${jsonUser.totalPoints}, DB=${currentDB.total}`);
+            } else {
+                console.log(`  [OK] Total: ${jsonUser.totalPoints}`);
             }
         }
         console.log("");

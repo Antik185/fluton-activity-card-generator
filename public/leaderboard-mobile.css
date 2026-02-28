@@ -241,6 +241,24 @@
         font-size: 13px;
     }
 
+    .rank-change {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        margin-top: 1px;
+    }
+
+    .rank-arrow {
+        font-size: 17px;
+        line-height: 1;
+    }
+
+    .arrow-sym {
+        font-size: 17px;
+        position: relative;
+        top: -2px;
+    }
+
     /* ============ DETAIL PANELS (general) ============ */
     .detail-panel {
         flex-direction: column;
@@ -274,6 +292,11 @@
         font-size: 16px;
     }
 
+    .streak-lbl {
+        font-size: 13px;
+        color: #828892;
+    }
+
     /* Mini-stats: label on LEFT, value on RIGHT */
     .mini-stats {
         display: flex;
@@ -298,7 +321,7 @@
 
     .mini-stat-lbl {
         font-size: 10px;
-        opacity: 0.6;
+        color: #828892;
         text-align: left;
     }
 
@@ -382,9 +405,11 @@
         white-space: nowrap;
     }
 
-    /* Hide verbose "vs previous week/month" — saves space, period is clear from filters */
+    /* Show "vs previous week/month" with smaller font */
     .detail-panel-x .chart-delta-vs {
-        display: none;
+        display: inline;
+        font-size: 12px;
+        opacity: 0.5;
     }
 
     /* ER card: full-width horizontal strip */
@@ -454,6 +479,15 @@
 
     .detail-panel-x .er-card .er-mult-max {
         display: none;
+    }
+
+    .detail-panel-x .er-card .er-compare-row {
+        font-size: 12px !important;
+        gap: 2px !important;
+    }
+
+    .er-cp-prev {
+        color: #a8b2c0 !important;
     }
 
     /* Previous period comparison: compact, single line */

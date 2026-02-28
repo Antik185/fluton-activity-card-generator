@@ -1085,12 +1085,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (prevUser && prevRank) {
                 const diff = prevRank - currRank;
-                const isCompact = window.innerWidth <= 600;
-                if (diff > 0) rankChangeHtml = `<div class="rank-change up">↑${isCompact ? diff : ' was #' + prevRank}</div>`;
-                else if (diff < 0) rankChangeHtml = `<div class="rank-change down">↓${isCompact ? Math.abs(diff) : ' was #' + prevRank}</div>`;
-                else rankChangeHtml = `<div class="rank-change same">→${isCompact ? '' : ' same'}</div>`;
+                const isCompact = window.innerWidth <= 650;
+                if (diff > 0) rankChangeHtml = `<div class="rank-change up"><span class="rank-arrow">↑</span>${diff}</div>`;
+                else if (diff < 0) rankChangeHtml = `<div class="rank-change down"><span class="rank-arrow">↓</span>${Math.abs(diff)}</div>`;
+                else rankChangeHtml = `<div class="rank-change same"><span class="rank-arrow">—</span></div>`;
             } else {
-                rankChangeHtml = `<div class="rank-change same">→ new</div>`;
+                rankChangeHtml = `<div class="rank-change same">new</div>`;
             }
 
             // Detail panel — platform-specific chart panel
