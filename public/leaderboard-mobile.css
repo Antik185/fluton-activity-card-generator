@@ -11,7 +11,7 @@
     }
 
     .container {
-        padding: 0 10px;
+        padding: 0 15px;
     }
 
     .header-title {
@@ -132,8 +132,8 @@
     .table-header,
     .row {
         grid-template-columns: 38px 1fr 68px 50px 50px !important;
-        padding: 10px 8px;
-        gap: 4px;
+        padding: 10px 12px;
+        gap: 6px;
     }
 
     /* user-cell: hard-clip so nothing can expand the grid column */
@@ -238,7 +238,7 @@
     }
 
     .rank-cell {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     /* ============ DETAIL PANELS (general) ============ */
@@ -529,17 +529,17 @@
     .table-header,
     .row {
         grid-template-columns: 32px 1fr 62px 46px 46px !important;
-        gap: 3px;
-        padding: 8px 4px;
+        gap: 4px;
+        padding: 10px 8px;
     }
 
     .user-name {
-        font-size: 11px;
+        font-size: 13px;
         /* width is now 100% of parent; parent is constrained by grid */
     }
 
     .rank-cell {
-        font-size: 11px;
+        font-size: 13px;
     }
 
     .score-main {
