@@ -294,7 +294,7 @@
 
     .streak-lbl {
         font-size: 13px;
-        color: #828892;
+        color: #777a7f;
     }
 
     /* Mini-stats: label on LEFT, value on RIGHT */
@@ -321,7 +321,7 @@
 
     .mini-stat-lbl {
         font-size: 10px;
-        color: #828892;
+        color: #777a7f;
         text-align: left;
     }
 
@@ -401,15 +401,18 @@
     }
 
     .detail-panel-x .chart-delta-pct {
-        font-size: 9px;
+        font-size: 13px;
+        opacity: 0.9;
+        font-weight: 600;
         white-space: nowrap;
     }
 
     /* Show "vs previous week/month" with smaller font */
     .detail-panel-x .chart-delta-vs {
         display: inline;
-        font-size: 12px;
-        opacity: 0.5;
+        font-size: 10px;
+        opacity: 0.6;
+        color: #a8b2c0;
     }
 
     /* ER card: full-width horizontal strip */

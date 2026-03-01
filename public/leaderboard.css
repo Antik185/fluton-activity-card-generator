@@ -180,6 +180,36 @@ body {
     text-transform: uppercase;
 }
 
+.header-fight-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: 4px;
+}
+
+.header-fight-btn:hover {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: #A855F7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+}
+
+.header-fight-btn i,
+.header-fight-icon {
+    color: #A855F7;
+    margin-right: 4px;
+    font-size: 1.1em;
+}
+
 /* ============ CONTROLS & FILTERS ============ */
 .controls-row {
     display: flex;
@@ -1159,13 +1189,14 @@ body {
 }
 
 .chart-delta-pct {
-    font-size: 12px;
-    opacity: 0.6;
+    font-size: 13px;
+    opacity: 0.9;
+    font-weight: 600;
 }
 
 .chart-delta-vs {
     font-size: 12px;
-    opacity: 0.4;
+    opacity: 0.6;
     color: #a8b2c0;
 }
 
@@ -1290,7 +1321,9 @@ body {
 }
 
 .chart-delta-pct {
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.9;
     font-family: 'Courier New', monospace;
     display: inline-flex;
     align-items: center;
@@ -1311,11 +1344,7 @@ body {
     color: #a5a5a5;
 }
 
-.chart-delta-vs {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.2);
-    font-weight: 500;
-}
+
 
 .chart-delta-block {
     text-align: right;
@@ -1326,7 +1355,7 @@ body {
 }
 
 .chart-delta-block .chart-delta-pct {
-    font-size: 10px;
+    font-size: 13px;
 }
 
 /* ============ STATS SIDE (DC panel) ============ */
@@ -1384,7 +1413,7 @@ body {
 
 .streak-lbl {
     font-size: 13px;
-    color: #828892;
+    color: #777a7f;
     margin-top: 2px;
 }
 
@@ -1412,7 +1441,7 @@ body {
 
 .mini-stat-lbl {
     font-size: 10px;
-    color: #828892;
+    color: #777a7f;
     letter-spacing: 0.8px;
     text-transform: uppercase;
 }
