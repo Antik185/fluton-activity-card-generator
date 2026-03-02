@@ -1,7 +1,8 @@
 // global-nav.js
 // Get current path to determine active state
-// Simple check: if ending in generator.html, else assume index/leaderboard
-const isGenerator = window.location.pathname.includes('generator.html');
+const path = window.location.pathname;
+const isGenerator = path.includes('generator.html');
+const isFight = path.includes('fight.html');
 
 // Create nav structure
 const navHTML = `
@@ -13,7 +14,7 @@ const navHTML = `
             </a>
         </div>
         <div class="nav-center">
-            <a href="index.html" class="nav-item ${!isGenerator ? 'active' : ''}">
+            <a href="index.html" class="nav-item ${(!isGenerator && !isFight) ? 'active' : ''}">
                 <i class="fas fa-trophy nav-item-icon"></i>
                 <span>Leaderboard</span>
             </a>
@@ -21,11 +22,15 @@ const navHTML = `
                 <i class="fas fa-paintbrush nav-item-icon"></i>
                 <span>Card Generator</span>
             </a>
+            <a href="fight.html" class="nav-item ${isFight ? 'active' : ''}">
+                <span class="nav-item-icon">⚔️</span>
+                <span>Fight</span>
+            </a>
         </div>
         <div class="nav-right">
             <a href="https://x.com/Virdzhi292" target="_blank" class="nav-subtitle">@Virdzhi292</a>
             <div class="nav-divider"></div>
-            <div class="nav-subtitle">Last updated: 2/25/2026</div>
+            <div class="nav-subtitle">Last updated: 01.03.2026</div>
         </div>
     </nav>
 `;

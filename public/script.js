@@ -166,11 +166,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         userNickname.textContent = user.nickname || user.username;
         userUsername.textContent = user.username;
-        rankBadge.innerHTML = '#' + stats.rank + '<br>' + stats.percentile;
+        const rankDisplay = stats.rank === '*' ? '*' : '#' + stats.rank;
+        rankBadge.innerHTML = rankDisplay + '<br>' + stats.percentile;
 
         // Apply tier class for card-tiers.css colours & animations
         const cardElement = document.getElementById('activityCard');
-        const topRatio = (stats.rank / stats.totalUsers) * 100;
+        const topRatio = stats.rank === '*' ? 999 : (stats.rank / stats.totalUsers) * 100;
         // Strip old tier classes
         cardElement.classList.remove('card-top-50', 'card-top-10', 'card-top-1', 'card-top-01');
 

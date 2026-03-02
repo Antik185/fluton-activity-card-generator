@@ -16,6 +16,17 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
     }
 });
 
+const dbTimePath = path.join(__dirname, 'database_time.sqlite');
+const dbTime = new sqlite3.Database(dbTimePath, sqlite3.OPEN_READONLY, (err) => {
+    if (err) console.error('Error connecting to database_time:', err.message);
+});
+
+function addDaysStr(dateStr, days) {
+    const d = new Date(dateStr + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().split('T')[0];
+}
+
 app.get('/api/user/:username', (req, res) => {
     const searchTerm = req.params.username.trim().toLowerCase();
     const activeOnly = req.query.active === 'true';
@@ -37,23 +48,41 @@ app.get('/api/user/:username', (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Calculate Rank and Total Users (optionally filtered to active)
-        const totalSql = activeOnly
-            ? `SELECT COUNT(*) as totalUsers FROM users WHERE ${ACTIVE_FILTER}`
-            : 'SELECT COUNT(*) as totalUsers FROM users';
+        // Load owners
+        const fs = require('fs');
+        let owners = [];
+        try {
+            const ownerData = fs.readFileSync(path.join(__dirname, 'owner.json'), 'utf8');
+            owners = JSON.parse(ownerData);
+        } catch (e) { }
 
-        db.get(totalSql, [], (err, totalRow) => {
-            if (err) return res.status(500).json({ error: 'Database error' });
+        const isOwner = owners.some(o => o.toLowerCase() === searchTerm || o.toLowerCase() === (user.username || '').toLowerCase());
+
+        // Prepare owner exclusion for SQL
+        const ownerPlaceholders = owners.map(() => '?').join(',');
+        const ownerExclusion = owners.length > 0 ? ` AND username NOT IN (${ownerPlaceholders})` : '';
+
+        // 1. Calculate Total Users (excluding owners)
+        const totalSql = activeOnly
+            ? `SELECT COUNT(*) as totalUsers FROM users WHERE ${ACTIVE_FILTER} ${ownerExclusion}`
+            : `SELECT COUNT(*) as totalUsers FROM users WHERE 1=1 ${ownerExclusion}`;
+
+        db.get(totalSql, owners, (err, totalRow) => {
+            if (err) return res.status(500).json({ error: 'Database error counting users' });
 
             const totalUsers = totalRow.totalUsers;
 
-            // Find rank (how many users have MORE points than this user)
-            const rankSql = activeOnly
-                ? `SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ? AND ${ACTIVE_FILTER}`
-                : 'SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ?';
+            if (isOwner) {
+                return handleResponse('*', 'Project Owner');
+            }
 
-            db.get(rankSql, [user.total_points], (err, rankRow) => {
-                if (err) return res.status(500).json({ error: 'Database error' });
+            // 2. Find rank (excluding owners)
+            const rankSql = activeOnly
+                ? `SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ? AND ${ACTIVE_FILTER} ${ownerExclusion}`
+                : `SELECT COUNT(*) as higherRankCount FROM users WHERE total_points > ? ${ownerExclusion}`;
+
+            db.get(rankSql, [user.total_points, ...owners], (err, rankRow) => {
+                if (err) return res.status(500).json({ error: 'Database error calculating rank' });
 
                 const rank = rankRow.higherRankCount + 1; // 1-based index
                 let topPercentile = (rank / totalUsers) * 100;
@@ -66,7 +95,11 @@ app.get('/api/user/:username', (req, res) => {
                 else if (topPercentile <= 10) percentileStr = "Top 10%";
                 else percentileStr = 'Top ' + Math.ceil(topPercentile) + '%';
 
-                // Count actual X posts from the x_posts table (more reliable than users.x_posts)
+                handleResponse(rank, percentileStr);
+            });
+
+            function handleResponse(displayRank, percentileStr) {
+                // Count actual X posts from the x_posts table
                 db.get('SELECT COUNT(*) as actualXPosts FROM x_posts WHERE user_id = ?', [user.id], (err, xPostRow) => {
                     const actualXPosts = (xPostRow && xPostRow.actualXPosts) ? xPostRow.actualXPosts : (user.x_posts || 0);
 
@@ -92,18 +125,68 @@ app.get('/api/user/:username', (req, res) => {
                             x_views: user.x_views || 0,
                             x_replies: user.x_replies || 0,
                             total_points: user.total_points,
-                            roles: stringRoles
+                            roles: stringRoles,
+                            isOwner: isOwner
                         },
                         stats: {
-                            rank,
+                            rank: displayRank,
                             totalUsers,
                             percentile: percentileStr,
                             activeOnly: activeOnly
                         }
                     });
                 });
-            });
+            }
         });
+    });
+});
+
+// Daily activity data for DC panel (heatmap, streak, mini-stats)
+app.get('/api/user-daily/:username', (req, res) => {
+    const username = req.params.username;
+    const period = req.query.period || 'week';
+
+    const today = new Date().toISOString().split('T')[0];
+    let startDate;
+    if (period === 'week') startDate = addDaysStr(today, -6);
+    else if (period === 'month') startDate = today.substring(0, 7) + '-01';
+    else startDate = '2020-01-01';
+
+    db.get('SELECT id FROM users WHERE LOWER(username) = LOWER(?)', [username], (err, userRow) => {
+        if (err || !userRow) return res.status(404).json({ error: 'User not found' });
+        const userId = userRow.id;
+
+        dbTime.all(
+            'SELECT date, discord_messages FROM user_daily_activity WHERE user_id = ? ORDER BY date ASC',
+            [userId],
+            (err2, allRows) => {
+                if (err2) return res.status(500).json({ error: 'DB error' });
+
+                const rowMap = {};
+                allRows.forEach(r => { rowMap[r.date] = r.discord_messages || 0; });
+
+                // Heatmap — last 7 days oldest→newest
+                const heatmap = [];
+                for (let i = 6; i >= 0; i--) heatmap.push(rowMap[addDaysStr(today, -i)] || 0);
+
+                // Streak — consecutive days ending today (or yesterday if no data today)
+                let streak = 0;
+                let checkDate = (rowMap[today] || 0) > 0 ? today : addDaysStr(today, -1);
+                for (let i = 0; i < 365; i++) {
+                    if ((rowMap[checkDate] || 0) > 0) { streak++; checkDate = addDaysStr(checkDate, -1); }
+                    else break;
+                }
+
+                // Period stats
+                const periodRows = allRows.filter(r => r.date >= startDate);
+                const activeDays = periodRows.filter(r => (r.discord_messages || 0) > 0).length;
+                const totalMsgs = periodRows.reduce((s, r) => s + (r.discord_messages || 0), 0);
+                const avgPerDay = activeDays > 0 ? Math.round(totalMsgs / activeDays) : 0;
+                const bestDay = periodRows.reduce((mx, r) => Math.max(mx, r.discord_messages || 0), 0);
+
+                res.json({ heatmap, streak, activeDays, avgPerDay, bestDay });
+            }
+        );
     });
 });
 

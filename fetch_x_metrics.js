@@ -96,7 +96,7 @@ async function start() {
                             for (const t of response.data.tweets) {
                                 fetchedData[t.id_str] = {
                                     likes: t.favorite_count || 0,
-                                    reposts: t.retweet_count || 0,
+                                    reposts: (t.retweet_count || 0) + (t.quote_count || 0),
                                     views: t.views_count || 0,
                                     replies: t.reply_count || 0
                                 };
