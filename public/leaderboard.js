@@ -254,18 +254,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyFilters() {
         const query = searchInput.value.toLowerCase().trim();
 
-        let sortedFull = [...fullLeaderboardData];
+        const sortedFullBase = [...fullLeaderboardData];
+        // Separate owners and non-owners for special sorting
+        const owners = sortedFullBase.filter(u => u.isOwner || u.rank === '*');
+        const nonOwners = sortedFullBase.filter(u => !u.isOwner && u.rank !== '*');
+
         if (currentPlatform === 'discord') {
-            sortedFull = sortedFull.filter(user => user.discordMessages > 0);
-            sortedFull.sort((a, b) => b.discordMessages - a.discordMessages);
+            nonOwners.sort((a, b) => b.discordMessages - a.discordMessages);
+            owners.sort((a, b) => b.discordMessages - a.discordMessages);
         } else if (currentPlatform === 'x') {
-            sortedFull = sortedFull.filter(user => user.xScore > 0);
-            sortedFull.sort((a, b) => b.xScore - a.xScore);
+            nonOwners.sort((a, b) => b.xScore - a.xScore);
+            owners.sort((a, b) => b.xScore - a.xScore);
         } else {
-            sortedFull.sort((a, b) => b.totalPoints - a.totalPoints);
+            nonOwners.sort((a, b) => b.totalPoints - a.totalPoints);
+            owners.sort((a, b) => b.totalPoints - a.totalPoints);
         }
 
-        sortedFull.forEach((u, i) => { u.uiRank = i + 1; });
+        // Assign numerical ranks only to non-owners
+        nonOwners.forEach((u, i) => { u.uiRank = i + 1; });
+        // Assign '*' rank to owners
+        owners.forEach(u => { u.uiRank = '*'; });
+
+        // Combine: Non-owners first, owners at the bottom
+        let sortedFull = nonOwners.concat(owners);
 
         if (currentPlatform === 'discord') totalHeader.innerText = 'DC Msgs';
         else if (currentPlatform === 'x') totalHeader.innerText = 'X Score';
@@ -405,7 +416,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const snaps = [...currentSnapshots].reverse(); // oldest first
         const vals = snaps.map(snap => {
             const u = snap.leaderboard.find(u => u.username === username);
-            return u ? (Number(u[metric]) || 0) : 0;
+            if (u) return (Number(u[metric]) || 0);
+
+            // Fallback for Discord messages if user not in Top 500 snapshot
+            if (metric === 'discordMessages' && dailyData && dailyData.users && dailyData.users[username]) {
+                const end = snap.date;
+                const start = addDaysClient(end, -6);
+                const items = dailyData.users[username].filter(d => d.d >= start && d.d <= end);
+                return items.reduce((s, it) => s + (it.m || 0), 0);
+            }
+            return 0;
         });
         vals.push(currentVal);
         return vals;
@@ -514,6 +534,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (prevSnapshotObj) prevTargetUser = prevSnapshotObj.leaderboard.find(u => u.username === username);
         }
 
+        // 2c. Helper to get metric from snapshot or calculate from daily if missing
+        function getSafeMetric(u, m, s, e) {
+            let val = u ? (u[m] || u[m.replace(/[A-Z]/g, l => `_${l.toLowerCase()}`)] || 0) : 0;
+            if (m === 'discordMessages' && val === 0 && dailyData && dailyData.users && dailyData.users[username]) {
+                const items = dailyData.users[username].filter(it => it.d >= s && it.d <= e);
+                val = items.reduce((acc, it) => acc + (it.m || 0), 0);
+            }
+            // If totalPoints is 0 and it's not the last week, we could fallback to DC points as a "partial" view
+            if (m === 'totalPoints' && val === 0 && snapIdx !== lastIdx) {
+                const dc = getSafeMetric(u, 'discordMessages', s, e);
+                if (dc > 0) val = dc; // At least show DC points if they exist
+            }
+            return val;
+        }
+
         // 3. Update all Card Values
         const cards = rowWrap.querySelectorAll('.chart-card');
         cards.forEach(card => {
@@ -523,22 +558,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Handling for regular Total/DC/X Trend cards
             if (titleEl && valEl) {
-                let metric = '';
+                let m = '';
                 const title = titleEl.innerText.toLowerCase();
-                if (title.includes('total')) metric = 'totalPoints';
-                else if (title.includes('discord') || title.includes('messages')) metric = 'discordMessages';
-                else if (title.includes('x score')) metric = 'xScore';
+                if (title.includes('total')) m = 'totalPoints';
+                else if (title.includes('discord') || title.includes('messages')) m = 'discordMessages';
+                else if (title.includes('x score')) m = 'xScore';
 
-                if (metric) {
-                    const currVal = targetUser[metric] || targetUser[metric.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)] || 0;
+                if (m) {
+                    const currVal = getSafeMetric(targetUser, m, start, end);
                     valEl.innerText = formatNumberFull(currVal);
+
                     const badgeEl = card.querySelector('.period-badge');
                     if (badgeEl) badgeEl.innerText = label;
                     if (lastEl) lastEl.innerText = label;
 
                     const deltaBlock = card.querySelector('.chart-delta');
                     if (deltaBlock) {
-                        const prevVal = prevTargetUser ? (prevTargetUser[metric] || prevTargetUser[metric.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)] || 0) : null;
+                        let prevStart = addDaysClient(start, -7);
+                        let prevEnd = addDaysClient(end, -7);
+                        if (currentPeriod === 'month') {
+                            // Approx month shift
+                            prevStart = addDaysClient(start, -30);
+                            prevEnd = addDaysClient(end, -30);
+                        }
+
+                        const prevVal = prevTargetUser ? getSafeMetric(prevTargetUser, m, prevStart, prevEnd) : null;
                         const delta = prevVal !== null ? currVal - prevVal : null;
 
                         if (delta !== null) {
@@ -1080,16 +1124,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Rank change
             let rankChangeHtml = '';
-            const currRank = user.uiRank || user.rank;
+            const isOwner = user.isOwner || user.rank === '*';
+            const currRank = isOwner ? '*' : (user.uiRank || user.rank);
             const prevRank = prevUser ? prevUser.rank : null;
 
-            if (prevUser && prevRank) {
-                const diff = prevRank - currRank;
+            if (!isOwner && prevUser && prevRank && prevRank !== '*') {
+                const diff = Number(prevRank) - Number(currRank);
                 const isCompact = window.innerWidth <= 650;
                 if (diff > 0) rankChangeHtml = `<div class="rank-change up"><span class="rank-arrow">↑</span>${diff}</div>`;
                 else if (diff < 0) rankChangeHtml = `<div class="rank-change down"><span class="rank-arrow">↓</span>${Math.abs(diff)}</div>`;
                 else rankChangeHtml = `<div class="rank-change same"><span class="rank-arrow">—</span></div>`;
-            } else {
+            } else if (!isOwner) {
                 rankChangeHtml = `<div class="rank-change same">new</div>`;
             }
 
@@ -1102,10 +1147,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (currentPlatform === 'x') detailPanelHtml = buildXPanel(user, uid, currentPeriod);
             }
 
+            const rankText = isOwner ? '*' : '#' + displayRank;
+
             tableBody.innerHTML += `
                 <div class="row-wrap" data-username="${escapeHtml(user.username)}" data-uid="${uid}">
                     <div class="row">
-                        <div class="rank-cell ${rankClass}">#${displayRank}${rankChangeHtml}</div>
+                        <div class="rank-cell ${rankClass}">${rankText}${rankChangeHtml}</div>
                         <div class="user-cell">
                             <div class="avatar-wrap">
                                 <div class="avatar-ring ${tierClassValue}">

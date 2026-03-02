@@ -15,7 +15,17 @@ function processLeaderboard(period, query, params, startDate, endDate) {
         dbTime.all(query, params, async (err, rows) => {
             if (err) return reject(err);
 
-            const totalActive = rows.length;
+            // Load owners
+            let owners = [];
+            try {
+                const ownerData = fs.readFileSync(path.join(__dirname, 'owner.json'), 'utf8');
+                owners = JSON.parse(ownerData);
+            } catch (e) { }
+
+            const nonOwnerRows = rows.filter(r => !owners.includes(r.username));
+            const ownerRows = rows.filter(r => owners.includes(r.username));
+
+            const totalActive = nonOwnerRows.length;
 
             let totalDc = 0;
             let totalXPosts = 0;
@@ -57,17 +67,7 @@ function processLeaderboard(period, query, params, startDate, endDate) {
                 });
             }
 
-            const leaderboardData = rows.slice(0, 500).map((u, i) => {
-                const rank = i + 1;
-                const topRatio = (rank / totalActive) * 100;
-                let tier = 'none';
-                let tierBadge = '';
-
-                if (topRatio <= 0.1) { tier = 'gold'; tierBadge = '0.1%'; }
-                else if (topRatio <= 1) { tier = 'cyan'; tierBadge = '1%'; }
-                else if (topRatio <= 10) { tier = 'purple'; tierBadge = '10%'; }
-                else if (topRatio <= 50) { tier = 'silver'; tierBadge = '50%'; }
-
+            const mapUser = (u, forceRank = null) => {
                 const posts = u.x_posts || 0;
                 const views = u.x_views || 0;
                 const likes = u.x_likes || 0;
@@ -83,10 +83,10 @@ function processLeaderboard(period, query, params, startDate, endDate) {
                 const totalPoints = xScore + dcScore;
 
                 return {
-                    rank,
+                    rank: forceRank,
                     username: u.username || 'user' + u.user_id,
                     nickname: u.nickname || 'Unknown User',
-                    avatarUrl: u.avatar_url || 'https://cdn.discordapp.com/embed/avatars/0.png',
+                    avatarUrl: u.avatar_url || 'https://cdn.discordapp.com/avatars/1033958209154715688/f2cd023ae0cff33c4ad26e3a75f24782.png?size=512', // Placeholder if needed
                     discordMessages: dcScore,
                     xScore,
                     xPosts: posts,
@@ -96,10 +96,36 @@ function processLeaderboard(period, query, params, startDate, endDate) {
                     xReplies: replies,
                     xDetails: xPostsDetails[u.user_id] || [],
                     totalPoints,
-                    tier,
-                    tierBadge
+                    tier: 'none',
+                    tierBadge: '',
+                    isOwner: owners.includes(u.username)
                 };
-            }).sort((a, b) => b.totalPoints - a.totalPoints).map((u, i) => ({ ...u, rank: i + 1 }));
+            };
+
+            // Non-owners logic
+            let nonOwnerList = nonOwnerRows.slice(0, 500).map(u => {
+                const userObj = mapUser(u);
+                userObj.avatarUrl = u.avatar_url || 'https://cdn.discordapp.com/embed/avatars/0.png';
+                return userObj;
+            });
+            nonOwnerList.sort((a, b) => b.totalPoints - a.totalPoints);
+            nonOwnerList.forEach((u, i) => {
+                u.rank = i + 1;
+                const topRatio = (u.rank / totalActive) * 100;
+                if (topRatio <= 0.1) { u.tier = 'gold'; u.tierBadge = '0.1%'; }
+                else if (topRatio <= 1) { u.tier = 'cyan'; u.tierBadge = '1%'; }
+                else if (topRatio <= 10) { u.tier = 'purple'; u.tierBadge = '10%'; }
+                else if (topRatio <= 50) { u.tier = 'silver'; u.tierBadge = '50%'; }
+            });
+
+            // Owners logic
+            const ownerList = ownerRows.map(u => {
+                const userObj = mapUser(u, '*');
+                userObj.avatarUrl = u.avatar_url || 'https://cdn.discordapp.com/embed/avatars/0.png';
+                return userObj;
+            });
+
+            const leaderboardData = nonOwnerList.concat(ownerList);
 
             const output = {
                 period,
@@ -124,10 +150,17 @@ async function run() {
     dbTime.run("ATTACH DATABASE 'database.sqlite' AS mainDb", async (err) => {
         if (err) throw err;
 
-        dbTime.get("SELECT MAX(date) as maxDate FROM user_daily_activity", async (err, row) => {
+        const maxDateQuery = "SELECT MAX(date) as maxDate FROM user_daily_activity";
+        dbTime.get(maxDateQuery, async (err, row) => {
             if (err) throw err;
-            const maxDate = row.maxDate || new Date().toISOString().split('T')[0];
-            console.log("Max data date:", maxDate);
+
+            // Actual latest date in the system (including March)
+            const realMaxDate = row.maxDate || new Date().toISOString().split('T')[0];
+            // Pinned date for Month and All Time (excluding March data)
+            const historicalMaxDate = '2026-02-28';
+
+            console.log("Real Max Date (for Week):", realMaxDate);
+            console.log("Historical Anchor (for Month/All):", historicalMaxDate);
 
             const xScoreSql = `(
                 ((SUM(uda.x_posts) * 10) + (SUM(uda.x_views) * 0.1) + SUM(uda.x_likes) + (SUM(uda.x_replies) * 3) + (SUM(uda.x_reposts) * 3))
@@ -155,16 +188,16 @@ async function run() {
             `;
 
             try {
-                // All time
-                await processLeaderboard('all', baseQuery.replace('$WHERE_CLAUSE', ""), [], null, null);
+                // All time - Real-time global stats (including March)
+                await processLeaderboard('all', baseQuery.replace('$WHERE_CLAUSE', ""), [], null, realMaxDate);
 
-                // Month
-                const monthStart = maxDate.substring(0, 7) + '-01';
-                await processLeaderboard('month', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ?"), [monthStart], monthStart, maxDate);
+                // Month - Strictly February 2026 (pinned as requested)
+                const febStart = '2026-02-01';
+                await processLeaderboard('month', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [febStart, historicalMaxDate], febStart, historicalMaxDate);
 
-                // Week
-                const weekStart = addDays(maxDate, -6);
-                await processLeaderboard('week', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [weekStart, maxDate], weekStart, maxDate);
+                // Week - Up to March (real max date)
+                const weekStart = addDays(realMaxDate, -6);
+                await processLeaderboard('week', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [weekStart, realMaxDate], weekStart, realMaxDate);
 
                 console.log("Leaderboard Data Generated Successfully.");
                 process.exit(0);
