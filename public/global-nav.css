@@ -114,8 +114,12 @@ a.nav-subtitle:hover {
     font-size: 15px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1100px) {
     .nav-subtitle {
+        display: none;
+    }
+
+    .nav-divider {
         display: none;
     }
 }
@@ -154,5 +158,65 @@ a.nav-subtitle:hover {
 
     .nav-item-icon {
         font-size: 13px;
+    }
+}
+
+@media (max-width: 490px) {
+    body {
+        padding-top: 112px !important;
+    }
+
+    .global-nav {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .nav-left {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-brand {
+        display: block;
+        font-size: 15px;
+    }
+
+    .nav-center {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-left: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+
+    .nav-item {
+        padding: 7px 9px;
+        font-size: 11px;
+        gap: 5px;
+        flex: 1;
+        justify-content: center;
+        min-width: 60px;
+    }
+
+    .nav-item-icon {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 390px) {
+    body {
+        padding-top: 148px !important;
+    }
+
+    .nav-item {
+        flex: 0 0 calc(50% - 4px);
+        font-size: 11px;
+        padding: 7px 6px;
     }
 }

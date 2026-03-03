@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluton — Mascot Contest</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="global-nav.css">
+  <link rel="stylesheet" href="cards/mascot/style.css">
+</head>
+<body>
+
+<!-- Background decoration -->
+<div class="bg-fixed">
+  <div class="bg-grid"></div>
+  <div class="bg-orb1"></div>
+  <div class="bg-orb2"></div>
+  <div class="bg-orb3"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb">
+  <div class="lb-close" onclick="closeLightbox()">✕</div>
+  <div class="lb-inner">
+
+    <div class="lb-imgs">
+      <img class="lb-main" id="lbImg" src="" alt="mascot">
+
+      <div class="lb-nav" id="lbNav">
+        <div class="lb-btn" onclick="lbPrev()">&#8592;</div>
+        <div class="lb-btn" onclick="lbNext()">&#8594;</div>
+      </div>
+
+      <div class="lb-dots" id="lbDots"></div>
+      <div class="lb-counter" id="lbCounter"></div>
+    </div>
+
+    <div class="lb-foot">
+      <div class="lb-author">
+        <div class="lb-ava" id="lbAva"></div>
+        <div>
+          <div class="lb-name" id="lbName"></div>
+          <div class="lb-handle" id="lbHandle"></div>
+        </div>
+      </div>
+
+      <div class="lb-right">
+        <div class="lb-likes">
+          ❤️ <span id="lbLikes"></span>
+        </div>
+        <a class="lb-x" id="lbLink" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          View on X
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="wrap">
+
+  <header class="hdr">
+    <div class="hdr-eyebrow">// fluton · community</div>
+    <h1 class="hdr-title">Mascot Contest</h1>
+    <p class="hdr-sub">vote with your likes on X &middot; best design wins</p>
+    <div class="hdr-chips">
+      <div class="hdr-chip"><b id="entryCount">0</b> entries</div>
+      <div class="hdr-chip">updated every <b>12 hours</b></div>
+      <div class="hdr-chip live">ends <b>May 9</b></div>
+    </div>
+  </header>
+
+  <div class="search-bar">
+    <div class="search-icon">&#128269;</div>
+    <input
+      class="search-input"
+      id="searchInput"
+      type="text"
+      placeholder="Search by name or @handle…"
+      oninput="onSearch(this.value)"
+      autocomplete="off"
+      spellcheck="false"
+    >
+    <div class="search-clear" id="searchClear" onclick="clearSearch()">&#10005;</div>
+  </div>
+
+  <div class="sort-bar">
+    <div class="sort-lbl">Sort by</div>
+    <div class="sort-pills">
+      <div class="pill active" onclick="sortBy('likes', this)">&#9829; Most liked</div>
+      <div class="pill" onclick="sortBy('new', this)">&#8593; Newest</div>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer class="page-footer">
+    Last updated: <span id="updatedAt">—</span> &nbsp;&middot;&nbsp; <a href="https://fluton.xyz" target="_blank" rel="noopener">fluton.xyz</a>
+  </footer>
+
+</div>
+
+<script src="global-nav.js"></script>
+<script src="cards/mascot/app.js"></script>
+</body>
+</html>
