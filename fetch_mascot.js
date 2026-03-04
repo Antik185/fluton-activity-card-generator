@@ -63,9 +63,13 @@ function parseDcJson() {
     const map = new Map();
 
     for (const msg of data.messages) {
-        const rawUrl = (msg.content || '').trim();
+        // Extract tweet URL from content (may be embedded in longer text)
+        const content = msg.content || '';
+        const urlMatch = content.match(/https?:\/\/(?:x\.com|twitter\.com)\/\S+\/status\/\d+/);
+        if (!urlMatch) continue;         // skip non-tweet messages
+        const rawUrl = urlMatch[0];
         const tweetId = tweetIdFromUrl(rawUrl);
-        if (!tweetId) continue;          // skip non-tweet messages
+        if (!tweetId) continue;
         if (map.has(tweetId)) continue;  // deduplicate
 
         // Try to extract data from Discord embed (may be absent / partial)
