@@ -108,10 +108,13 @@ function avatarHtml(entry) {
 function buildImgArea(entry) {
   const n = entry.images.length;
 
+  const videoIcon = entry.hasVideo ? `<div class="video-icon">▶</div>` : '';
+
   if (n === 1) {
     return `
       <div class="img-area">
         <img class="img-single" src="${entry.images[0]}" alt="mascot" loading="lazy">
+        ${videoIcon}
         <div class="view-ov">🔍</div>
       </div>`;
   }
@@ -124,6 +127,7 @@ function buildImgArea(entry) {
   return `
     <div class="img-area">
       <div class="img-multi ${gridClass}">${thumbs}</div>
+      ${videoIcon}
       <div class="img-count">📷 ${n}</div>
       <div class="view-ov">🔍</div>
     </div>`;

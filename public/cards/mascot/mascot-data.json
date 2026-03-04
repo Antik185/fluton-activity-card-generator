@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-04T10:52:28.064Z",
+  "generatedAt": "2026-03-04T11:56:08.607Z",
   "count": 114,
   "entries": [
     {
@@ -18,9 +18,10 @@
       ],
       "date": "2026-03-03",
       "reposts": 1,
-      "views": 3064,
+      "views": 3085,
       "replies": 21,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2018264665168760832/jDTTeBeE_normal.jpg",
+      "hasVideo": false,
       "id": 1
     },
     {
@@ -30,15 +31,16 @@
       "handle": "@THESHAWN990",
       "discordName": "SHIVANSH!RIALO",
       "discordAvatar": "https://cdn.discordapp.com/avatars/1226014150660980757/2b8fd1ad829a9f41babb2af1ecf0a6a3.png?size=512",
-      "likes": 68,
+      "likes": 69,
       "images": [
-        "https://pbs.twimg.com/ext_tw_video_thumb/2028914000290041856/pu/img/2x5aacNIyCKePPTF.jpg:large"
+        "https://pbs.twimg.com/ext_tw_video_thumb/2028914000290041856/pu/img/2x5aacNIyCKePPTF.jpg"
       ],
       "date": "2026-03-03",
       "reposts": 2,
-      "views": 146,
+      "views": 152,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2029061729133707266/lwkcYuTx_normal.jpg",
+      "hasVideo": true,
       "id": 2
     },
     {
@@ -48,7 +50,7 @@
       "handle": "@tandung9999",
       "discordName": "『 Tấn Dũng🍀 』 | Fluton",
       "discordAvatar": "https://cdn.discordapp.com/avatars/1094958797878992937/04e4ca4d3dd7328876f9bf0a07e838b7.png?size=512",
-      "likes": 55,
+      "likes": 56,
       "images": [
         "https://pbs.twimg.com/media/HCicvy3aIAApqtS.png",
         "https://pbs.twimg.com/media/HCicvy5agAAfjrS.png",
@@ -57,9 +59,10 @@
       ],
       "date": "2026-03-04",
       "reposts": 1,
-      "views": 3604,
+      "views": 3623,
       "replies": 15,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2018264665168760832/jDTTeBeE_normal.jpg",
+      "hasVideo": false,
       "id": 3
     },
     {
@@ -71,13 +74,14 @@
       "discordAvatar": "https://cdn.discordapp.com/avatars/1218121115629518888/3ea8da0516b7c8f712553a0706f5aece.png?size=512",
       "likes": 36,
       "images": [
-        "https://pbs.twimg.com/ext_tw_video_thumb/2028704374239989760/pu/img/c7mR4ftwSd-ODuoX.jpg:large"
+        "https://pbs.twimg.com/ext_tw_video_thumb/2028704374239989760/pu/img/c7mR4ftwSd-ODuoX.jpg"
       ],
       "date": "2026-03-03",
       "reposts": 2,
-      "views": 376,
+      "views": 387,
       "replies": 18,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2027402769280483328/G3w8RKh7_normal.jpg",
+      "hasVideo": true,
       "id": 4
     },
     {
@@ -97,24 +101,26 @@
       "views": 302,
       "replies": 6,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1980157986048811008/xf5l38NH_normal.jpg",
+      "hasVideo": false,
       "id": 5
     },
     {
-      "tweetId": "2028506274782957791",
-      "url": "https://x.com/villianarrtist/status/2028506274782957791?s=20",
-      "author": "VILLAIN | let's draw?",
-      "handle": "@villianarrtist",
-      "discordName": "VILLAIN | Fluton ♥️",
-      "discordAvatar": "https://cdn.discordapp.com/guilds/1323051038143418388/users/982714258473230398/avatars/1c2934af3f6cecd3959f05443f7b7e40.png?size=512",
+      "tweetId": "2028494895707509222",
+      "url": "https://x.com/AndrianCK1989/status/2028494895707509222",
+      "author": "Man No Harra",
+      "handle": "@AndrianCK1989",
+      "discordName": "Serizawa",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1343186256967893024/738cd52e5ca8ef4a81f8e0951d330dc7.png?size=512",
       "likes": 26,
       "images": [
-        "https://pbs.twimg.com/media/HCaxs7TXEAA_U7R.jpg"
+        "https://pbs.twimg.com/media/HCao9FTaIAAXvu1.jpg"
       ],
       "date": "2026-03-02",
-      "reposts": 1,
-      "views": 230,
-      "replies": 7,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2020716130189406208/G9aLzixt_normal.jpg",
+      "reposts": 0,
+      "views": 66,
+      "replies": 26,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1989293905062559744/2Cw5Lkkq_normal.jpg",
+      "hasVideo": false,
       "id": 6
     },
     {
@@ -130,10 +136,30 @@
       ],
       "date": "2026-03-02",
       "reposts": 1,
-      "views": 180,
+      "views": 200,
       "replies": 11,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1994936004843900929/Q3auQUyB_normal.jpg",
+      "hasVideo": false,
       "id": 7
+    },
+    {
+      "tweetId": "2028506274782957791",
+      "url": "https://x.com/villianarrtist/status/2028506274782957791?s=20",
+      "author": "VILLAIN | let's draw?",
+      "handle": "@villianarrtist",
+      "discordName": "VILLAIN | Fluton ♥️",
+      "discordAvatar": "https://cdn.discordapp.com/guilds/1323051038143418388/users/982714258473230398/avatars/1c2934af3f6cecd3959f05443f7b7e40.png?size=512",
+      "likes": 25,
+      "images": [
+        "https://pbs.twimg.com/media/HCaxs7TXEAA_U7R.jpg"
+      ],
+      "date": "2026-03-02",
+      "reposts": 1,
+      "views": 230,
+      "replies": 7,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2020716130189406208/G9aLzixt_normal.jpg",
+      "hasVideo": false,
+      "id": 8
     },
     {
       "tweetId": "2028484893949542852",
@@ -150,27 +176,10 @@
       ],
       "date": "2026-03-02",
       "reposts": 0,
-      "views": 582,
+      "views": 583,
       "replies": 10,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1963531694038044673/WrpBVx0B_normal.jpg",
-      "id": 8
-    },
-    {
-      "tweetId": "2028494895707509222",
-      "url": "https://x.com/AndrianCK1989/status/2028494895707509222",
-      "author": "Man No Harra",
-      "handle": "@AndrianCK1989",
-      "discordName": "Serizawa",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1343186256967893024/738cd52e5ca8ef4a81f8e0951d330dc7.png?size=512",
-      "likes": 23,
-      "images": [
-        "https://pbs.twimg.com/media/HCao9FTaIAAXvu1.jpg"
-      ],
-      "date": "2026-03-02",
-      "reposts": 1,
-      "views": 53,
-      "replies": 22,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1989293905062559744/2Cw5Lkkq_normal.jpg",
+      "hasVideo": false,
       "id": 9
     },
     {
@@ -186,9 +195,10 @@
       ],
       "date": "2026-03-02",
       "reposts": 0,
-      "views": 184,
+      "views": 222,
       "replies": 8,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024193998768971776/aqflReLd_normal.jpg",
+      "hasVideo": false,
       "id": 10
     },
     {
@@ -208,6 +218,7 @@
       "views": 146,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2010508963989860352/FWaH_3qR_normal.jpg",
+      "hasVideo": false,
       "id": 11
     },
     {
@@ -226,6 +237,7 @@
       "views": 414,
       "replies": 10,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2019031082793058304/Z_Yj5ST8_normal.jpg",
+      "hasVideo": false,
       "id": 12
     },
     {
@@ -241,10 +253,30 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 167,
+      "views": 175,
       "replies": 6,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024874786749616128/1aIBYW4Z_normal.jpg",
+      "hasVideo": false,
       "id": 13
+    },
+    {
+      "tweetId": "2029118497662616032",
+      "url": "https://x.com/bishabasnfx/status/2029118497662616032?s=20",
+      "author": "Bisha basn",
+      "handle": "@bishabasnfx",
+      "discordName": "Bisha",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1270363923136249959/1d3b47e07199c070ed972e10bb128fc0.png?size=512",
+      "likes": 21,
+      "images": [
+        "https://pbs.twimg.com/amplify_video_thumb/2029113683293683712/img/QpK3KeuaeUFYzNC-.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 1,
+      "views": 84,
+      "replies": 12,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1994936004843900929/Q3auQUyB_normal.jpg",
+      "hasVideo": true,
+      "id": 14
     },
     {
       "tweetId": "2028866309086491061",
@@ -253,7 +285,7 @@
       "handle": "@Jini7Jini",
       "discordName": "Zenitsu | Fluton",
       "discordAvatar": "https://cdn.discordapp.com/avatars/1219180484362244126/973b655a8f9d40448157a941ed9f3f76.png?size=512",
-      "likes": 19,
+      "likes": 20,
       "images": [
         "https://pbs.twimg.com/media/HCf7CfIaEAALnoi.png",
         "https://pbs.twimg.com/media/HCf7CfBbMAABZud.png",
@@ -262,10 +294,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 111,
+      "views": 112,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2001890922469249024/GOhosfPw_normal.jpg",
-      "id": 14
+      "hasVideo": false,
+      "id": 15
     },
     {
       "tweetId": "2028741558967955566",
@@ -283,25 +316,27 @@
       "views": 122,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2001890922469249024/GOhosfPw_normal.jpg",
-      "id": 15
+      "hasVideo": false,
+      "id": 16
     },
     {
-      "tweetId": "2028842827854057886",
-      "url": "https://x.com/vladsxbt/status/2028842827854057886?s=46",
-      "author": "Vladyslav · Web3 ⛓️ 🫧",
-      "handle": "@vladsxbt",
-      "discordName": "Vladyslav ⛓ 🫧",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1244638034436030465/8476f19e9c24581dd3d3e452f88d6d49.png?size=512",
+      "tweetId": "2028818165971701896",
+      "url": "https://x.com/i/status/2028818165971701896",
+      "author": "Spartan",
+      "handle": "@AndiRimex23995",
+      "discordName": "spartan andi",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1360321789800218925/d1527b621899dc3b9465fe635ea30c7e.png?size=512",
       "likes": 17,
       "images": [
-        "https://pbs.twimg.com/media/HCflzDnWkAARgG5.jpg"
+        "https://pbs.twimg.com/media/HCfPXqbaIAAJ079.jpg"
       ],
       "date": "2026-03-03",
-      "reposts": 0,
-      "views": 215,
-      "replies": 7,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1994445875188219904/bU36iZNh_normal.jpg",
-      "id": 16
+      "reposts": 1,
+      "views": 120,
+      "replies": 6,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2026783851071344640/5rNv6XF__normal.jpg",
+      "hasVideo": false,
+      "id": 17
     },
     {
       "tweetId": "2029079452492415387",
@@ -316,45 +351,29 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 58,
+      "views": 63,
       "replies": 14,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1967571232607567872/IUfXGGhK_normal.jpg",
-      "id": 17
-    },
-    {
-      "tweetId": "2028818165971701896",
-      "url": "https://x.com/i/status/2028818165971701896",
-      "author": "Spartan",
-      "handle": "@AndiRimex23995",
-      "discordName": "spartan andi",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1360321789800218925/d1527b621899dc3b9465fe635ea30c7e.png?size=512",
-      "likes": 16,
-      "images": [
-        "https://pbs.twimg.com/media/HCfPXqbaIAAJ079.jpg"
-      ],
-      "date": "2026-03-03",
-      "reposts": 1,
-      "views": 112,
-      "replies": 6,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2026783851071344640/5rNv6XF__normal.jpg",
+      "hasVideo": false,
       "id": 18
     },
     {
-      "tweetId": "2028493321673306198",
-      "url": "https://x.com/P4ppito/status/2028493321673306198?s=20",
-      "author": "Pappito",
-      "handle": "@P4ppito",
-      "discordName": "𓍊𓋼𓍊lolli4pok𓍊𓋼𓍊",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/964894603385901058/338f41eb9009562255ddca17da9d445a.png?size=512",
-      "likes": 15,
+      "tweetId": "2028842827854057886",
+      "url": "https://x.com/vladsxbt/status/2028842827854057886?s=46",
+      "author": "Vladyslav · Web3 ⛓️ 🫧",
+      "handle": "@vladsxbt",
+      "discordName": "Vladyslav ⛓ 🫧",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1244638034436030465/8476f19e9c24581dd3d3e452f88d6d49.png?size=512",
+      "likes": 16,
       "images": [
-        "https://pbs.twimg.com/tweet_video_thumb/HCansKyW8AAyxE4.jpg:large"
+        "https://pbs.twimg.com/media/HCflzDnWkAARgG5.jpg"
       ],
-      "date": "2026-03-02",
-      "reposts": 1,
-      "views": 213,
-      "replies": 6,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2018656902494736384/QBSX01JB_normal.jpg",
+      "date": "2026-03-03",
+      "reposts": 0,
+      "views": 216,
+      "replies": 7,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1994445875188219904/bU36iZNh_normal.jpg",
+      "hasVideo": false,
       "id": 19
     },
     {
@@ -370,9 +389,10 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 73,
+      "views": 74,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2004450132008620034/v6XRsAAN_normal.jpg",
+      "hasVideo": false,
       "id": 20
     },
     {
@@ -391,6 +411,7 @@
       "views": 117,
       "replies": 11,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1967571232607567872/IUfXGGhK_normal.jpg",
+      "hasVideo": false,
       "id": 21
     },
     {
@@ -409,6 +430,7 @@
       "views": 100,
       "replies": 6,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2020716130189406208/G9aLzixt_normal.jpg",
+      "hasVideo": false,
       "id": 22
     },
     {
@@ -427,23 +449,47 @@
       "views": 152,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1963159896540549120/y6UzI-js_normal.png",
+      "hasVideo": false,
       "id": 23
     },
     {
-      "tweetId": "2029118497662616032",
-      "url": "https://x.com/bishabasnfx/status/2029118497662616032?s=20",
-      "author": "Bisha basn",
-      "handle": "@bishabasnfx",
-      "discordName": "Bisha",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1270363923136249959/1d3b47e07199c070ed972e10bb128fc0.png?size=512",
+      "tweetId": "2029141021075075352",
+      "url": "https://x.com/Rolexbasntyx/status/2029141021075075352?s=20",
+      "author": "Rolex Basnyt",
+      "handle": "@Rolexbasntyx",
+      "discordName": "Rolex  Basnyt",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1123869690607980596/216dbafb537c845d1a8be4dfee932d8d.png?size=512",
       "likes": 15,
-      "images": [],
+      "images": [
+        "https://pbs.twimg.com/amplify_video_thumb/2029140945984471040/img/l-vT56PqlWpWpOwV.jpg"
+      ],
       "date": "2026-03-04",
       "reposts": 1,
-      "views": 65,
+      "views": 71,
       "replies": 10,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1994936004843900929/Q3auQUyB_normal.jpg",
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2024193998768971776/aqflReLd_normal.jpg",
+      "hasVideo": true,
       "id": 24
+    },
+    {
+      "tweetId": "2028493321673306198",
+      "url": "https://x.com/P4ppito/status/2028493321673306198?s=20",
+      "author": "Pappito",
+      "handle": "@P4ppito",
+      "discordName": "𓍊𓋼𓍊lolli4pok𓍊𓋼𓍊",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/964894603385901058/338f41eb9009562255ddca17da9d445a.png?size=512",
+      "likes": 14,
+      "images": [
+        "https://pbs.twimg.com/tweet_video_thumb/HCansKyW8AAyxE4.jpg",
+        "https://pbs.twimg.com/tweet_video_thumb/HCanutvWMAE3MP3.jpg"
+      ],
+      "date": "2026-03-02",
+      "reposts": 1,
+      "views": 213,
+      "replies": 6,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2018656902494736384/QBSX01JB_normal.jpg",
+      "hasVideo": true,
+      "id": 25
     },
     {
       "tweetId": "2029142707134746810",
@@ -452,16 +498,37 @@
       "handle": "@kidsdq",
       "discordName": "KID | Konnex⚡",
       "discordAvatar": "https://cdn.discordapp.com/avatars/1319668990045589534/d5b3700e8ca26c75ac6a36f7d9819cba.png?size=512",
-      "likes": 13,
+      "likes": 14,
       "images": [
         "https://pbs.twimg.com/media/HCj2iBJWQAA3QDa.jpg"
       ],
       "date": "2026-03-04",
       "reposts": 4,
-      "views": 15,
-      "replies": 2,
+      "views": 42,
+      "replies": 3,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2022840081686450176/SFJADoV0_normal.jpg",
-      "id": 25
+      "hasVideo": false,
+      "id": 26
+    },
+    {
+      "tweetId": "2029138442840609113",
+      "url": "https://x.com/ninetaildfox9/status/2029138442840609113",
+      "author": "Victor",
+      "handle": "@Ninetaildfox9",
+      "discordName": "Victor 🜲",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1037774931250921502/a76faaf75b6381bf141dd719f325be43.png?size=512",
+      "likes": 14,
+      "images": [
+        "https://pbs.twimg.com/media/HCjyo0PawAEIQny.jpg",
+        "https://pbs.twimg.com/ext_tw_video_thumb/2029138417809014788/pu/img/6oD1VmBE4NI1IR1a.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 0,
+      "views": 109,
+      "replies": 6,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2027056332092923904/ALENSRUJ_normal.jpg",
+      "hasVideo": true,
+      "id": 27
     },
     {
       "tweetId": "2028686150681145482",
@@ -479,7 +546,8 @@
       "views": 82,
       "replies": 6,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2012515551336087552/O1lP_i7n_normal.jpg",
-      "id": 26
+      "hasVideo": false,
+      "id": 28
     },
     {
       "tweetId": "2028850098080206955",
@@ -494,10 +562,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 88,
+      "views": 89,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024801464606969856/zAfT8Xbx_normal.jpg",
-      "id": 27
+      "hasVideo": false,
+      "id": 29
     },
     {
       "tweetId": "2028483615907090899",
@@ -515,7 +584,27 @@
       "views": 62,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1997989833923252224/yN9S7UfE_normal.jpg",
-      "id": 28
+      "hasVideo": false,
+      "id": 30
+    },
+    {
+      "tweetId": "2029138722302959912",
+      "url": "https://x.com/i/status/2029138722302959912",
+      "author": "Spartan",
+      "handle": "@AndiRimex23995",
+      "discordName": "spartan andi",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1360321789800218925/d1527b621899dc3b9465fe635ea30c7e.png?size=512",
+      "likes": 12,
+      "images": [
+        "https://pbs.twimg.com/media/HCjy6c_bIAACpfZ.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 2,
+      "views": 48,
+      "replies": 3,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2026783851071344640/5rNv6XF__normal.jpg",
+      "hasVideo": false,
+      "id": 31
     },
     {
       "tweetId": "2028708225697362045",
@@ -533,7 +622,8 @@
       "views": 110,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1944566277235777536/CKPAUaJr_normal.jpg",
-      "id": 29
+      "hasVideo": false,
+      "id": 32
     },
     {
       "tweetId": "2029060320237633732",
@@ -548,26 +638,11 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 68,
+      "views": 69,
       "replies": 12,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2028316208341422081/pj6iWsNn_normal.jpg",
-      "id": 30
-    },
-    {
-      "tweetId": "2029141021075075352",
-      "url": "https://x.com/Rolexbasntyx/status/2029141021075075352?s=20",
-      "author": "Rolex Basnyt",
-      "handle": "@Rolexbasntyx",
-      "discordName": "Rolex  Basnyt",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1123869690607980596/216dbafb537c845d1a8be4dfee932d8d.png?size=512",
-      "likes": 11,
-      "images": [],
-      "date": "2026-03-04",
-      "reposts": 1,
-      "views": 39,
-      "replies": 9,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2024193998768971776/aqflReLd_normal.jpg",
-      "id": 31
+      "hasVideo": false,
+      "id": 33
     },
     {
       "tweetId": "2028553877176611258",
@@ -588,7 +663,8 @@
       "views": 121,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024209768773275648/OO6sjUrM_normal.jpg",
-      "id": 32
+      "hasVideo": false,
+      "id": 34
     },
     {
       "tweetId": "2028860158370255009",
@@ -606,7 +682,8 @@
       "views": 33,
       "replies": 6,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1988954384399757317/TMS9WkPu_normal.jpg",
-      "id": 33
+      "hasVideo": false,
+      "id": 35
     },
     {
       "tweetId": "2028913502149329043",
@@ -621,10 +698,30 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 63,
+      "views": 67,
       "replies": 7,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2014389478094471168/Ok5eAze8_normal.jpg",
-      "id": 34
+      "hasVideo": false,
+      "id": 36
+    },
+    {
+      "tweetId": "2029089278433870151",
+      "url": "https://x.com/i/status/2029089278433870151",
+      "author": "NTAECH",
+      "handle": "@thentaech",
+      "discordName": "NTAECH",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1218121115629518888/3ea8da0516b7c8f712553a0706f5aece.png?size=512",
+      "likes": 10,
+      "images": [
+        "https://pbs.twimg.com/ext_tw_video_thumb/2029089247509266432/pu/img/WJL-hX-9LY192M9S.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 0,
+      "views": 66,
+      "replies": 4,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2027402769280483328/G3w8RKh7_normal.jpg",
+      "hasVideo": true,
+      "id": 37
     },
     {
       "tweetId": "2028673498638598463",
@@ -639,10 +736,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 1,
-      "views": 144,
+      "views": 145,
       "replies": 8,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2019315370625232896/nU97yhJi_normal.jpg",
-      "id": 35
+      "hasVideo": false,
+      "id": 38
     },
     {
       "tweetId": "2028704328404619759",
@@ -661,7 +759,8 @@
       "views": 58,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2026681190275809280/Y_DK5_H6_normal.jpg",
-      "id": 36
+      "hasVideo": false,
+      "id": 39
     },
     {
       "tweetId": "2028767435382509580",
@@ -676,28 +775,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 1,
-      "views": 104,
+      "views": 108,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2027071862149378048/tMvj8IX9_normal.jpg",
-      "id": 37
-    },
-    {
-      "tweetId": "2028820942865023125",
-      "url": "https://x.com/gjulnazm/status/2028820942865023125?s=46",
-      "author": "G.M.",
-      "handle": "@GjulnazM",
-      "discordName": "G.M | QA",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1392571521385500803/9f114e263c54b38b9cd35145e4daaed7.png?size=512",
-      "likes": 9,
-      "images": [
-        "https://pbs.twimg.com/media/HCfR5NabQAAYyq8.jpg"
-      ],
-      "date": "2026-03-03",
-      "reposts": 0,
-      "views": 53,
-      "replies": 6,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2024054335739740160/f_q6WZvU_normal.jpg",
-      "id": 38
+      "hasVideo": false,
+      "id": 40
     },
     {
       "tweetId": "2028833915092570289",
@@ -715,7 +797,8 @@
       "views": 27,
       "replies": 6,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2015168182060044288/DeVvEIz2_normal.jpg",
-      "id": 39
+      "hasVideo": false,
+      "id": 41
     },
     {
       "tweetId": "2028929641839509704",
@@ -726,49 +809,15 @@
       "discordAvatar": "https://cdn.discordapp.com/avatars/716253063182024706/0337e39fd5cc4d9e4dc032a63fa58106.png?size=512",
       "likes": 9,
       "images": [
-        "https://pbs.twimg.com/media/HCg0vysawAAunZw.jpg"
+        "https://pbs.twimg.com/media/HCg0vysawAAunZw.jpg",
+        "https://pbs.twimg.com/ext_tw_video_thumb/2028929628258336768/pu/img/ReakFA2-dIbcaXn8.jpg"
       ],
       "date": "2026-03-03",
       "reposts": 0,
       "views": 66,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2026091128014229504/pBiuMN9j_normal.jpg",
-      "id": 40
-    },
-    {
-      "tweetId": "2029138442840609113",
-      "url": "https://x.com/ninetaildfox9/status/2029138442840609113",
-      "author": "Victor",
-      "handle": "@Ninetaildfox9",
-      "discordName": "Victor 🜲",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1037774931250921502/a76faaf75b6381bf141dd719f325be43.png?size=512",
-      "likes": 9,
-      "images": [
-        "https://pbs.twimg.com/media/HCjyo0PawAEIQny.jpg"
-      ],
-      "date": "2026-03-04",
-      "reposts": 0,
-      "views": 24,
-      "replies": 5,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2027056332092923904/ALENSRUJ_normal.jpg",
-      "id": 41
-    },
-    {
-      "tweetId": "2028569643237941647",
-      "url": "https://x.com/SnaksBlacks/status/2028569643237941647?s=20",
-      "author": "ENS.ink π²🌶️🍊,💊🫎",
-      "handle": "@SnaksBlacks",
-      "discordName": "viti0ok",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/435421326912782336/84dfde70bb2b2a9dd632e1441e7fb3a7.png?size=512",
-      "likes": 8,
-      "images": [
-        "https://pbs.twimg.com/media/HCbs81SbcAAMvjY.jpg"
-      ],
-      "date": "2026-03-02",
-      "reposts": 0,
-      "views": 107,
-      "replies": 2,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1841158799735853057/YRbWDv6R_normal.jpg",
+      "hasVideo": true,
       "id": 42
     },
     {
@@ -784,27 +833,29 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 52,
+      "views": 53,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1960140636838825984/gRvhhccJ_normal.jpg",
+      "hasVideo": false,
       "id": 43
     },
     {
-      "tweetId": "2029089278433870151",
-      "url": "https://x.com/i/status/2029089278433870151",
-      "author": "NTAECH",
-      "handle": "@thentaech",
-      "discordName": "NTAECH",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1218121115629518888/3ea8da0516b7c8f712553a0706f5aece.png?size=512",
+      "tweetId": "2028820942865023125",
+      "url": "https://x.com/gjulnazm/status/2028820942865023125?s=46",
+      "author": "G.M.",
+      "handle": "@GjulnazM",
+      "discordName": "G.M | QA",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1392571521385500803/9f114e263c54b38b9cd35145e4daaed7.png?size=512",
       "likes": 8,
       "images": [
-        "https://pbs.twimg.com/ext_tw_video_thumb/2029089247509266432/pu/img/WJL-hX-9LY192M9S.jpg:large"
+        "https://pbs.twimg.com/media/HCfR5NabQAAYyq8.jpg"
       ],
-      "date": "2026-03-04",
+      "date": "2026-03-03",
       "reposts": 0,
-      "views": 56,
-      "replies": 3,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2027402769280483328/G3w8RKh7_normal.jpg",
+      "views": 55,
+      "replies": 6,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2024054335739740160/f_q6WZvU_normal.jpg",
+      "hasVideo": false,
       "id": 44
     },
     {
@@ -823,6 +874,7 @@
       "views": 71,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2007526516817539073/QvCOfACF_normal.jpg",
+      "hasVideo": false,
       "id": 45
     },
     {
@@ -841,7 +893,27 @@
       "views": 98,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1964022020137771008/JrHuhZEE_normal.jpg",
+      "hasVideo": false,
       "id": 46
+    },
+    {
+      "tweetId": "2028569643237941647",
+      "url": "https://x.com/SnaksBlacks/status/2028569643237941647?s=20",
+      "author": "ENS.ink π²🌶️🍊,💊🫎",
+      "handle": "@SnaksBlacks",
+      "discordName": "viti0ok",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/435421326912782336/84dfde70bb2b2a9dd632e1441e7fb3a7.png?size=512",
+      "likes": 7,
+      "images": [
+        "https://pbs.twimg.com/media/HCbs81SbcAAMvjY.jpg"
+      ],
+      "date": "2026-03-02",
+      "reposts": 0,
+      "views": 107,
+      "replies": 2,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1841158799735853057/YRbWDv6R_normal.jpg",
+      "hasVideo": false,
+      "id": 47
     },
     {
       "tweetId": "2016871941282681024",
@@ -859,7 +931,8 @@
       "views": 113,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2023654431594868736/VMSMAms6_normal.jpg",
-      "id": 47
+      "hasVideo": false,
+      "id": 48
     },
     {
       "tweetId": "2028774235943100736",
@@ -876,27 +949,10 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 133,
+      "views": 138,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1926891420264108032/D8mte_jS_normal.jpg",
-      "id": 48
-    },
-    {
-      "tweetId": "2028896696701268296",
-      "url": "https://x.com/SnaksBlacks/status/2028896696701268296?s=20",
-      "author": "ENS.ink π²🌶️🍊,💊🫎",
-      "handle": "@SnaksBlacks",
-      "discordName": "viti0ok",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/435421326912782336/84dfde70bb2b2a9dd632e1441e7fb3a7.png?size=512",
-      "likes": 7,
-      "images": [
-        "https://pbs.twimg.com/media/HCgWyVvXIAAe54M.jpg"
-      ],
-      "date": "2026-03-03",
-      "reposts": 0,
-      "views": 28,
-      "replies": 1,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1841158799735853057/YRbWDv6R_normal.jpg",
+      "hasVideo": false,
       "id": 49
     },
     {
@@ -912,9 +968,10 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 35,
+      "views": 38,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1996400148356988928/l0hZs6D1_normal.jpg",
+      "hasVideo": false,
       "id": 50
     },
     {
@@ -934,6 +991,7 @@
       "views": 46,
       "replies": 3,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1960140636838825984/gRvhhccJ_normal.jpg",
+      "hasVideo": false,
       "id": 51
     },
     {
@@ -950,28 +1008,11 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 24,
+      "views": 31,
       "replies": 5,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2020381283801554945/DFpkCRu__normal.jpg",
+      "hasVideo": false,
       "id": 52
-    },
-    {
-      "tweetId": "2029138722302959912",
-      "url": "https://x.com/i/status/2029138722302959912",
-      "author": "Spartan",
-      "handle": "@AndiRimex23995",
-      "discordName": "spartan andi",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1360321789800218925/d1527b621899dc3b9465fe635ea30c7e.png?size=512",
-      "likes": 7,
-      "images": [
-        "https://pbs.twimg.com/media/HCjy6c_bIAACpfZ.jpg"
-      ],
-      "date": "2026-03-04",
-      "reposts": 0,
-      "views": 19,
-      "replies": 3,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2026783851071344640/5rNv6XF__normal.jpg",
-      "id": 53
     },
     {
       "tweetId": "2028820217758167136",
@@ -990,7 +1031,8 @@
       "views": 77,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1978684184840609792/LP2gaa8g_normal.jpg",
-      "id": 54
+      "hasVideo": false,
+      "id": 53
     },
     {
       "tweetId": "2028853225030295663",
@@ -1008,7 +1050,48 @@
       "views": 35,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2008537400880816128/gB_bKaOJ_normal.jpg",
+      "hasVideo": false,
+      "id": 54
+    },
+    {
+      "tweetId": "2028896696701268296",
+      "url": "https://x.com/SnaksBlacks/status/2028896696701268296?s=20",
+      "author": "ENS.ink π²🌶️🍊,💊🫎",
+      "handle": "@SnaksBlacks",
+      "discordName": "viti0ok",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/435421326912782336/84dfde70bb2b2a9dd632e1441e7fb3a7.png?size=512",
+      "likes": 6,
+      "images": [
+        "https://pbs.twimg.com/media/HCgWyVvXIAAe54M.jpg"
+      ],
+      "date": "2026-03-03",
+      "reposts": 0,
+      "views": 28,
+      "replies": 1,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1841158799735853057/YRbWDv6R_normal.jpg",
+      "hasVideo": false,
       "id": 55
+    },
+    {
+      "tweetId": "2029072896811843588",
+      "url": "https://x.com/i/status/2029072896811843588",
+      "author": "Luna",
+      "handle": "@Luna_pal2",
+      "discordName": "Luna",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1313949587891032064/1803584d878a03f6f738d1a569b58b40.png?size=512",
+      "likes": 6,
+      "images": [
+        "https://pbs.twimg.com/media/HCi3CYCaEAA77yX.jpg",
+        "https://pbs.twimg.com/media/HCi3CaAXwAA6TLg.jpg",
+        "https://pbs.twimg.com/media/HCi3Cc0XIAAlSrn.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 0,
+      "views": 31,
+      "replies": 3,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2026568187710455809/Ow3CLGyI_normal.jpg",
+      "hasVideo": false,
+      "id": 56
     },
     {
       "tweetId": "2029078812772983205",
@@ -1023,10 +1106,11 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 75,
+      "views": 82,
       "replies": 3,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2027071862149378048/tMvj8IX9_normal.jpg",
-      "id": 56
+      "hasVideo": false,
+      "id": 57
     },
     {
       "tweetId": "2028513599707033812",
@@ -1044,7 +1128,8 @@
       "views": 44,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2008537400880816128/gB_bKaOJ_normal.jpg",
-      "id": 57
+      "hasVideo": false,
+      "id": 58
     },
     {
       "tweetId": "2028525041957179593",
@@ -1060,10 +1145,11 @@
       ],
       "date": "2026-03-02",
       "reposts": 0,
-      "views": 66,
+      "views": 67,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024054335739740160/f_q6WZvU_normal.jpg",
-      "id": 58
+      "hasVideo": false,
+      "id": 59
     },
     {
       "tweetId": "2028668836963381586",
@@ -1082,7 +1168,27 @@
       "views": 92,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1877555982240460801/8AO8jUUE_normal.jpg",
-      "id": 59
+      "hasVideo": false,
+      "id": 60
+    },
+    {
+      "tweetId": "2028730484595794061",
+      "url": "https://x.com/SergeyVL24/status/2028730484595794061?s=20",
+      "author": "SERGDAVA",
+      "handle": "@SergeyVL24",
+      "discordName": "sergdava",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/943712310189490266/c8bf6263071526bf2520b5ab287b0181.png?size=512",
+      "likes": 5,
+      "images": [
+        "https://pbs.twimg.com/media/HCd_SqwWsAAKBL3.jpg"
+      ],
+      "date": "2026-03-03",
+      "reposts": 0,
+      "views": 33,
+      "replies": 0,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1960140636838825984/gRvhhccJ_normal.jpg",
+      "hasVideo": false,
+      "id": 61
     },
     {
       "tweetId": "2028832576178475011",
@@ -1097,10 +1203,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 48,
+      "views": 49,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2028409825034735616/vIu2SknI_normal.jpg",
-      "id": 60
+      "hasVideo": false,
+      "id": 62
     },
     {
       "tweetId": "2028834038862287355",
@@ -1116,10 +1223,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 32,
+      "views": 33,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2012515551336087552/O1lP_i7n_normal.jpg",
-      "id": 61
+      "hasVideo": false,
+      "id": 63
     },
     {
       "tweetId": "2028992656446226556",
@@ -1140,27 +1248,8 @@
       "views": 21,
       "replies": 3,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2012515551336087552/O1lP_i7n_normal.jpg",
-      "id": 62
-    },
-    {
-      "tweetId": "2029072896811843588",
-      "url": "https://x.com/i/status/2029072896811843588",
-      "author": "Luna",
-      "handle": "@Luna_pal2",
-      "discordName": "Luna",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1313949587891032064/1803584d878a03f6f738d1a569b58b40.png?size=512",
-      "likes": 5,
-      "images": [
-        "https://pbs.twimg.com/media/HCi3CYCaEAA77yX.jpg",
-        "https://pbs.twimg.com/media/HCi3CaAXwAA6TLg.jpg",
-        "https://pbs.twimg.com/media/HCi3Cc0XIAAlSrn.jpg"
-      ],
-      "date": "2026-03-04",
-      "reposts": 0,
-      "views": 25,
-      "replies": 2,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2026568187710455809/Ow3CLGyI_normal.jpg",
-      "id": 63
+      "hasVideo": false,
+      "id": 64
     },
     {
       "tweetId": "2028720969234465071",
@@ -1178,24 +1267,7 @@
       "views": 41,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1938222947879292932/YSTSRyLc_normal.jpg",
-      "id": 64
-    },
-    {
-      "tweetId": "2028730484595794061",
-      "url": "https://x.com/SergeyVL24/status/2028730484595794061?s=20",
-      "author": "SERGDAVA",
-      "handle": "@SergeyVL24",
-      "discordName": "sergdava",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/943712310189490266/c8bf6263071526bf2520b5ab287b0181.png?size=512",
-      "likes": 4,
-      "images": [
-        "https://pbs.twimg.com/media/HCd_SqwWsAAKBL3.jpg"
-      ],
-      "date": "2026-03-03",
-      "reposts": 0,
-      "views": 32,
-      "replies": 0,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1960140636838825984/gRvhhccJ_normal.jpg",
+      "hasVideo": false,
       "id": 65
     },
     {
@@ -1209,13 +1281,15 @@
       "images": [
         "https://pbs.twimg.com/media/HCfhj4BasAAGsze.jpg",
         "https://pbs.twimg.com/media/HCfhkX9b0AA5azT.jpg",
-        "https://pbs.twimg.com/media/HCfhk4ZacAAE2DV.jpg"
+        "https://pbs.twimg.com/media/HCfhk4ZacAAE2DV.jpg",
+        "https://pbs.twimg.com/tweet_video_thumb/HCfhi0_aYAEQRfR.jpg"
       ],
       "date": "2026-03-03",
       "reposts": 1,
-      "views": 39,
+      "views": 45,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024209768773275648/OO6sjUrM_normal.jpg",
+      "hasVideo": true,
       "id": 66
     },
     {
@@ -1227,14 +1301,36 @@
       "discordAvatar": "https://cdn.discordapp.com/avatars/618046690615885834/54b8ecd4b3a768c7e190ed3427253725.png?size=512",
       "likes": 4,
       "images": [
-        "https://pbs.twimg.com/media/HCemWi2XsAAJCLy.png"
+        "https://pbs.twimg.com/media/HCemWi2XsAAJCLy.png",
+        "https://pbs.twimg.com/amplify_video_thumb/2028773102012809216/img/v7DX612S84Png_mk.jpg",
+        "https://pbs.twimg.com/amplify_video_thumb/2028773125555376128/img/wNzzE7i2u7UJ-PBo.jpg"
       ],
       "date": "2026-03-03",
       "reposts": 0,
       "views": 32,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2027405942967406592/r9-kt4Ua_normal.jpg",
+      "hasVideo": true,
       "id": 67
+    },
+    {
+      "tweetId": "2029056927477452866",
+      "url": "https://x.com/Osita__1/status/2029056927477452866?s=20",
+      "author": "Osita",
+      "handle": "@Osita__1",
+      "discordName": "Osita",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1244794672878981180/48d44e60c823394ca14ff48705538ad2.png?size=512",
+      "likes": 4,
+      "images": [
+        "https://pbs.twimg.com/media/HCin1OPasAAZ4Ga.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 0,
+      "views": 49,
+      "replies": 0,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2023962023210704896/aQirXroT_normal.jpg",
+      "hasVideo": false,
+      "id": 68
     },
     {
       "tweetId": "2029087827619889534",
@@ -1252,7 +1348,8 @@
       "views": 22,
       "replies": 3,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2024729933403344903/xmta6SAK_normal.jpg",
-      "id": 68
+      "hasVideo": false,
+      "id": 69
     },
     {
       "tweetId": "2028484834146804008",
@@ -1270,7 +1367,8 @@
       "views": 13,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1651960080412155906/dWEg6dJt_normal.jpg",
-      "id": 69
+      "hasVideo": false,
+      "id": 70
     },
     {
       "tweetId": "2028485957536862509",
@@ -1288,7 +1386,8 @@
       "views": 33,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1994432783671005184/xVUzA71E_normal.jpg",
-      "id": 70
+      "hasVideo": false,
+      "id": 71
     },
     {
       "tweetId": "2028486910008492176",
@@ -1306,7 +1405,8 @@
       "views": 17,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2023727659168190464/Be8CgdFP_normal.jpg",
-      "id": 71
+      "hasVideo": false,
+      "id": 72
     },
     {
       "tweetId": "2028488798720442469",
@@ -1324,7 +1424,8 @@
       "views": 18,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2023341102879715328/fCghZGjk_normal.jpg",
-      "id": 72
+      "hasVideo": false,
+      "id": 73
     },
     {
       "tweetId": "2028501378050437332",
@@ -1342,7 +1443,8 @@
       "views": 35,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1852413921572900864/kMSeb72q_normal.jpg",
-      "id": 73
+      "hasVideo": false,
+      "id": 74
     },
     {
       "tweetId": "2028528350201888932",
@@ -1360,7 +1462,8 @@
       "views": 43,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2020381283801554945/DFpkCRu__normal.jpg",
-      "id": 74
+      "hasVideo": false,
+      "id": 75
     },
     {
       "tweetId": "2028672927772881313",
@@ -1378,7 +1481,8 @@
       "views": 31,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1890066933548212224/rJvt1xjl_normal.jpg",
-      "id": 75
+      "hasVideo": false,
+      "id": 76
     },
     {
       "tweetId": "2028770132328128667",
@@ -1396,7 +1500,8 @@
       "views": 33,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1993302140551663616/hLK34yDg_normal.jpg",
-      "id": 76
+      "hasVideo": false,
+      "id": 77
     },
     {
       "tweetId": "2028802554654777436",
@@ -1414,7 +1519,8 @@
       "views": 13,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1314214506/First_Vita_Plus_normal.jpg",
-      "id": 77
+      "hasVideo": false,
+      "id": 78
     },
     {
       "tweetId": "2028863330518233384",
@@ -1435,7 +1541,8 @@
       "views": 16,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2012911538605039616/-aW4weXI_normal.jpg",
-      "id": 78
+      "hasVideo": false,
+      "id": 79
     },
     {
       "tweetId": "2028883419032371556",
@@ -1453,24 +1560,7 @@
       "views": 16,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1937688289097748480/ML3xfwrq_normal.jpg",
-      "id": 79
-    },
-    {
-      "tweetId": "2029056927477452866",
-      "url": "https://x.com/Osita__1/status/2029056927477452866?s=20",
-      "author": "Osita",
-      "handle": "@Osita__1",
-      "discordName": "Osita",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1244794672878981180/48d44e60c823394ca14ff48705538ad2.png?size=512",
-      "likes": 3,
-      "images": [
-        "https://pbs.twimg.com/media/HCin1OPasAAZ4Ga.jpg"
-      ],
-      "date": "2026-03-04",
-      "reposts": 0,
-      "views": 39,
-      "replies": 0,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2023962023210704896/aQirXroT_normal.jpg",
+      "hasVideo": false,
       "id": 80
     },
     {
@@ -1489,6 +1579,7 @@
       "views": 38,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1974775734372589570/nxVYKSmc_normal.jpg",
+      "hasVideo": false,
       "id": 81
     },
     {
@@ -1500,13 +1591,15 @@
       "discordAvatar": "https://cdn.discordapp.com/avatars/1259797082915606562/66776d4257a00199fb4f3a174280cf2f.png?size=512",
       "likes": 2,
       "images": [
-        "https://pbs.twimg.com/media/HCa64yrbsAAD0Gy.jpg"
+        "https://pbs.twimg.com/media/HCa64yrbsAAD0Gy.jpg",
+        "https://pbs.twimg.com/ext_tw_video_thumb/2028514166315921408/pu/img/_leB3jVjO500QLIx.jpg"
       ],
       "date": "2026-03-02",
       "reposts": 0,
       "views": 26,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1927818435842674689/k8dNrEJ9_normal.jpg",
+      "hasVideo": true,
       "id": 82
     },
     {
@@ -1525,6 +1618,7 @@
       "views": 11,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2026873086742601728/rzLmlkgT_normal.jpg",
+      "hasVideo": false,
       "id": 83
     },
     {
@@ -1543,6 +1637,7 @@
       "views": 79,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2021325757507907584/WMxzWIZC_normal.jpg",
+      "hasVideo": false,
       "id": 84
     },
     {
@@ -1561,6 +1656,7 @@
       "views": 26,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1961356547591704577/whDxZSJ9_normal.jpg",
+      "hasVideo": false,
       "id": 85
     },
     {
@@ -1579,6 +1675,7 @@
       "views": 33,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2008336855058776064/YQsKpfVh_normal.jpg",
+      "hasVideo": false,
       "id": 86
     },
     {
@@ -1597,6 +1694,7 @@
       "views": 9,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2004882285997461504/rtsSvSbu_normal.jpg",
+      "hasVideo": false,
       "id": 87
     },
     {
@@ -1613,9 +1711,10 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 50,
+      "views": 51,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2021325757507907584/WMxzWIZC_normal.jpg",
+      "hasVideo": false,
       "id": 88
     },
     {
@@ -1631,10 +1730,31 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 27,
+      "views": 28,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2023684473708257280/NW4nqKWi_normal.jpg",
+      "hasVideo": false,
       "id": 89
+    },
+    {
+      "tweetId": "2029032589345087524",
+      "url": "https://x.com/i/status/2029032589345087524",
+      "author": "prudhvi",
+      "handle": "@Prudhvi0030",
+      "discordName": "Prudhvi",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1304834434721255547/5fb70f1365f7d5805171f89a5fa15349.png?size=512",
+      "likes": 2,
+      "images": [
+        "https://pbs.twimg.com/media/HCiSSnAawAMBLED.jpg",
+        "https://pbs.twimg.com/media/HCiSUslawAQtdgs.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 0,
+      "views": 13,
+      "replies": 1,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/1937688289097748480/ML3xfwrq_normal.jpg",
+      "hasVideo": false,
+      "id": 90
     },
     {
       "tweetId": "2029111945971011902",
@@ -1652,7 +1772,27 @@
       "views": 9,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2008336855058776064/YQsKpfVh_normal.jpg",
-      "id": 90
+      "hasVideo": false,
+      "id": 91
+    },
+    {
+      "tweetId": "2029132061257416748",
+      "url": "https://x.com/ajin_david13/status/2029132061257416748?s=20",
+      "author": "Ajin David (✱,✱)",
+      "handle": "@ajin_david13",
+      "discordName": "Ajin David",
+      "discordAvatar": "https://cdn.discordapp.com/avatars/1222809524247728149/89b4851d903861d8828a3df3ddacf6c9.png?size=512",
+      "likes": 2,
+      "images": [
+        "https://pbs.twimg.com/media/HCjsgETa4AARGbL.jpg"
+      ],
+      "date": "2026-03-04",
+      "reposts": 0,
+      "views": 9,
+      "replies": 0,
+      "twitterAvatar": "https://pbs.twimg.com/profile_images/2027172877204926464/m-2ZP_o4_normal.jpg",
+      "hasVideo": false,
+      "id": 92
     },
     {
       "tweetId": "2028489828837331162",
@@ -1670,7 +1810,8 @@
       "views": 17,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1797590388162560000/GcNBfD7F_normal.jpg",
-      "id": 91
+      "hasVideo": false,
+      "id": 93
     },
     {
       "tweetId": "2028515218482200770",
@@ -1688,7 +1829,8 @@
       "views": 38,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1920372976354045952/D-o_ipAo_normal.jpg",
-      "id": 92
+      "hasVideo": false,
+      "id": 94
     },
     {
       "tweetId": "2028541813402022079",
@@ -1703,10 +1845,11 @@
       ],
       "date": "2026-03-02",
       "reposts": 0,
-      "views": 45,
+      "views": 46,
       "replies": 2,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2023788933667250176/quFIEBe0_normal.jpg",
-      "id": 93
+      "hasVideo": false,
+      "id": 95
     },
     {
       "tweetId": "2028627984165286027",
@@ -1724,7 +1867,8 @@
       "views": 13,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1975344640795570176/yHlxaW0g_normal.jpg",
-      "id": 94
+      "hasVideo": false,
+      "id": 96
     },
     {
       "tweetId": "2028599236397596817",
@@ -1743,7 +1887,8 @@
       "views": 16,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2006655917585051648/gA1-S6Ul_normal.jpg",
-      "id": 95
+      "hasVideo": false,
+      "id": 97
     },
     {
       "tweetId": "2028731468311302322",
@@ -1758,10 +1903,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 45,
+      "views": 46,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1573593204787937281/iaKOzk6L_normal.jpg",
-      "id": 96
+      "hasVideo": false,
+      "id": 98
     },
     {
       "tweetId": "2028760927131103550",
@@ -1772,14 +1918,16 @@
       "discordAvatar": "https://cdn.discordapp.com/avatars/1244794672878981180/48d44e60c823394ca14ff48705538ad2.png?size=512",
       "likes": 1,
       "images": [
-        "https://pbs.twimg.com/media/HCebSpkWAAAqBr0.jpg"
+        "https://pbs.twimg.com/media/HCebSpkWAAAqBr0.jpg",
+        "https://pbs.twimg.com/ext_tw_video_thumb/2028760902011670528/pu/img/MJ7e9YLctD-ziTWT.jpg"
       ],
       "date": "2026-03-03",
       "reposts": 0,
       "views": 42,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2023962023210704896/aQirXroT_normal.jpg",
-      "id": 97
+      "hasVideo": true,
+      "id": 99
     },
     {
       "tweetId": "2028797121185333585",
@@ -1797,7 +1945,8 @@
       "views": 33,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2006541756708347904/qN5fHiAg_normal.jpg",
-      "id": 98
+      "hasVideo": false,
+      "id": 100
     },
     {
       "tweetId": "2028810596443898273",
@@ -1815,7 +1964,8 @@
       "views": 11,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1872398996603342848/uudQEhRV_normal.jpg",
-      "id": 99
+      "hasVideo": false,
+      "id": 101
     },
     {
       "tweetId": "2028754330480976036",
@@ -1833,7 +1983,8 @@
       "views": 60,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2021325757507907584/WMxzWIZC_normal.jpg",
-      "id": 100
+      "hasVideo": false,
+      "id": 102
     },
     {
       "tweetId": "2028928875506413591",
@@ -1848,10 +1999,11 @@
       ],
       "date": "2026-03-03",
       "reposts": 0,
-      "views": 26,
+      "views": 28,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2006655917585051648/gA1-S6Ul_normal.jpg",
-      "id": 101
+      "hasVideo": false,
+      "id": 103
     },
     {
       "tweetId": "2028993044125786173",
@@ -1868,29 +2020,11 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 25,
+      "views": 27,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2022113324163641347/9jbyRMqc_normal.jpg",
-      "id": 102
-    },
-    {
-      "tweetId": "2029032589345087524",
-      "url": "https://x.com/i/status/2029032589345087524",
-      "author": "prudhvi",
-      "handle": "@Prudhvi0030",
-      "discordName": "Prudhvi",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1304834434721255547/5fb70f1365f7d5805171f89a5fa15349.png?size=512",
-      "likes": 1,
-      "images": [
-        "https://pbs.twimg.com/media/HCiSSnAawAMBLED.jpg",
-        "https://pbs.twimg.com/media/HCiSUslawAQtdgs.jpg"
-      ],
-      "date": "2026-03-04",
-      "reposts": 0,
-      "views": 11,
-      "replies": 0,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/1937688289097748480/ML3xfwrq_normal.jpg",
-      "id": 103
+      "hasVideo": false,
+      "id": 104
     },
     {
       "tweetId": "2029105073029300279",
@@ -1905,27 +2039,10 @@
       ],
       "date": "2026-03-04",
       "reposts": 0,
-      "views": 20,
+      "views": 25,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2022113324163641347/9jbyRMqc_normal.jpg",
-      "id": 104
-    },
-    {
-      "tweetId": "2029132061257416748",
-      "url": "https://x.com/ajin_david13/status/2029132061257416748?s=20",
-      "author": "Ajin David (✱,✱)",
-      "handle": "@ajin_david13",
-      "discordName": "Ajin David",
-      "discordAvatar": "https://cdn.discordapp.com/avatars/1222809524247728149/89b4851d903861d8828a3df3ddacf6c9.png?size=512",
-      "likes": 1,
-      "images": [
-        "https://pbs.twimg.com/media/HCjsgETa4AARGbL.jpg"
-      ],
-      "date": "2026-03-04",
-      "reposts": 0,
-      "views": 8,
-      "replies": 0,
-      "twitterAvatar": "https://pbs.twimg.com/profile_images/2027172877204926464/m-2ZP_o4_normal.jpg",
+      "hasVideo": false,
       "id": 105
     },
     {
@@ -1944,6 +2061,7 @@
       "views": 3,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2026871659051839488/py42L7qS_normal.jpg",
+      "hasVideo": false,
       "id": 106
     },
     {
@@ -1962,6 +2080,7 @@
       "views": 16,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1781382405313433600/m2vJbUBj_normal.jpg",
+      "hasVideo": false,
       "id": 107
     },
     {
@@ -1980,6 +2099,7 @@
       "views": 4,
       "replies": 4,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2019611204101238786/tq05Z3VZ_normal.jpg",
+      "hasVideo": false,
       "id": 108
     },
     {
@@ -1998,6 +2118,7 @@
       "views": 9,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1890070568982151168/aHDIN4_K_normal.jpg",
+      "hasVideo": false,
       "id": 109
     },
     {
@@ -2016,6 +2137,7 @@
       "views": 14,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1890959578994741248/c1_2sJ4F_normal.jpg",
+      "hasVideo": false,
       "id": 110
     },
     {
@@ -2034,6 +2156,7 @@
       "views": 18,
       "replies": 1,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1989550149648199681/v_bOu1nH_normal.jpg",
+      "hasVideo": false,
       "id": 111
     },
     {
@@ -2052,6 +2175,7 @@
       "views": 23,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/2017786209725255682/hjkIAWOv_normal.jpg",
+      "hasVideo": false,
       "id": 112
     },
     {
@@ -2070,6 +2194,7 @@
       "views": 18,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1934948867059138560/ayM7tT7d_normal.jpg",
+      "hasVideo": false,
       "id": 113
     },
     {
@@ -2088,6 +2213,7 @@
       "views": 5,
       "replies": 0,
       "twitterAvatar": "https://pbs.twimg.com/profile_images/1933204369681309696/xRtILsJO_normal.jpg",
+      "hasVideo": false,
       "id": 114
     }
   ]

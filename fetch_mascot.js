@@ -171,16 +171,26 @@ async function enrichEntries(entries) {
                 // Full image set from tweet media
                 // extended_entities.media contains all photos/videos
                 const media = (t.extended_entities || t.entities || {}).media || [];
+
                 const photos = media
                     .filter(m => m.type === 'photo')
                     .map(m => m.media_url_https || m.media_url)
                     .filter(Boolean);
 
-                // Deduplicate by URL
-                const uniquePhotos = [...new Set(photos)];
+                // For video/gif — use thumbnail as preview image
+                const videoThumbs = media
+                    .filter(m => m.type === 'video' || m.type === 'animated_gif')
+                    .map(m => m.media_url_https || m.media_url)
+                    .filter(Boolean);
+
+                const allMedia = [...photos, ...videoThumbs];
+                const uniquePhotos = [...new Set(allMedia)];
+
                 if (uniquePhotos.length > 0) {
                     entry.images = uniquePhotos;
                 }
+                // Mark entries that contain video (for UI play icon)
+                entry.hasVideo = videoThumbs.length > 0;
                 // else: keep Discord preview images as fallback
 
                 // Date from tweet if available

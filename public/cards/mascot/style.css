@@ -333,6 +333,22 @@ body {
 }
 .card:hover .view-ov { opacity: 1; }
 
+/* Video play badge */
+.video-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 3;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+
 /* Card footer */
 .card-foot {
   padding: 13px 16px;
