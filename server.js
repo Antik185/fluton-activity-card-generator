@@ -134,12 +134,13 @@ app.get('/api/user/:username', (req, res) => {
                 db.get('SELECT COUNT(*) as actualXPosts FROM x_posts WHERE user_id = ?', [user.id], (err, xPostRow) => {
                     const actualXPosts = (xPostRow && xPostRow.actualXPosts) ? xPostRow.actualXPosts : (user.x_posts || 0);
 
-                    // Get discord_messages from time DB (authoritative — same source as leaderboard)
-                    dbTime.get(
-                        'SELECT SUM(discord_messages) as dc FROM user_daily_activity WHERE user_id = ?',
-                        [user.id],
-                        (err2, dcRow) => {
-                        const discordMessages = (dcRow && dcRow.dc) ? dcRow.dc : user.discord_messages;
+                    const lbEntry = lbByUsername[(user.username || '').toLowerCase()] || null;
+
+                    // discord_messages: use leaderboard JSON value (same source as leaderboard page),
+                    // falls back to database.sqlite for users outside top 500
+                    const discordMessages = (lbEntry && lbEntry.discordMessages)
+                        ? lbEntry.discordMessages
+                        : (user.discord_messages || 0);
 
                     // Parse roles JSON
                     let stringRoles = [];
@@ -149,8 +150,6 @@ app.get('/api/user/:username', (req, res) => {
                             stringRoles = parsedRoles.map(r => r.name).filter(n => n !== '@everyone');
                         }
                     } catch (e) { }
-
-                    const lbEntry = lbByUsername[(user.username || '').toLowerCase()] || null;
 
                     res.json({
                         user: {
@@ -183,7 +182,6 @@ app.get('/api/user/:username', (req, res) => {
                             discordMessages: lbEntry.discordMessages || 0
                         } : null
                     });
-                    }); // end dbTime.get
                 }); // end db.get x_posts
             }
         });
