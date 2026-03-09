@@ -165,16 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         userNickname.textContent = user.nickname || user.username;
         userUsername.textContent = user.username;
-        const rankDisplay = stats.rank === '*' ? '*' : '#' + stats.rank;
+        // Use allTime.rank (from leaderboard JSON) for accuracy — falls back to stats.rank for users outside top 500
+        const trueRank = stats.rank === '*' ? '*' : (data.allTime ? data.allTime.rank : stats.rank);
+        const rankDisplay = trueRank === '*' ? '*' : '#' + trueRank;
         rankBadge.innerHTML = rankDisplay + '<br>' + stats.percentile;
 
         // Apply tier class for card-tiers.css colours & animations
         const cardElement = document.getElementById('activityCard');
-        const topRatio = stats.rank === '*' ? 999 : (stats.rank / stats.totalUsers) * 100;
+        const topRatio = trueRank === '*' ? 999 : (trueRank / stats.totalUsers) * 100;
         // Strip old tier classes
         cardElement.classList.remove('card-top-50', 'card-top-10', 'card-top-1', 'card-top-01');
 
-        if (topRatio <= 0.1 || stats.rank <= 10) {
+        if (topRatio <= 0.1 || trueRank <= 10) {
             cardElement.classList.add('card-top-01');
         } else if (topRatio <= 1) {
             cardElement.classList.add('card-top-1');
