@@ -134,6 +134,13 @@ app.get('/api/user/:username', (req, res) => {
                 db.get('SELECT COUNT(*) as actualXPosts FROM x_posts WHERE user_id = ?', [user.id], (err, xPostRow) => {
                     const actualXPosts = (xPostRow && xPostRow.actualXPosts) ? xPostRow.actualXPosts : (user.x_posts || 0);
 
+                    // Get discord_messages from time DB (authoritative — same source as leaderboard)
+                    dbTime.get(
+                        'SELECT SUM(discord_messages) as dc FROM user_daily_activity WHERE user_id = ?',
+                        [user.id],
+                        (err2, dcRow) => {
+                        const discordMessages = (dcRow && dcRow.dc) ? dcRow.dc : user.discord_messages;
+
                     // Parse roles JSON
                     let stringRoles = [];
                     try {
@@ -151,7 +158,7 @@ app.get('/api/user/:username', (req, res) => {
                             username: user.username,
                             nickname: user.nickname,
                             avatar_url: user.avatar_url,
-                            discord_messages: user.discord_messages,
+                            discord_messages: discordMessages,
                             x_posts: actualXPosts,
                             x_likes: user.x_likes || 0,
                             x_reposts: user.x_reposts || 0,
@@ -176,7 +183,8 @@ app.get('/api/user/:username', (req, res) => {
                             discordMessages: lbEntry.discordMessages || 0
                         } : null
                     });
-                });
+                    }); // end dbTime.get
+                }); // end db.get x_posts
             }
         });
     });
