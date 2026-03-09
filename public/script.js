@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (xComments) xComments.innerHTML = '0';
         xViews.innerHTML = '0';
         totalPoints.innerHTML = '0';
-
         // Reset UI
         errorMsg.classList.add('hidden');
         cardContainer.classList.add('hidden');

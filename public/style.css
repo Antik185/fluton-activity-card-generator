@@ -416,6 +416,11 @@ button:hover {
     background: #e2e8f0;
 }
 
+.role-fluton-apex::before {
+    background: linear-gradient(135deg, #60a5fa, #1d4ed8);
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.6);
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

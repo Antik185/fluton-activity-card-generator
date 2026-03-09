@@ -163,7 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
             finalLabel = fmtDateRange(start, finalEnd);
         } else if (startOrPeriod === 'month') {
             start = dailyMeta.monthStart;
-            finalEnd = dailyMeta.maxDate;
+            // End = last day of the monthStart's month (never bleed into next month)
+            const [my, mm] = dailyMeta.monthStart.split('-').map(Number);
+            const lastDay = new Date(Date.UTC(my, mm, 0)).getUTCDate();
+            finalEnd = `${my}-${String(mm).padStart(2,'0')}-${String(lastDay).padStart(2,'0')}`;
             finalLabel = getMonthNameShort(start);
         } else if (startOrPeriod === 'all') {
             start = '2020-01-01'; // dummy far past
@@ -487,15 +490,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (snapIdx === lastIdx) {
             targetUser = fullLeaderboardData.find(u => u.username === username);
-            end = dailyMeta.maxDate;
             if (currentPeriod === 'week') {
                 start = dailyMeta.weekStart;
+                end = dailyMeta.maxDate;
                 label = fmtDateRange(start, end);
             } else if (currentPeriod === 'month') {
                 start = dailyMeta.monthStart;
+                // End = last day of monthStart's month, not maxDate (which bleeds into next month)
+                const [my, mm] = dailyMeta.monthStart.split('-').map(Number);
+                const lastDay = new Date(Date.UTC(my, mm, 0)).getUTCDate();
+                end = `${my}-${String(mm).padStart(2,'0')}-${String(lastDay).padStart(2,'0')}`;
                 label = getMonthNameShort(start);
             } else {
                 start = '2020-01-01';
+                end = dailyMeta.maxDate;
                 label = 'all time';
             }
         } else {
@@ -772,14 +780,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!compareMode || currentSnapshots.length === 0) return;
         tableData.forEach((user, i) => {
             const uid = user.pageIdx !== undefined ? user.pageIdx : i; // Use stable index
+            const hasHistXScore = currentSnapshots.some(s => {
+                const u = s.leaderboard.find(uu => uu.username === user.username);
+                return u && (u.xScore || 0) > 0;
+            });
             if (currentPlatform === 'all' && currentPeriod !== 'all') {
                 makeBars(`bc-tot-${uid}`, getBarValues(user.username, 'totalPoints', user.totalPoints), '#FFD700', 'rgba(255,215,0,0.18)', user.username, 'totalPoints');
                 makeBars(`bc-dc-${uid}`, getBarValues(user.username, 'discordMessages', user.discordMessages), '#a855f7', 'rgba(168,85,247,0.18)', user.username, 'discordMessages');
-                if (user.xScore > 0) makeBars(`bc-x-${uid}`, getBarValues(user.username, 'xScore', user.xScore), '#06b6d4', 'rgba(6,182,212,0.18)', user.username, 'xScore');
+                if (user.xScore > 0 || hasHistXScore) makeBars(`bc-x-${uid}`, getBarValues(user.username, 'xScore', user.xScore), '#06b6d4', 'rgba(6,182,212,0.18)', user.username, 'xScore');
             } else if (currentPlatform === 'discord' && currentPeriod !== 'all') {
                 makeBars(`bc-dc-${uid}`, getBarValues(user.username, 'discordMessages', user.discordMessages), '#818cf8', '#2d3060', user.username, 'discordMessages');
             } else if (currentPlatform === 'x' && currentPeriod !== 'all') {
-                if (user.xScore > 0) makeBars(`bc-x-${uid}`, getBarValues(user.username, 'xScore', user.xScore), '#06b6d4', '#064e5a', user.username, 'xScore');
+                if (user.xScore > 0 || hasHistXScore) makeBars(`bc-x-${uid}`, getBarValues(user.username, 'xScore', user.xScore), '#06b6d4', '#064e5a', user.username, 'xScore');
             }
         });
     }
@@ -825,12 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<div class="detail-panel">
             ${card('Total Score', '#FFD700', user.totalPoints, prevTotal, `bc-tot-${uid}`)}
             ${card('Discord', '#a855f7', user.discordMessages, prevDc, `bc-dc-${uid}`)}
-            ${user.xScore > 0
-                ? card('X Score', '#06b6d4', user.xScore, prevX, `bc-x-${uid}`)
-                : `<div class="chart-card">
-                    <div class="chart-title">X Score</div>
-                    <div class="chart-values"><div class="chart-this" style="color:#06b6d4">—</div></div>
-                   </div>`}
+            ${card('X Score', '#06b6d4', user.xScore, prevX, `bc-x-${uid}`)}
         </div>`;
     }
 
@@ -894,7 +901,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevLbl = period === 'week' ? 'last wk' : 'last mo';
         const delta = prevX !== null ? user.xScore - prevX : null;
         const dc = delta !== null ? deltaClass(delta) : '';
-        const showBars = period !== 'all' && currentSnapshots.length > 0 && user.xScore > 0;
+        const hasHistX = currentSnapshots.some(s => {
+            const u = s.leaderboard.find(uu => uu.username === user.username);
+            return u && (u.xScore || 0) > 0;
+        });
+        const showBars = period !== 'all' && currentSnapshots.length > 0 && (user.xScore > 0 || hasHistX);
         const barsLbl = currentSnapshots.length + 'w ago';
 
         const xPosts = user.xPosts || 0;

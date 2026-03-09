@@ -2,6 +2,38 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
+
+// Build all-time rank lookup from leaderboard_all.json at startup
+const lbAllPath = path.join(__dirname, 'public', 'data', 'leaderboard_all.json');
+let lbByUsername = {};
+try {
+    const lbAllData = JSON.parse(fs.readFileSync(lbAllPath, 'utf8'));
+    const entries = (lbAllData.leaderboard || []).filter(u => !u.isOwner);
+
+    entries.forEach(u => {
+        lbByUsername[u.username.toLowerCase()] = {
+            rank: u.rank,
+            xScore: u.xScore,
+            totalPoints: u.totalPoints,
+            discordMessages: u.discordMessages
+        };
+    });
+
+    const sortedByX = [...entries].sort((a, b) => b.xScore - a.xScore);
+    sortedByX.forEach((u, i) => {
+        if (lbByUsername[u.username.toLowerCase()])
+            lbByUsername[u.username.toLowerCase()].rankX = i + 1;
+    });
+
+    const sortedByDc = [...entries].sort((a, b) => b.discordMessages - a.discordMessages);
+    sortedByDc.forEach((u, i) => {
+        if (lbByUsername[u.username.toLowerCase()])
+            lbByUsername[u.username.toLowerCase()].rankDc = i + 1;
+    });
+} catch (e) {
+    console.warn('Could not load leaderboard_all.json for rank lookup:', e.message);
+}
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -49,7 +81,6 @@ app.get('/api/user/:username', (req, res) => {
         }
 
         // Load owners
-        const fs = require('fs');
         let owners = [];
         try {
             const ownerData = fs.readFileSync(path.join(__dirname, 'owner.json'), 'utf8');
@@ -112,6 +143,8 @@ app.get('/api/user/:username', (req, res) => {
                         }
                     } catch (e) { }
 
+                    const lbEntry = lbByUsername[(user.username || '').toLowerCase()] || null;
+
                     res.json({
                         user: {
                             id: user.id,
@@ -133,7 +166,15 @@ app.get('/api/user/:username', (req, res) => {
                             totalUsers,
                             percentile: percentileStr,
                             activeOnly: activeOnly
-                        }
+                        },
+                        allTime: lbEntry ? {
+                            rank: lbEntry.rank,
+                            rankDc: lbEntry.rankDc || null,
+                            rankX: lbEntry.rankX || null,
+                            xScore: lbEntry.xScore || 0,
+                            totalPoints: lbEntry.totalPoints || 0,
+                            discordMessages: lbEntry.discordMessages || 0
+                        } : null
                     });
                 });
             }
