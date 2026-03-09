@@ -197,12 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Roles Priorities
         const rolePriority = {
-            'admin': 1,
-            'team': 2,
-            'moderator': 3,
-            'regional mod': 4,
-            'server booster': 5,
-            'encrypted': 6,
+            'encrypted': 1,
+            'admin': 2,
+            'team': 3,
+            'moderator': 4,
+            'regional mod': 5,
+            'server booster': 6,
             'early': 7
         };
         const getRoleWeight = (role) => rolePriority[role.toLowerCase()] || 99;
