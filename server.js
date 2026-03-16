@@ -4,36 +4,45 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
 
-// Build all-time rank lookup from leaderboard_all.json at startup
+// Build all-time rank lookup from leaderboard_all.json
+// Reloads automatically when the file changes (checked every 60s)
 const lbAllPath = path.join(__dirname, 'public', 'data', 'leaderboard_all.json');
 let lbByUsername = {};
-try {
-    const lbAllData = JSON.parse(fs.readFileSync(lbAllPath, 'utf8'));
-    const entries = (lbAllData.leaderboard || []).filter(u => !u.isOwner);
+let lbAllMtime = 0;
 
-    entries.forEach(u => {
-        lbByUsername[u.username.toLowerCase()] = {
-            rank: u.rank,
-            xScore: u.xScore,
-            totalPoints: u.totalPoints,
-            discordMessages: u.discordMessages
-        };
-    });
-
-    const sortedByX = [...entries].sort((a, b) => b.xScore - a.xScore);
-    sortedByX.forEach((u, i) => {
-        if (lbByUsername[u.username.toLowerCase()])
-            lbByUsername[u.username.toLowerCase()].rankX = i + 1;
-    });
-
-    const sortedByDc = [...entries].sort((a, b) => b.discordMessages - a.discordMessages);
-    sortedByDc.forEach((u, i) => {
-        if (lbByUsername[u.username.toLowerCase()])
-            lbByUsername[u.username.toLowerCase()].rankDc = i + 1;
-    });
-} catch (e) {
-    console.warn('Could not load leaderboard_all.json for rank lookup:', e.message);
+function buildLbByUsername() {
+    try {
+        const stat = fs.statSync(lbAllPath);
+        if (stat.mtimeMs === lbAllMtime) return; // no change
+        const lbAllData = JSON.parse(fs.readFileSync(lbAllPath, 'utf8'));
+        const entries = (lbAllData.leaderboard || []).filter(u => !u.isOwner);
+        const map = {};
+        entries.forEach(u => {
+            map[u.username.toLowerCase()] = {
+                rank: u.rank,
+                xScore: u.xScore,
+                totalPoints: u.totalPoints,
+                discordMessages: u.discordMessages
+            };
+        });
+        const sortedByX = [...entries].sort((a, b) => b.xScore - a.xScore);
+        sortedByX.forEach((u, i) => {
+            if (map[u.username.toLowerCase()]) map[u.username.toLowerCase()].rankX = i + 1;
+        });
+        const sortedByDc = [...entries].sort((a, b) => b.discordMessages - a.discordMessages);
+        sortedByDc.forEach((u, i) => {
+            if (map[u.username.toLowerCase()]) map[u.username.toLowerCase()].rankDc = i + 1;
+        });
+        lbByUsername = map;
+        lbAllMtime = stat.mtimeMs;
+        console.log('leaderboard_all.json reloaded:', entries.length, 'entries');
+    } catch (e) {
+        console.warn('Could not load leaderboard_all.json for rank lookup:', e.message);
+    }
 }
+
+buildLbByUsername();
+setInterval(buildLbByUsername, 60000); // re-check every 60 seconds
 
 const app = express();
 const port = process.env.PORT || 3000;
