@@ -676,21 +676,48 @@ body {
   box-shadow: 0 12px 32px rgba(0,0,0,0.4);
 }
 
-/* 1st place slightly taller */
+/* 1st place — winner highlight */
 .wm-card.p1 {
-  border-color: rgba(255,215,0,0.35);
-  box-shadow: 0 0 24px rgba(255,215,0,0.1);
-  transform: scale(1.04);
+  border-color: rgba(255,215,0,0.55);
+  box-shadow: 0 0 0 1px rgba(255,215,0,0.2), 0 0 40px rgba(255,215,0,0.22), 0 8px 32px rgba(0,0,0,0.5);
+  transform: scale(1.10);
+  background: rgba(255,215,0,0.04);
+  z-index: 2;
 }
-.wm-card.p1:hover { transform: scale(1.04) translateY(-4px); }
-.wm-card.p2 { border-color: rgba(192,192,192,0.25); }
-.wm-card.p3 { border-color: rgba(205,127,50,0.25); }
+.wm-card.p1:hover { transform: scale(1.10) translateY(-5px); }
+.wm-card.p2 { border-color: rgba(192,192,192,0.3); }
+.wm-card.p3 { border-color: rgba(205,127,50,0.3); }
+
+/* Image wrapper (holds crown + image) */
+.wm-img-wrap {
+  position: relative;
+}
+
+.wm-crown {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  line-height: 1;
+  z-index: 3;
+  filter: drop-shadow(0 2px 6px rgba(255,215,0,0.6));
+  animation: crown-bob 2.4s ease-in-out infinite;
+}
+@keyframes crown-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-4px); }
+}
 
 .wm-img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
+}
+.wm-card.p1 .wm-name {
+  color: #FFD700;
+  font-size: 0.88rem;
 }
 
 .wm-foot {

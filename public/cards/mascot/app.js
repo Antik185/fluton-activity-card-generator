@@ -95,9 +95,13 @@ function showWinnerModal() {
     const imgHtml = img
       ? `<img class="wm-img" src="${img}" alt="mascot" loading="eager">`
       : `<div class="wm-img" style="background:#1a1b2e;display:flex;align-items:center;justify-content:center;font-size:2rem">🎨</div>`;
+    const crownHtml = i === 0 ? `<div class="wm-crown">👑</div>` : '';
     return `
       <a class="wm-card ${posClass[i]}" href="${w.url}" target="_blank" rel="noopener">
-        ${imgHtml}
+        <div class="wm-img-wrap">
+          ${crownHtml}
+          ${imgHtml}
+        </div>
         <div class="wm-foot">
           <div class="wm-medal">${medals[i]}</div>
           <div class="wm-name">${w.author || w.handle}</div>
