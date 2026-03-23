@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fluton — Mascot Contest</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#07080d;--surface:#0e0f1a;--gold:#FFD700;--accent:#a855f7;--border:rgba(255,255,255,0.07);}
+body{background:var(--bg);font-family:'Courier New',monospace;color:#fff;min-height:100vh;}
+.bg-fixed{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 80% at 50% 20%,black,transparent);}
+.bg-orb1{position:absolute;width:700px;height:700px;border-radius:50%;filter:blur(160px);background:rgba(168,85,247,0.07);left:-100px;top:-100px;}
+.bg-orb2{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(140px);background:rgba(255,200,0,0.05);right:-100px;top:200px;}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 60px;}
+.hdr{padding:40px 0 36px;text-align:center;}
+.hdr-tag{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:10px;}
+.hdr-title{font-family:Impact,'Arial Narrow',sans-serif;font-size:52px;letter-spacing:8px;text-transform:uppercase;background:linear-gradient(135deg,var(--gold) 0%,#fff 50%,var(--accent) 100%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s linear infinite;margin-bottom:8px;line-height:1;}
+.hdr-sub{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.25);margin-bottom:24px;}
+.hdr-meta{display:inline-flex;align-items:center;gap:20px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:10px 20px;}
+.hdr-stat{font-size:11px;color:rgba(255,255,255,0.3);}
+.hdr-stat b{color:#fff;font-weight:700;margin-right:4px;}
+.hdr-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.15);}
+.sort-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.sort-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);}
+.sort-pills{display:flex;gap:8px;}
+.pill{font-size:10px;letter-spacing:1px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.35);cursor:pointer;transition:all 0.2s;}
+.pill.active{background:rgba(168,85,247,0.15);border-color:rgba(168,85,247,0.3);color:#a855f7;}
+.pill:hover:not(.active){color:rgba(255,255,255,0.6);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;cursor:pointer;position:relative;animation:fadeInUp 0.5s ease both;}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.1s}.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.2s}.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,0.3);box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+.rank-badge{position:absolute;top:12px;left:12px;z-index:5;font-family:Impact,'Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;padding:4px 10px;border-radius:7px;}
+.rk1{background:rgba(255,200,0,0.2);color:var(--gold);border:1px solid rgba(255,200,0,0.35);}
+.rk2{background:rgba(192,192,192,0.15);color:#ccc;border:1px solid rgba(192,192,192,0.25);}
+.rk3{background:rgba(205,127,50,0.15);color:#cd7f32;border:1px solid rgba(205,127,50,0.25);}
+.rkn{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.08);}
+.img-area{position:relative;background:#111;overflow:hidden;}
+.img-single{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform 0.4s;}
+.card:hover .img-single{transform:scale(1.04);}
+.img-multi{display:grid;aspect-ratio:1;gap:2px;}
+.c2{grid-template-columns:1fr 1fr;}
+.c3{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;}
+.c3 .img-thumb:first-child{grid-row:span 2;}
+.c4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;}
+.img-thumb{overflow:hidden;}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;}
+.card:hover .img-thumb img{transform:scale(1.06);}
+.img-count{position:absolute;bottom:10px;right:10px;z-index:5;background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:3px 8px;font-size:10px;color:rgba(255,255,255,0.6);}
+.view-ov{position:absolute;inset:0;z-index:4;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.25s;font-size:28px;}
+.card:hover .view-ov{opacity:1;}
+.card-foot{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);}
+.author{display:flex;align-items:center;gap:10px;}
+.ava{width:32px;height:32px;border-radius:50%;background:#1a1030;border:1px solid rgba(168,85,247,0.25);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.aname{font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);}
+.ahandle{font-size:10px;color:rgba(255,255,255,0.3);}
+.likes{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);}
+.heart{font-size:15px;transition:transform 0.2s;}
+.card:hover .heart{transform:scale(1.2);}
+.lk1{color:var(--gold);}.lk2{color:#ccc;}.lk3{color:#cd7f32;}
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s;padding:20px;}
+.lb.open{opacity:1;pointer-events:all;}
+.lb-inner{max-width:800px;width:100%;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);}
+.lb-imgs{position:relative;background:#000;max-height:70vh;overflow:hidden;}
+.lb-main{width:100%;max-height:70vh;object-fit:contain;display:block;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 12px;pointer-events:none;}
+.lb-btn{pointer-events:all;cursor:pointer;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;}
+.lb-btn:hover{background:rgba(168,85,247,0.3);}
+.lb-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;}
+.lb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.25);transition:all 0.2s;}
+.lb-dot.on{background:#fff;width:18px;border-radius:3px;}
+.lb-foot{background:var(--surface);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+.lb-author{display:flex;align-items:center;gap:10px;}
+.lb-ava{width:38px;height:38px;border-radius:50%;background:#1a1030;border:1px solid rgba(168,85,247,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.lb-name{font-size:14px;font-weight:700;}
+.lb-handle{font-size:10px;color:rgba(255,255,255,0.3);}
+.lb-right{display:flex;align-items:center;gap:12px;}
+.lb-likes{font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.6);}
+.lb-x{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:6px 13px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);text-decoration:none;transition:all 0.2s;}
+.lb-x:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.lb-close{position:fixed;top:20px;right:24px;z-index:210;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.5);transition:all 0.2s;}
+.lb-close:hover{background:rgba(239,68,68,0.2);color:#ef4444;}
+.updated{text-align:center;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.12);margin-top:40px;}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="bg-fixed">
+  <div class="bg-grid"></div>
+  <div class="bg-orb1"></div>
+  <div class="bg-orb2"></div>
+</div>
+
+<div class="lb" id="lb">
+  <div class="lb-close" onclick="closeLb()">✕</div>
+  <div class="lb-inner">
+    <div class="lb-imgs">
+      <img class="lb-main" id="lbImg" src="" alt="">
+      <div class="lb-nav" id="lbNav">
+        <div class="lb-btn" onclick="lbPrev()">←</div>
+        <div class="lb-btn" onclick="lbNext()">→</div>
+      </div>
+      <div class="lb-dots" id="lbDots"></div>
+    </div>
+    <div class="lb-foot">
+      <div class="lb-author">
+        <div class="lb-ava" id="lbAva"></div>
+        <div>
+          <div class="lb-name" id="lbName"></div>
+          <div class="lb-handle" id="lbHandle"></div>
+        </div>
+      </div>
+      <div class="lb-right">
+        <div class="lb-likes">❤️ <span id="lbLikes"></span></div>
+        <a class="lb-x" id="lbLink" href="#" target="_blank">𝕏 View tweet</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hdr">
+    <div class="hdr-tag">// fluton · activity tracker</div>
+    <div class="hdr-title">Mascot Contest</div>
+    <div class="hdr-sub">vote with your likes on X · best design wins</div>
+    <div class="hdr-meta">
+      <div class="hdr-stat"><b id="tot">6</b>entries</div>
+      <div class="hdr-dot"></div>
+      <div class="hdr-stat">updated <b>daily</b></div>
+      <div class="hdr-dot"></div>
+      <div class="hdr-stat">ends <b>Dec 31</b></div>
+    </div>
+  </div>
+  <div class="sort-bar">
+    <div class="sort-lbl">Sort by</div>
+    <div class="sort-pills">
+      <div class="pill active" onclick="sortBy('likes',this)">♥ Most liked</div>
+      <div class="pill" onclick="sortBy('new',this)">↑ Newest</div>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="updated">Last updated: today at 12:00 UTC</div>
+</div>
+
+<script>
+const data=[
+  {id:1,author:'Faisal A. Khanday',handle:'@faisufaisal2020',ava:'🧑',likes:847,images:['c2.png','cf.png'],url:'https://x.com'},
+  {id:2,author:'Dan',handle:'@dan078340',ava:'🐵',likes:612,images:['c1.png'],url:'https://x.com'},
+  {id:3,author:'Saini',handle:'@saini5751',ava:'🎨',likes:534,images:['c4.png'],url:'https://x.com'},
+  {id:4,author:'Konopy | Fluton',handle:'@konopqgg',ava:'🎭',likes:391,images:['c8.png'],url:'https://x.com'},
+  {id:5,author:'Vladyslav',handle:'@vladislavbulldozer',ava:'🤖',likes:284,images:['c3.png'],url:'https://x.com'},
+  {id:6,author:'Antik',handle:'@antik185',ava:'🎮',likes:227,images:['c5.png','c6.png'],url:'https://x.com'},
+  {id:7,author:'VILLAIN | Fluton',handle:'@nightvillain_.',ava:'😈',likes:176,images:['c9.png'],url:'https://x.com'},
+  {id:8,author:'Kizo',handle:'@dek0kk',ava:'🌟',likes:93,images:['c10.png','c7.png'],url:'https://x.com'},
+];
+
+let sort='likes',lbE=null,lbI=0;
+
+function sorted(){return sort==='likes'?[...data].sort((a,b)=>b.likes-a.likes):[...data].reverse();}
+
+function rkCls(r){return r===1?'rk1':r===2?'rk2':r===3?'rk3':'rkn';}
+function rkLbl(r){return r===1?'🥇 #1':r===2?'🥈 #2':r===3?'🥉 #3':'#'+r;}
+function lkCls(r){return'likes'+(r===1?' lk1':r===2?' lk2':r===3?' lk3':'');}
+
+function imgArea(e){
+  const n=e.images.length;
+  if(n===1)return`<div class="img-area"><img class="img-single" src="${e.images[0]}" loading="lazy"><div class="view-ov">🔍</div></div>`;
+  const cls=['','','c2','c3','c4'][Math.min(n,4)];
+  const th=e.images.slice(0,4).map(s=>`<div class="img-thumb"><img src="${s}" loading="lazy"></div>`).join('');
+  return`<div class="img-area"><div class="img-multi ${cls}">${th}</div><div class="img-count">📷 ${n}</div><div class="view-ov">🔍</div></div>`;
+}
+
+function render(){
+  const s=sorted();
+  document.getElementById('tot').textContent=s.length;
+  document.getElementById('grid').innerHTML=s.map((e,i)=>{
+    const r=i+1;
+    return`<div class="card" onclick="openLb(${e.id})">
+      <div class="rank-badge ${rkCls(r)}">${rkLbl(r)}</div>
+      ${imgArea(e)}
+      <div class="card-foot">
+        <div class="author">
+          <div class="ava">${e.ava}</div>
+          <div><div class="aname">${e.author}</div><div class="ahandle">${e.handle}</div></div>
+        </div>
+        <div class="${lkCls(r)}"><span class="heart">❤️</span>${e.likes.toLocaleString()}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function sortBy(t,el){sort=t;document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');render();}
+
+function openLb(id){lbE=data.find(e=>e.id===id);lbI=0;updLb();document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+function lbNext(){if(!lbE)return;lbI=(lbI+1)%lbE.images.length;updLb();}
+function lbPrev(){if(!lbE)return;lbI=(lbI-1+lbE.images.length)%lbE.images.length;updLb();}
+
+function updLb(){
+  if(!lbE)return;
+  document.getElementById('lbImg').src=lbE.images[lbI];
+  document.getElementById('lbAva').textContent=lbE.ava;
+  document.getElementById('lbName').textContent=lbE.author;
+  document.getElementById('lbHandle').textContent=lbE.handle;
+  document.getElementById('lbLikes').textContent=lbE.likes.toLocaleString();
+  document.getElementById('lbLink').href=lbE.url;
+  const multi=lbE.images.length>1;
+  document.getElementById('lbNav').style.display=multi?'flex':'none';
+  document.getElementById('lbDots').innerHTML=multi?lbE.images.map((_,i)=>`<div class="lb-dot ${i===lbI?'on':''}"></div>`).join(''):'';
+}
+
+document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight')lbNext();
+  if(e.key==='ArrowLeft')lbPrev();
+});
+
+render();
+</script>
+</body>
+</html>

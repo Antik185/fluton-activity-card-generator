@@ -17,7 +17,7 @@ async function run() {
 
             const maxDate = meta.maxDate;
             const weekStart = addDays(maxDate, -6);
-            const monthStart = '2026-02-01';
+            const monthStart = maxDate.substring(0, 7) + '-01';
 
             const output = {
                 meta: {

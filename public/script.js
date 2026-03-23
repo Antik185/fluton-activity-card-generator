@@ -26,14 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') fetchUserData();
     });
 
-    const timeframeSelect = document.getElementById('timeframeSelect');
-    if (timeframeSelect) {
-        timeframeSelect.addEventListener('change', () => {
+    // Period selector buttons
+    document.querySelectorAll('.period-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             if (!cardContainer.classList.contains('hidden')) {
                 fetchUserData();
             }
         });
+    });
+
+    function getActivePeriod() {
+        return document.querySelector('.period-btn.active')?.dataset.period || 'all';
     }
+
+    function buildPeriodLabel(period, startDate, endDate) {
+        if (period === 'all') return 'All Time';
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        if (period === 'week' && startDate && endDate) {
+            const s = new Date(startDate + 'T00:00:00Z');
+            const e = new Date(endDate + 'T00:00:00Z');
+            return months[s.getUTCMonth()] + ' ' + s.getUTCDate() + '–' + e.getUTCDate();
+        }
+        if (period === 'month' && startDate) {
+            const s = new Date(startDate + 'T00:00:00Z');
+            return months[s.getUTCMonth()] + ' ' + s.getUTCFullYear();
+        }
+        return period === 'week' ? 'Week' : 'Month';
+    }
+
 
     downloadBtn.addEventListener('click', downloadCard);
 
@@ -136,12 +158,49 @@ document.addEventListener('DOMContentLoaded', () => {
             // Artificial delay for smooth loading UX when requests are too fast locally
             await new Promise(r => setTimeout(r, 600));
 
-            const period = timeframeSelect ? timeframeSelect.value : 'all';
-            const response = await fetch('/api/user/' + encodeURIComponent(username) + '?period=' + period);
+            const activePeriod = getActivePeriod();
+            const response = await fetch('/api/user/' + encodeURIComponent(username));
             const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(data.error || 'User not found');
+            }
+
+            // For week/month: overlay period-specific stats from static leaderboard JSON
+            if (activePeriod !== 'all') {
+                const lbRes = await fetch('/data/leaderboard_' + activePeriod + '.json?t=' + Date.now());
+                const lbData = await lbRes.json();
+                const lbUser = lbData.leaderboard.find(u => u.username.toLowerCase() === data.user.username.toLowerCase());
+
+                if (lbUser) {
+                    data.user.discord_messages = lbUser.discordMessages;
+                    data.user.x_posts        = lbUser.xPosts;
+                    data.user.x_likes        = lbUser.xLikes;
+                    data.user.x_reposts      = lbUser.xReposts;
+                    data.user.x_replies      = lbUser.xReplies;
+                    data.user.x_views        = lbUser.xViews;
+                    data.user.total_points   = lbUser.totalPoints;
+                    data.stats.rank          = lbUser.rank;
+                    data.stats.totalUsers    = lbData.stats.participants;
+                    const pct = (lbUser.rank / lbData.stats.participants) * 100;
+                    if (pct <= 0.1)      data.stats.percentile = 'Top 0.1%';
+                    else if (pct <= 1)   data.stats.percentile = 'Top 1%';
+                    else if (pct <= 5)   data.stats.percentile = 'Top 5%';
+                    else if (pct <= 10)  data.stats.percentile = 'Top 10%';
+                    else                 data.stats.percentile = 'Top ' + Math.ceil(pct) + '%';
+                    data.allTime = null; // use period rank for card display
+                } else {
+                    // No activity this period
+                    data.user.discord_messages = 0;
+                    data.user.x_posts = 0; data.user.x_likes = 0;
+                    data.user.x_reposts = 0; data.user.x_replies = 0; data.user.x_views = 0;
+                    data.user.total_points = 0;
+                    data.stats.rank = '—'; data.stats.percentile = 'No activity';
+                    data.allTime = null;
+                }
+                data.periodLabel = buildPeriodLabel(activePeriod, lbData.startDate, lbData.endDate);
+            } else {
+                data.periodLabel = 'All Time';
             }
 
             populateCard(data);
@@ -154,6 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateCard(data) {
         const { user, stats } = data;
+
+        // Period label (top-right corner of card)
+        const periodLabelEl = document.getElementById('cardPeriodLabel');
+        if (periodLabelEl) periodLabelEl.textContent = data.periodLabel || 'All Time';
 
         // Set Images & Text
         userAvatar.src = user.avatar_url || 'https://cdn.discordapp.com/embed/avatars/0.png';

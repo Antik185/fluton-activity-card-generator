@@ -127,6 +127,57 @@ button:hover {
     display: none !important;
 }
 
+/* ── Period selector ── */
+.period-selector {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0.75rem auto 0;
+}
+
+.period-btn {
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.period-btn:hover {
+    background: rgba(123, 63, 228, 0.2);
+    border-color: rgba(123, 63, 228, 0.5);
+    color: rgba(255, 255, 255, 0.85);
+    transform: none;
+    box-shadow: none;
+}
+
+.period-btn.active {
+    background: linear-gradient(135deg, rgba(123, 63, 228, 0.6), rgba(94, 40, 181, 0.6));
+    border-color: rgba(123, 63, 228, 0.8);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(123, 63, 228, 0.35);
+    transform: none;
+}
+
+/* ── Card period label ── */
+.card-period-label {
+    position: absolute;
+    top: 0.85rem;
+    right: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
 /* ── Filter toggle ── */
 .filter-toggle {
     display: flex;

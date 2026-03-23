@@ -34,6 +34,12 @@
                 <button id="generateBtn"><i class="fas fa-magic"></i> Generate</button>
             </div>
 
+            <div class="period-selector">
+                <button class="period-btn active" data-period="all">All Time</button>
+                <button class="period-btn" data-period="month">Month</button>
+                <button class="period-btn" data-period="week">Week</button>
+            </div>
+
             <div class="carousel-wrapper" id="carouselWrapper">
                 <div class="carousel" id="carouselContainer">
                     <!-- Carousel items injected by JS -->
@@ -59,6 +65,8 @@
                     <div class="top-accent"></div>
                     <!-- Glass effect overlay -->
                     <div class="glass-overlay"></div>
+
+                    <div class="card-period-label" id="cardPeriodLabel"></div>
 
                     <div class="card-header">
                         <div class="avatar-container">
@@ -134,7 +142,7 @@
                             class="fab fa-x-twitter"></i> Share on X</button>
                 </div>
 
-                <div class="last-updated">Last updated: 15.03.2026</div>
+                <div class="last-updated">Last updated: 22.03.2026</div>
             </div>
         </main>
     </div>

@@ -129,6 +129,8 @@ function processLeaderboard(period, query, params, startDate, endDate) {
 
             const output = {
                 period,
+                startDate: startDate || null,
+                endDate: endDate || null,
                 stats: {
                     participants: totalActive,
                     totalDcMessages: totalDc,
@@ -154,10 +156,10 @@ async function run() {
         dbTime.get(maxDateQuery, async (err, row) => {
             if (err) throw err;
 
-            // Actual latest date in the system (including March)
+            // Actual latest date in the system
             const realMaxDate = row.maxDate || new Date().toISOString().split('T')[0];
-            // Pinned date for Month and All Time (excluding March data)
-            const historicalMaxDate = '2026-02-28';
+            // Month anchor = current month up to latest data
+            const historicalMaxDate = realMaxDate;
 
             console.log("Real Max Date (for Week):", realMaxDate);
             console.log("Historical Anchor (for Month/All):", historicalMaxDate);
@@ -191,9 +193,9 @@ async function run() {
                 // All time - Real-time global stats (including March)
                 await processLeaderboard('all', baseQuery.replace('$WHERE_CLAUSE', ""), [], null, realMaxDate);
 
-                // Month - Strictly February 2026 (pinned as requested)
-                const febStart = '2026-02-01';
-                await processLeaderboard('month', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [febStart, historicalMaxDate], febStart, historicalMaxDate);
+                // Month - Current month (March 2026)
+                const monthStart = realMaxDate.substring(0, 7) + '-01';
+                await processLeaderboard('month', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [monthStart, historicalMaxDate], monthStart, historicalMaxDate);
 
                 // Week - Up to March (real max date)
                 const weekStart = addDays(realMaxDate, -6);
