@@ -22,7 +22,12 @@ function buildLbByUsername() {
                 rank: u.rank,
                 xScore: u.xScore,
                 totalPoints: u.totalPoints,
-                discordMessages: u.discordMessages
+                discordMessages: u.discordMessages,
+                xPosts: u.xPosts || 0,
+                xLikes: u.xLikes || 0,
+                xReposts: u.xReposts || 0,
+                xViews: u.xViews || 0,
+                xReplies: u.xReplies || 0
             };
         });
         const sortedByX = [...entries].sort((a, b) => b.xScore - a.xScore);
@@ -139,17 +144,17 @@ app.get('/api/user/:username', (req, res) => {
             });
 
             function handleResponse(displayRank, percentileStr) {
-                // Count actual X posts from the x_posts table
-                db.get('SELECT COUNT(*) as actualXPosts FROM x_posts WHERE user_id = ?', [user.id], (err, xPostRow) => {
-                    const actualXPosts = (xPostRow && xPostRow.actualXPosts) ? xPostRow.actualXPosts : (user.x_posts || 0);
-
                     const lbEntry = lbByUsername[(user.username || '').toLowerCase()] || null;
 
-                    // discord_messages: use leaderboard JSON value (same source as leaderboard page),
-                    // falls back to database.sqlite for users outside top 500
-                    const discordMessages = (lbEntry && lbEntry.discordMessages)
-                        ? lbEntry.discordMessages
-                        : (user.discord_messages || 0);
+                    // Prefer leaderboard JSON values (always in sync with displayed leaderboard)
+                    // Falls back to database.sqlite for users not in top 500
+                    const discordMessages = lbEntry ? lbEntry.discordMessages : (user.discord_messages || 0);
+                    const xPosts    = lbEntry ? lbEntry.xPosts    : (user.x_posts    || 0);
+                    const xLikes    = lbEntry ? lbEntry.xLikes    : (user.x_likes    || 0);
+                    const xReposts  = lbEntry ? lbEntry.xReposts  : (user.x_reposts  || 0);
+                    const xViews    = lbEntry ? lbEntry.xViews    : (user.x_views    || 0);
+                    const xReplies  = lbEntry ? lbEntry.xReplies  : (user.x_replies  || 0);
+                    const totalPts  = lbEntry ? lbEntry.totalPoints : (user.total_points || 0);
 
                     // Parse roles JSON
                     let stringRoles = [];
@@ -167,12 +172,12 @@ app.get('/api/user/:username', (req, res) => {
                             nickname: user.nickname,
                             avatar_url: user.avatar_url,
                             discord_messages: discordMessages,
-                            x_posts: actualXPosts,
-                            x_likes: user.x_likes || 0,
-                            x_reposts: user.x_reposts || 0,
-                            x_views: user.x_views || 0,
-                            x_replies: user.x_replies || 0,
-                            total_points: user.total_points,
+                            x_posts: xPosts,
+                            x_likes: xLikes,
+                            x_reposts: xReposts,
+                            x_views: xViews,
+                            x_replies: xReplies,
+                            total_points: totalPts,
                             roles: stringRoles,
                             isOwner: isOwner
                         },
@@ -191,7 +196,6 @@ app.get('/api/user/:username', (req, res) => {
                             discordMessages: lbEntry.discordMessages || 0
                         } : null
                     });
-                }); // end db.get x_posts
             }
         });
     });
