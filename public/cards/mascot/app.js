@@ -37,6 +37,13 @@ const SAMPLE_ENTRIES = [
   },
 ];
 
+/* ── Winners (pinned top-3, in order) ───────────────────────── */
+const WINNER_TWEET_IDS = [
+  '2029191101647655413',   // 1st place
+  '2030035232460562831',   // 2nd place
+  '2028774235943100736',   // 3rd place
+];
+
 /* ── State ─────────────────────────────────────────────────── */
 let ENTRIES     = [];
 let currentSort = 'likes';
@@ -65,6 +72,49 @@ async function loadData() {
     ENTRIES = SAMPLE_ENTRIES;
   }
   render();
+  showWinnerModal();
+}
+
+/* ── Winner modal ───────────────────────────────────────────── */
+function showWinnerModal() {
+  const winners = WINNER_TWEET_IDS.map(tid =>
+    ENTRIES.find(e => (e.tweetId === tid) || (e.url || '').includes(tid))
+  ).filter(Boolean);
+
+  if (!winners.length) return;
+
+  const medals = ['🥇', '🥈', '🥉'];
+  const posClass = ['p1', 'p2', 'p3'];
+  // Reorder for visual podium: 2nd - 1st - 3rd
+  const order = [1, 0, 2];
+
+  const cards = order.map(i => {
+    const w = winners[i];
+    if (!w) return '';
+    const img = w.images && w.images[0] ? w.images[0] : '';
+    const imgHtml = img
+      ? `<img class="wm-img" src="${img}" alt="mascot" loading="eager">`
+      : `<div class="wm-img" style="background:#1a1b2e;display:flex;align-items:center;justify-content:center;font-size:2rem">🎨</div>`;
+    return `
+      <a class="wm-card ${posClass[i]}" href="${w.url}" target="_blank" rel="noopener">
+        ${imgHtml}
+        <div class="wm-foot">
+          <div class="wm-medal">${medals[i]}</div>
+          <div class="wm-name">${w.author || w.handle}</div>
+          <div class="wm-handle">${w.handle}</div>
+          <div class="wm-likes">❤️ ${(w.likes || 0).toLocaleString()}</div>
+        </div>
+      </a>`;
+  }).join('');
+
+  document.getElementById('wmPodium').innerHTML = cards;
+  document.getElementById('wm').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWinnerModal() {
+  document.getElementById('wm').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 /* ── Helpers ───────────────────────────────────────────────── */
@@ -80,9 +130,19 @@ function getFiltered() {
 
 function getSorted() {
   const base = getFiltered();
+
   if (currentSort === 'likes') {
-    return [...base].sort((a, b) => b.likes - a.likes);
+    // Pin winners at top (in order 1st/2nd/3rd), then rest by likes
+    const winnerEntries = WINNER_TWEET_IDS.map(tid =>
+      base.find(e => (e.tweetId === tid) || (e.url || '').includes(tid))
+    ).filter(Boolean);
+    const winnerIds = new Set(winnerEntries.map(e => e.id));
+    const rest = [...base]
+      .filter(e => !winnerIds.has(e.id))
+      .sort((a, b) => b.likes - a.likes);
+    return [...winnerEntries, ...rest];
   }
+
   // Sort by tweetId desc — Twitter snowflakes are time-ordered, higher = newer
   return [...base].sort((a, b) => {
     const idA = BigInt(a.tweetId || '0');
@@ -278,8 +338,15 @@ document.getElementById('lb').addEventListener('click', function (e) {
   if (e.target === this) closeLightbox();
 });
 
+document.getElementById('wm').addEventListener('click', function (e) {
+  if (e.target === this) closeWinnerModal();
+});
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'Escape') {
+    if (document.getElementById('wm').classList.contains('open')) closeWinnerModal();
+    else closeLightbox();
+  }
   if (e.key === 'ArrowRight') lbNext();
   if (e.key === 'ArrowLeft')  lbPrev();
 });
