@@ -18,7 +18,8 @@ const dbTimePath = path.join(__dirname, 'database_time.sqlite');
 
 const banlist     = JSON.parse(fs.readFileSync('banlist.json', 'utf8'));
 const bannedUsers = new Set(banlist.users);
-const bannedPosts = new Set(banlist.posts.map(p => p.split('?')[0]));
+const bannedPosts    = new Set(banlist.posts.map(p => p.split('?')[0]));
+const bannedAccounts = new Set((banlist.banned_accounts || []).map(a => a.toLowerCase()));
 
 // Last timestamps from json/09.03 - 15.03/
 // pakistani.json maps to Pakistani.json threshold, portugues.json to Portuguese.json threshold
@@ -42,6 +43,8 @@ const lastTimestamps = {
 
 // Skip mascot-competition.json — handled separately
 const SKIP_FILES = new Set(['mascot-competition.json']);
+// Only extract X links from content channels (not general, gm, regional, etc.)
+const CONTENT_FILES = new Set(['content.json', 'share-content.json', 'mascot-competition.json']);
 
 const db     = new sqlite3.Database(dbPath);
 const dbTime = new sqlite3.Database(dbTimePath);
@@ -126,11 +129,13 @@ function processNextFile() {
                 total_points     = total_points + 1
         `, [author.id, author.name, author.nickname, author.avatarUrl, roles, hasRoles]);
 
-        // 2. Extract X links
+        // 2. Extract X links — only from content/share-content/mascot-competition channels
+        if (!CONTENT_FILES.has(file)) return;
         const xLinks = extractXLinks(msg.content);
         for (const link of xLinks) {
             const cleanLink = link.split('?')[0];
-            if (!bannedPosts.has(cleanLink)) {
+            const urlAccount = (cleanLink.match(/x\.com\/([^/]+)\/status/) || [])[1] || '';
+            if (!bannedPosts.has(cleanLink) && !bannedAccounts.has(urlAccount.toLowerCase())) {
                 db.run(
                     `INSERT OR IGNORE INTO x_posts (url, user_id, timestamp) VALUES (?, ?, ?)`,
                     [cleanLink, author.id, msg.timestamp],

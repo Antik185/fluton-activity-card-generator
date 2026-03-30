@@ -1,7 +1,11 @@
 const axios = require('axios');
-const db = require('./db');
+const fs    = require('fs');
+const db    = require('./db');
 
 const API_KEY = '4948|CQ4cozl2G0GCVVLZhRhfXsv9DMHzjPHnL4aE7mK9d7093fab';
+
+const banlist        = JSON.parse(fs.readFileSync('banlist.json', 'utf8'));
+const bannedAccounts = new Set((banlist.banned_accounts || []).map(a => a.toLowerCase()));
 const API_URL = 'https://api.socialdata.tools/twitter/tweets-by-ids';
 
 function initDbColumns() {
@@ -13,6 +17,7 @@ function initDbColumns() {
             db.run("ALTER TABLE x_posts ADD COLUMN reposts INTEGER DEFAULT 0", () => { });
             db.run("ALTER TABLE x_posts ADD COLUMN views INTEGER DEFAULT 0", () => { });
             db.run("ALTER TABLE x_posts ADD COLUMN replies INTEGER DEFAULT 0", () => { });
+            db.run("ALTER TABLE x_posts ADD COLUMN author_handle TEXT DEFAULT NULL", () => { });
 
             db.run("ALTER TABLE users ADD COLUMN x_likes INTEGER DEFAULT 0", () => { });
             db.run("ALTER TABLE users ADD COLUMN x_reposts INTEGER DEFAULT 0", () => { });
@@ -87,25 +92,34 @@ async function start() {
                         db.serialize(() => {
                             db.run("BEGIN TRANSACTION");
                             const updateStmt = db.prepare(`
-                                UPDATE x_posts 
-                                SET likes = ?, reposts = ?, views = ?, replies = ?
+                                UPDATE x_posts
+                                SET likes = ?, reposts = ?, views = ?, replies = ?, author_handle = ?
                                 WHERE url = ?
                             `);
 
                             const fetchedData = {};
                             for (const t of response.data.tweets) {
+                                const authorHandle = (t.user && t.user.screen_name || '').toLowerCase();
+                                if (bannedAccounts.has(authorHandle)) {
+                                    // Decrement sharer's counter first, then delete
+                                    db.run('UPDATE users SET x_posts = MAX(0, x_posts - 1) WHERE id = (SELECT user_id FROM x_posts WHERE url LIKE ? LIMIT 1)', ['%/status/' + t.id_str]);
+                                    db.run('DELETE FROM x_posts WHERE url LIKE ?', ['%/status/' + t.id_str]);
+                                    console.log(`  Removed banned account post: @${t.user.screen_name} / ${t.id_str}`);
+                                    continue;
+                                }
                                 fetchedData[t.id_str] = {
                                     likes: t.favorite_count || 0,
                                     reposts: (t.retweet_count || 0) + (t.quote_count || 0),
                                     views: t.views_count || 0,
-                                    replies: t.reply_count || 0
+                                    replies: t.reply_count || 0,
+                                    author_handle: (t.user && t.user.screen_name) || null
                                 };
                             }
 
                             for (const post of chunk) {
                                 const t = fetchedData[post.id];
                                 if (t) {
-                                    updateStmt.run(t.likes, t.reposts, t.views, t.replies, post.url);
+                                    updateStmt.run(t.likes, t.reposts, t.views, t.replies, t.author_handle, post.url);
                                     processed++;
                                 } else {
                                     // Missing tweets get a baseline zero so they aren't totally lost
@@ -131,6 +145,29 @@ async function start() {
         }
 
         console.log(`Finished API fetching: ${processed} successful updates, failed ${errors}.`);
+
+        // Remove any posts from banned accounts (catches x.com/i/status/ URLs too)
+        if (bannedAccounts.size > 0) {
+            const placeholders = [...bannedAccounts].map(() => '?').join(',');
+            db.all(
+                `SELECT url, user_id FROM x_posts WHERE LOWER(author_handle) IN (${placeholders})`,
+                [...bannedAccounts],
+                (_err, rows) => {
+                    if (rows && rows.length) {
+                        console.log(`Removing ${rows.length} posts from banned accounts...`);
+                        db.serialize(() => {
+                            db.run('BEGIN TRANSACTION');
+                            rows.forEach(r => {
+                                db.run('UPDATE users SET x_posts = MAX(0, x_posts-1) WHERE id=?', [r.user_id]);
+                                db.run('DELETE FROM x_posts WHERE url=?', [r.url]);
+                            });
+                            db.run('COMMIT');
+                        });
+                    }
+                }
+            );
+        }
+
         console.log("Recalculating global user points...");
 
         db.serialize(() => {
