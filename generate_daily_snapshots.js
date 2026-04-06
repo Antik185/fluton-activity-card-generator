@@ -17,7 +17,17 @@ async function run() {
 
             const maxDate = meta.maxDate;
             const weekStart = addDays(maxDate, -6);
-            const monthStart = maxDate.substring(0, 7) + '-01';
+
+            // If ≤ 7 days into the new month, use previous month (mirrors generate_leaderboard.js logic)
+            const [mYear, mMonth, mDay] = maxDate.split('-').map(Number);
+            let monthStart;
+            if (mDay <= 7) {
+                const prevMonth = mMonth === 1 ? 12 : mMonth - 1;
+                const prevYear  = mMonth === 1 ? mYear - 1 : mYear;
+                monthStart = `${prevYear}-${String(prevMonth).padStart(2, '0')}-01`;
+            } else {
+                monthStart = maxDate.substring(0, 7) + '-01';
+            }
 
             const output = {
                 meta: {

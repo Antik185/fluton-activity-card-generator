@@ -193,9 +193,21 @@ async function run() {
                 // All time - Real-time global stats (including March)
                 await processLeaderboard('all', baseQuery.replace('$WHERE_CLAUSE', ""), [], null, realMaxDate);
 
-                // Month - Current month (March 2026)
-                const monthStart = realMaxDate.substring(0, 7) + '-01';
-                await processLeaderboard('month', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [monthStart, historicalMaxDate], monthStart, historicalMaxDate);
+                // Month - use current month unless < 7 days have passed, then use previous month
+                const [mYear, mMonth, mDay] = realMaxDate.split('-').map(Number);
+                let monthStart, monthEnd;
+                if (mDay <= 7) {
+                    // Too early in new month — show previous month fully
+                    const prevMonth = mMonth === 1 ? 12 : mMonth - 1;
+                    const prevYear  = mMonth === 1 ? mYear - 1 : mYear;
+                    const lastDay   = new Date(Date.UTC(prevYear, prevMonth, 0)).getUTCDate();
+                    monthStart = `${prevYear}-${String(prevMonth).padStart(2, '0')}-01`;
+                    monthEnd   = `${prevYear}-${String(prevMonth).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
+                } else {
+                    monthStart = realMaxDate.substring(0, 7) + '-01';
+                    monthEnd   = realMaxDate;
+                }
+                await processLeaderboard('month', baseQuery.replace('$WHERE_CLAUSE', "WHERE uda.date >= ? AND uda.date <= ?"), [monthStart, monthEnd], monthStart, monthEnd);
 
                 // Week - Up to March (real max date)
                 const weekStart = addDays(realMaxDate, -6);
