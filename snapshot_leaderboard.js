@@ -166,10 +166,10 @@ async function takeMonthlySnapshot(anchorDate) {
 }
 
 // Pinned anchor for monthly snapshots — matches historicalMaxDate in generate_leaderboard.js.
-// Monthly leaderboard (leaderboard_month.json) currently covers February 2026, so monthly
-// snapshots should only contain months BEFORE February (i.e. January and older).
+// Monthly leaderboard (leaderboard_month.json) currently covers April 2026, so monthly
+// snapshots should only contain months BEFORE April (i.e. March and older).
 // Update this when leaderboard_month advances to the next month.
-const MONTH_ANCHOR = '2026-03-31';
+const MONTH_ANCHOR = '2026-04-12';
 
 async function run() {
     dbTime.run("ATTACH DATABASE 'database.sqlite' AS mainDb", async (err) => {
