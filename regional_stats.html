@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regional Channel Activity</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0d14; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; padding: 2rem; }
+  h1 { text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; color: #f1f5f9; }
+  .subtitle { text-align: center; color: #64748b; font-size: 0.85rem; margin-bottom: 2rem; }
+  .tabs { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
+  .tab { padding: 0.5rem 1.25rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+         background: rgba(255,255,255,0.04); color: #94a3b8; cursor: pointer; font-size: 0.85rem;
+         font-weight: 500; transition: all 0.2s; }
+  .tab:hover { background: rgba(255,255,255,0.08); color: #e2e8f0; }
+  .tab.active { background: rgba(99,102,241,0.25); border-color: rgba(99,102,241,0.5); color: #a5b4fc; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px; padding: 1.25rem; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--color); }
+  .card-rank { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; font-weight: 800;
+               color: rgba(255,255,255,0.06); font-family: monospace; }
+  .card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+  .card-flag { font-size: 2rem; }
+  .card-name { font-size: 0.9rem; color: #94a3b8; }
+  .card-label { font-size: 1rem; font-weight: 600; color: #e2e8f0; }
+  .metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
+  .metric { background: rgba(0,0,0,0.2); border-radius: 8px; padding: 0.6rem; text-align: center; }
+  .metric-val { font-size: 1.2rem; font-weight: 700; color: var(--color); }
+  .metric-lbl { font-size: 0.65rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .bar-wrap { margin-top: 0.5rem; }
+  .bar-label { font-size: 0.7rem; color: #64748b; margin-bottom: 0.3rem; }
+  .bar-bg { background: rgba(255,255,255,0.06); border-radius: 4px; height: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--color); transition: width 0.6s ease; }
+  .top-users { margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 0.75rem; }
+  .top-users-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: #475569; margin-bottom: 0.5rem; }
+  .top-user { display: flex; justify-content: space-between; align-items: center;
+              padding: 0.2rem 0; font-size: 0.78rem; color: #94a3b8; }
+  .top-user span:last-child { color: #e2e8f0; font-weight: 600; }
+  .winner-badge { display: inline-block; background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.3);
+                  color: #fbbf24; border-radius: 12px; padding: 0.15rem 0.6rem; font-size: 0.7rem; margin-left: 0.4rem; }
+  .summary-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.85rem; }
+  .summary-table th { text-align: left; padding: 0.6rem 0.75rem; color: #475569; font-size: 0.7rem;
+                      text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .summary-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .summary-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .rank-1 td:first-child { color: #fbbf24; }
+  .rank-2 td:first-child { color: #94a3b8; }
+  .rank-3 td:first-child { color: #cd7c38; }
+  .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #475569;
+                   margin: 1.5rem 0 0.75rem; }
+</style>
+</head>
+<body>
+<h1>Regional Channel Activity</h1>
+<p class="subtitle">Generated 13 Mar 2026</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="showPanel('alltime')">All Time</button>
+  <button class="tab" onclick="showPanel('month')">February 2026</button>
+  <button class="tab" onclick="showPanel('week')">Week 02–08 Mar</button>
+</div>
+
+
+<div class="panel active" id="panel-alltime">
+  <div class="cards">
+    
+    <div class="card" style="--color:#f97316">
+      <div class="card-rank">#1</div>
+      <div class="card-header">
+        <div class="card-flag">🇮🇳</div>
+        <div>
+          <div class="card-label">Indian<span class="winner-badge">🏆 #1</span></div>
+          <div class="card-name">┊🇮🇳｜indian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">82,193</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">574</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">1911</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>AMAAN</span><span>4,265 msgs</span></div>
+        <div class="top-user"><span>MOMO | LUCKY</span><span>3,678 msgs</span></div>
+        <div class="top-user"><span>RIO 24/7</span><span>3,499 msgs</span></div>
+        <div class="top-user"><span>Raju Bhai Fulton</span><span>3,297 msgs</span></div>
+        <div class="top-user"><span>sonugg</span><span>3,219 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#22c55e">
+      <div class="card-rank">#2</div>
+      <div class="card-header">
+        <div class="card-flag">🇮🇩</div>
+        <div>
+          <div class="card-label">Indonesian</div>
+          <div class="card-name">┊🇮🇩｜indonesian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">72,309</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">995</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">1682</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:88%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>spartan andi</span><span>5,924 msgs</span></div>
+        <div class="top-user"><span>KippoXBT | Fluton Maxi</span><span>5,238 msgs</span></div>
+        <div class="top-user"><span>Zarrr|Fluton rasen shuriken</span><span>4,908 msgs</span></div>
+        <div class="top-user"><span>Goat Cinta Fluton muachh 🇮🇩</span><span>4,837 msgs</span></div>
+        <div class="top-user"><span>Hj.nabapu13</span><span>3,968 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#ef4444">
+      <div class="card-rank">#3</div>
+      <div class="card-header">
+        <div class="card-flag">🇻🇳</div>
+        <div>
+          <div class="card-label">Vietnamese</div>
+          <div class="card-name">┊🇻🇳｜trò-chuyện-tiếng-việt</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">19,276</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">390</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">643</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:23%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>『 Tấn Dũng🍀 』 | Fluton</span><span>3,034 msgs</span></div>
+        <div class="top-user"><span>JTN 🍼 | FLTN</span><span>2,452 msgs</span></div>
+        <div class="top-user"><span>Par Pill</span><span>1,340 msgs</span></div>
+        <div class="top-user"><span>꧁༒☬ luci cute ☬༒꧂</span><span>966 msgs</span></div>
+        <div class="top-user"><span>𝙕𝙤𝙧𝙤</span><span>952 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#3b82f6">
+      <div class="card-rank">#4</div>
+      <div class="card-header">
+        <div class="card-flag">🇷🇺</div>
+        <div>
+          <div class="card-label">Russian</div>
+          <div class="card-name">┊🇷🇺｜русский-чат</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">9,750</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">253</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">406</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:12%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>denys.h</span><span>737 msgs</span></div>
+        <div class="top-user"><span>slonskikobrass</span><span>701 msgs</span></div>
+        <div class="top-user"><span>Nikysha</span><span>700 msgs</span></div>
+        <div class="top-user"><span>VILLAIN | Fluton ♥️</span><span>691 msgs</span></div>
+        <div class="top-user"><span>Vladyslav ⛓ 🫧</span><span>681 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#a855f7">
+      <div class="card-rank">#5</div>
+      <div class="card-header">
+        <div class="card-flag">🇳🇬</div>
+        <div>
+          <div class="card-label">Nigerian</div>
+          <div class="card-name">┊🇳🇬｜nigerian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">5,316</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">463</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">127</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:6%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Dan</span><span>651 msgs</span></div>
+        <div class="top-user"><span>KID</span><span>255 msgs</span></div>
+        <div class="top-user"><span>Juliet💜</span><span>253 msgs</span></div>
+        <div class="top-user"><span>Emmachase</span><span>234 msgs</span></div>
+        <div class="top-user"><span>Merlin 🪄 (❖,❖)</span><span>209 msgs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Summary Table — All Time</p>
+  <table class="summary-table">
+    <thead><tr><th>#</th><th>Channel</th><th>Messages</th><th>Members (role)</th><th>Avg/Day</th><th>Days with Data</th></tr></thead>
+    <tbody>
+    <tr class="rank-1">
+          <td>#1</td>
+          <td>🇮🇳 Indian</td>
+          <td>82,193</td>
+          <td>574</td>
+          <td>1911</td>
+          <td>43</td>
+        </tr><tr class="rank-2">
+          <td>#2</td>
+          <td>🇮🇩 Indonesian</td>
+          <td>72,309</td>
+          <td>995</td>
+          <td>1682</td>
+          <td>43</td>
+        </tr><tr class="rank-3">
+          <td>#3</td>
+          <td>🇻🇳 Vietnamese</td>
+          <td>19,276</td>
+          <td>390</td>
+          <td>643</td>
+          <td>30</td>
+        </tr><tr class="rank-4">
+          <td>#4</td>
+          <td>🇷🇺 Russian</td>
+          <td>9,750</td>
+          <td>253</td>
+          <td>406</td>
+          <td>24</td>
+        </tr><tr class="rank-5">
+          <td>#5</td>
+          <td>🇳🇬 Nigerian</td>
+          <td>5,316</td>
+          <td>463</td>
+          <td>127</td>
+          <td>42</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<div class="panel" id="panel-month">
+  <div class="cards">
+    
+    <div class="card" style="--color:#f97316">
+      <div class="card-rank">#1</div>
+      <div class="card-header">
+        <div class="card-flag">🇮🇳</div>
+        <div>
+          <div class="card-label">Indian<span class="winner-badge">🏆 #1</span></div>
+          <div class="card-name">┊🇮🇳｜indian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">48,617</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">574</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">1736</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Raju Bhai Fulton</span><span>2,899 msgs</span></div>
+        <div class="top-user"><span>sonugg</span><span>2,738 msgs</span></div>
+        <div class="top-user"><span>NTAECH</span><span>2,736 msgs</span></div>
+        <div class="top-user"><span>SATISH - 404 🦂</span><span>2,158 msgs</span></div>
+        <div class="top-user"><span>Kundan | Fluton</span><span>1,919 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#22c55e">
+      <div class="card-rank">#2</div>
+      <div class="card-header">
+        <div class="card-flag">🇮🇩</div>
+        <div>
+          <div class="card-label">Indonesian</div>
+          <div class="card-name">┊🇮🇩｜indonesian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">47,825</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">995</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">1708</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:98%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Goat Cinta Fluton muachh 🇮🇩</span><span>4,365 msgs</span></div>
+        <div class="top-user"><span>KippoXBT | Fluton Maxi</span><span>4,320 msgs</span></div>
+        <div class="top-user"><span>spartan andi</span><span>4,235 msgs</span></div>
+        <div class="top-user"><span>Zarrr|Fluton rasen shuriken</span><span>3,408 msgs</span></div>
+        <div class="top-user"><span>AlPina Who?</span><span>2,386 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#ef4444">
+      <div class="card-rank">#3</div>
+      <div class="card-header">
+        <div class="card-flag">🇻🇳</div>
+        <div>
+          <div class="card-label">Vietnamese</div>
+          <div class="card-name">┊🇻🇳｜trò-chuyện-tiếng-việt</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">15,174</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">390</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">690</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:31%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>『 Tấn Dũng🍀 』 | Fluton</span><span>2,524 msgs</span></div>
+        <div class="top-user"><span>JTN 🍼 | FLTN</span><span>1,703 msgs</span></div>
+        <div class="top-user"><span>Par Pill</span><span>1,326 msgs</span></div>
+        <div class="top-user"><span>𝙕𝙤𝙧𝙤</span><span>921 msgs</span></div>
+        <div class="top-user"><span>꧁༒☬ luci cute ☬༒꧂</span><span>844 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#3b82f6">
+      <div class="card-rank">#4</div>
+      <div class="card-header">
+        <div class="card-flag">🇷🇺</div>
+        <div>
+          <div class="card-label">Russian</div>
+          <div class="card-name">┊🇷🇺｜русский-чат</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">7,520</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">253</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">470</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:15%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Vladyslav ⛓ 🫧</span><span>578 msgs</span></div>
+        <div class="top-user"><span>VILLAIN | Fluton ♥️</span><span>577 msgs</span></div>
+        <div class="top-user"><span>denys.h</span><span>519 msgs</span></div>
+        <div class="top-user"><span>Nikysha</span><span>503 msgs</span></div>
+        <div class="top-user"><span>slonskikobrass</span><span>474 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#a855f7">
+      <div class="card-rank">#5</div>
+      <div class="card-header">
+        <div class="card-flag">🇳🇬</div>
+        <div>
+          <div class="card-label">Nigerian</div>
+          <div class="card-name">┊🇳🇬｜nigerian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">3,120</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">463</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">111</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:6%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Dan</span><span>561 msgs</span></div>
+        <div class="top-user"><span>KID</span><span>215 msgs</span></div>
+        <div class="top-user"><span>Juliet💜</span><span>180 msgs</span></div>
+        <div class="top-user"><span>Emmachase</span><span>171 msgs</span></div>
+        <div class="top-user"><span>Whiykheiy</span><span>148 msgs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Summary Table — February 2026</p>
+  <table class="summary-table">
+    <thead><tr><th>#</th><th>Channel</th><th>Messages</th><th>Members (role)</th><th>Avg/Day</th><th>Days with Data</th></tr></thead>
+    <tbody>
+    <tr class="rank-1">
+          <td>#1</td>
+          <td>🇮🇳 Indian</td>
+          <td>48,617</td>
+          <td>574</td>
+          <td>1736</td>
+          <td>28</td>
+        </tr><tr class="rank-2">
+          <td>#2</td>
+          <td>🇮🇩 Indonesian</td>
+          <td>47,825</td>
+          <td>995</td>
+          <td>1708</td>
+          <td>28</td>
+        </tr><tr class="rank-3">
+          <td>#3</td>
+          <td>🇻🇳 Vietnamese</td>
+          <td>15,174</td>
+          <td>390</td>
+          <td>690</td>
+          <td>22</td>
+        </tr><tr class="rank-4">
+          <td>#4</td>
+          <td>🇷🇺 Russian</td>
+          <td>7,520</td>
+          <td>253</td>
+          <td>470</td>
+          <td>16</td>
+        </tr><tr class="rank-5">
+          <td>#5</td>
+          <td>🇳🇬 Nigerian</td>
+          <td>3,120</td>
+          <td>463</td>
+          <td>111</td>
+          <td>28</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<div class="panel" id="panel-week">
+  <div class="cards">
+    
+    <div class="card" style="--color:#22c55e">
+      <div class="card-rank">#1</div>
+      <div class="card-header">
+        <div class="card-flag">🇮🇩</div>
+        <div>
+          <div class="card-label">Indonesian<span class="winner-badge">🏆 #1</span></div>
+          <div class="card-name">┊🇮🇩｜indonesian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">14,890</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">995</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">2127</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Hakii</span><span>1,817 msgs</span></div>
+        <div class="top-user"><span>Hj.nabapu13</span><span>1,521 msgs</span></div>
+        <div class="top-user"><span>spartan andi</span><span>1,212 msgs</span></div>
+        <div class="top-user"><span>Zarrr|Fluton rasen shuriken</span><span>1,119 msgs</span></div>
+        <div class="top-user"><span>AlPina Who?</span><span>879 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#f97316">
+      <div class="card-rank">#2</div>
+      <div class="card-header">
+        <div class="card-flag">🇮🇳</div>
+        <div>
+          <div class="card-label">Indian</div>
+          <div class="card-name">┊🇮🇳｜indian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">10,942</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">574</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">1563</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:73%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Surabhi</span><span>1,560 msgs</span></div>
+        <div class="top-user"><span>𝗠𝗦 𝗗𝗛𝗢𝗡𝗜</span><span>1,476 msgs</span></div>
+        <div class="top-user"><span>𝗥𝗔𝗝𝗔𝗧</span><span>937 msgs</span></div>
+        <div class="top-user"><span>𝐉𝐀𝐂𝐊 𝐒𝐏𝐀𝐑𝐑𝐎𝐖</span><span>903 msgs</span></div>
+        <div class="top-user"><span>Asuka</span><span>533 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#ef4444">
+      <div class="card-rank">#3</div>
+      <div class="card-header">
+        <div class="card-flag">🇻🇳</div>
+        <div>
+          <div class="card-label">Vietnamese</div>
+          <div class="card-name">┊🇻🇳｜trò-chuyện-tiếng-việt</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">3,682</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">390</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">526</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:25%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>JTN 🍼 | FLTN</span><span>715 msgs</span></div>
+        <div class="top-user"><span>『 Tấn Dũng🍀 』 | Fluton</span><span>397 msgs</span></div>
+        <div class="top-user"><span>KirA</span><span>383 msgs</span></div>
+        <div class="top-user"><span>LiH腐</span><span>325 msgs</span></div>
+        <div class="top-user"><span>Mr Wick</span><span>284 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#3b82f6">
+      <div class="card-rank">#4</div>
+      <div class="card-header">
+        <div class="card-flag">🇷🇺</div>
+        <div>
+          <div class="card-label">Russian</div>
+          <div class="card-name">┊🇷🇺｜русский-чат</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">2,044</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">253</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">292</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:14%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Antik</span><span>221 msgs</span></div>
+        <div class="top-user"><span>slonskikobrass</span><span>213 msgs</span></div>
+        <div class="top-user"><span>denys.h</span><span>193 msgs</span></div>
+        <div class="top-user"><span>Nikysha</span><span>185 msgs</span></div>
+        <div class="top-user"><span>Agru</span><span>147 msgs</span></div>
+      </div>
+    </div>
+    <div class="card" style="--color:#a855f7">
+      <div class="card-rank">#5</div>
+      <div class="card-header">
+        <div class="card-flag">🇳🇬</div>
+        <div>
+          <div class="card-label">Nigerian</div>
+          <div class="card-name">┊🇳🇬｜nigerian-chat</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">303</div>
+          <div class="metric-lbl">Messages</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">463</div>
+          <div class="metric-lbl">Members</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">43</div>
+          <div class="metric-lbl">Avg/Day</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label">Activity vs #1</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:2%"></div></div>
+      </div>
+      
+      <div class="top-users">
+        <div class="top-users-title">Top 5 Contributors</div>
+        
+        <div class="top-user"><span>Dan</span><span>37 msgs</span></div>
+        <div class="top-user"><span>𝟎𝐱𝐊𝐢𝐧𝐠𝐬 ||  Explorer</span><span>35 msgs</span></div>
+        <div class="top-user"><span>Hakii</span><span>32 msgs</span></div>
+        <div class="top-user"><span>Miss J🫦</span><span>26 msgs</span></div>
+        <div class="top-user"><span>Bravesmile</span><span>24 msgs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Summary Table — Week 02–08 Mar</p>
+  <table class="summary-table">
+    <thead><tr><th>#</th><th>Channel</th><th>Messages</th><th>Members (role)</th><th>Avg/Day</th><th>Days with Data</th></tr></thead>
+    <tbody>
+    <tr class="rank-1">
+          <td>#1</td>
+          <td>🇮🇩 Indonesian</td>
+          <td>14,890</td>
+          <td>995</td>
+          <td>2127</td>
+          <td>7</td>
+        </tr><tr class="rank-2">
+          <td>#2</td>
+          <td>🇮🇳 Indian</td>
+          <td>10,942</td>
+          <td>574</td>
+          <td>1563</td>
+          <td>7</td>
+        </tr><tr class="rank-3">
+          <td>#3</td>
+          <td>🇻🇳 Vietnamese</td>
+          <td>3,682</td>
+          <td>390</td>
+          <td>526</td>
+          <td>7</td>
+        </tr><tr class="rank-4">
+          <td>#4</td>
+          <td>🇷🇺 Russian</td>
+          <td>2,044</td>
+          <td>253</td>
+          <td>292</td>
+          <td>7</td>
+        </tr><tr class="rank-5">
+          <td>#5</td>
+          <td>🇳🇬 Nigerian</td>
+          <td>303</td>
+          <td>463</td>
+          <td>43</td>
+          <td>7</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function showPanel(pk) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + pk).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

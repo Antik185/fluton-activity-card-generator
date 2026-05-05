@@ -38,7 +38,7 @@ const navHTML = `
         <div class="nav-right">
             <a href="https://x.com/Virdzhi292" target="_blank" class="nav-subtitle">@Virdzhi292</a>
             <div class="nav-divider"></div>
-            <div class="nav-subtitle">Last updated: 19.04.2026</div>
+            <div class="nav-subtitle">Last updated: 03.05.2026</div>
         </div>
     </nav>
 `;
