@@ -47,16 +47,21 @@ async function start() {
     await initDbColumns();
     await sleep(500); // Give SQLite a moment strictly for safe altering
 
-    console.log("Starting X metrics fetcher for all posts using bulk API...");
+    console.log("Starting X metrics fetcher for posts from the last 30 days...");
 
-    // We'll scrape all items whose 'likes' is supposedly missing or we want to refresh all
-    db.all("SELECT url FROM x_posts", async (err, rows) => {
+    // Fetch metrics only for posts from the last 30 days to save API credits.
+    // Older posts will retain their existing metrics in the database.
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const cutoffIso = thirtyDaysAgo.toISOString();
+
+    db.all("SELECT url FROM x_posts WHERE timestamp >= ?", [cutoffIso], async (err, rows) => {
         if (err) {
             console.error("Database error", err);
             process.exit(1);
         }
 
-        console.log(`Found ${rows.length} total posts. Extracting IDs...`);
+        console.log(`Found ${rows.length} recent posts. Extracting IDs...`);
 
         const validPosts = [];
         for (const row of rows) {
