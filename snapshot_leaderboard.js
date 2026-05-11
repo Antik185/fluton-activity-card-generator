@@ -165,22 +165,33 @@ async function takeMonthlySnapshot(anchorDate) {
     console.log(`[OK]   month: saved ${label} (${entry.leaderboard.length} users)`);
 }
 
-// Pinned anchor for monthly snapshots — matches historicalMaxDate in generate_leaderboard.js.
-// Monthly leaderboard (leaderboard_month.json) currently covers April 2026, so monthly
-// snapshots should only contain months BEFORE April (i.e. March and older).
-// Update this when leaderboard_month advances to the next month.
-const MONTH_ANCHOR = '2026-04-12';
-
 async function run() {
     dbTime.run("ATTACH DATABASE 'database.sqlite' AS mainDb", async (err) => {
         if (err) throw err;
         dbTime.get("SELECT MAX(date) as maxDate FROM user_daily_activity", async (err, row) => {
-            const anchorDate = row.maxDate || new Date().toISOString().split('T')[0];
-            console.log('Anchor Date (week):', anchorDate);
-            console.log('Anchor Date (month):', MONTH_ANCHOR);
+            const maxDate = row.maxDate || new Date().toISOString().split('T')[0];
+            console.log('Max Date (anchor):', maxDate);
             try {
-                await takeWeeklySnapshot(anchorDate);
-                await takeMonthlySnapshot(MONTH_ANCHOR);
+                await takeWeeklySnapshot(maxDate);
+
+                // Динамическое определение месяца для слепка (синхронизировано с generate_leaderboard.js)
+                const [mYear, mMonth, mDay] = maxDate.split('-').map(Number);
+                let snapshotAnchorDate;
+
+                if (mDay <= 7) {
+                    // Если прошло меньше 7 дней, лидерборд всё ещё показывает прошлый месяц.
+                    // Значит слепок нужно делать для месяца ПЕРЕД прошлым.
+                    const prevMonth = mMonth === 1 ? 12 : mMonth - 1;
+                    const prevYear  = mMonth === 1 ? mYear - 1 : mYear;
+                    snapshotAnchorDate = `${prevYear}-${String(prevMonth).padStart(2, '0')}-15`;
+                } else {
+                    // Лидерборд показывает текущий месяц, слепок делаем для прошлого.
+                    snapshotAnchorDate = maxDate;
+                }
+                
+                console.log('Anchor Date (month):', snapshotAnchorDate);
+                await takeMonthlySnapshot(snapshotAnchorDate);
+
                 console.log('\nDone.');
             } catch (e) {
                 console.error(e);
