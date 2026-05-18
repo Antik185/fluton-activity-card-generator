@@ -1,4 +1,4 @@
-// global-nav.js
+﻿// global-nav.js
 // Get current path to determine active state
 const path = window.location.pathname;
 const isGenerator = path.includes('generator.html');
@@ -27,20 +27,21 @@ const navHTML = `
                 <span>Card Generator</span>
             </a>
             <a href="${base}fight.html" class="nav-item ${isFight ? 'active' : ''}">
-                <span class="nav-item-icon">⚔️</span>
+                <span class="nav-item-icon">вљ”пёЏ</span>
                 <span>Fight</span>
             </a>
             <a href="mascot.html" class="nav-item ${isMascot ? 'active' : ''}">
-                <span class="nav-item-icon">🎨</span>
+                <span class="nav-item-icon">рџЋЁ</span>
                 <span>Mascot</span>
             </a>
         </div>
         <div class="nav-right">
             <a href="https://x.com/Virdzhi292" target="_blank" class="nav-subtitle">@Virdzhi292</a>
             <div class="nav-divider"></div>
-            <div class="nav-subtitle">Last updated: 10.05.2026</div>
+            <div class="nav-subtitle">Last updated: 17.05.2026</div>
         </div>
     </nav>
 `;
 
 document.body.insertAdjacentHTML('afterbegin', navHTML);
+
