@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs    = require('fs');
 const db    = require('./db');
+const { SocksProxyAgent } = require('socks-proxy-agent');
 
 const API_KEY = '4948|CQ4cozl2G0GCVVLZhRhfXsv9DMHzjPHnL4aE7mK9d7093fab';
 
@@ -83,13 +84,16 @@ async function start() {
             console.log(`Fetching chunk ${i + 1}/${chunks.length} (${ids.length} tweets)...`);
 
             try {
+                const agent = new SocksProxyAgent('socks5://127.0.0.1:10808');
                 const response = await axios.post(API_URL, { ids }, {
                     headers: {
                         'Authorization': `Bearer ${API_KEY}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
-                    timeout: 20000
+                    timeout: 20000,
+                    proxy: false,
+                    httpsAgent: agent
                 });
 
                 if (response.data && response.data.tweets) {
