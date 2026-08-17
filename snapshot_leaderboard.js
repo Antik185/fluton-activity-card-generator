@@ -9,7 +9,8 @@ const path = require('path');
 
 const dbTimePath = path.join(__dirname, 'database_time.sqlite');
 const outPath = path.join(__dirname, 'public', 'data');
-const MAX_SNAPSHOTS = 5;
+const MAX_WEEKLY_SNAPSHOTS = 7;
+const MAX_MONTHLY_SNAPSHOTS = 5;
 
 const dbTime = new sqlite3.Database(dbTimePath, sqlite3.OPEN_READONLY);
 
@@ -110,9 +111,9 @@ function saveSnapshots(period, snapshots) {
 async function takeWeeklySnapshot(anchorDate) {
     const snapshots = loadSnapshots('week');
 
-    // We want to ensure we have up to MAX_SNAPSHOTS history
+    // Keep every completed week from the long 22.06-16.08 import.
     // Current week is handled by leaderboard_week.json, so snapshots should contain previous weeks
-    for (let i = 1; i <= MAX_SNAPSHOTS; i++) {
+    for (let i = 1; i <= MAX_WEEKLY_SNAPSHOTS; i++) {
         const endDate = addDays(anchorDate, -(i * 7));
         const startDate = addDays(endDate, -6);
 
@@ -132,37 +133,44 @@ async function takeWeeklySnapshot(anchorDate) {
 
     // Sort snapshots by date descending
     snapshots.sort((a, b) => b.date.localeCompare(a.date));
-    if (snapshots.length > MAX_SNAPSHOTS) snapshots.splice(MAX_SNAPSHOTS);
+    if (snapshots.length > MAX_WEEKLY_SNAPSHOTS) snapshots.splice(MAX_WEEKLY_SNAPSHOTS);
     saveSnapshots('week', snapshots);
 }
 
 async function takeMonthlySnapshot(anchorDate) {
     const dt = new Date(anchorDate + 'T00:00:00Z');
-    let year = dt.getUTCFullYear();
-    let month = dt.getUTCMonth() - 1;
-    if (month < 0) { month = 11; year--; }
-
-    const startDate = `${year}-${String(month + 1).padStart(2, '0')}-01`;
-    const lastDay = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
-    const endDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
-    const label = new Date(startDate + 'T00:00:00Z')
-        .toLocaleString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-
     const snapshots = loadSnapshots('month');
-    if (snapshots.length > 0 && snapshots[0].date === endDate) {
-        console.log(`[SKIP] month: snapshot for ${label} already exists`);
-        return;
+    const anchorYear = dt.getUTCFullYear();
+    const anchorMonth = dt.getUTCMonth();
+
+    // Backfill every missing completed month. This matters after several skipped updates.
+    for (let i = 1; i <= MAX_MONTHLY_SNAPSHOTS; i++) {
+        const monthDate = new Date(Date.UTC(anchorYear, anchorMonth - i, 1));
+        const year = monthDate.getUTCFullYear();
+        const month = monthDate.getUTCMonth();
+        const startDate = `${year}-${String(month + 1).padStart(2, '0')}-01`;
+        const lastDay = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+        const endDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
+        const label = monthDate.toLocaleString('en-US', {
+            month: 'long', year: 'numeric', timeZone: 'UTC'
+        });
+
+        if (snapshots.some(s => s.date === endDate)) continue;
+
+        console.log(`[month] Backfilling: ${label} (${startDate} → ${endDate})`);
+        const rows = await queryWindow(startDate, endDate);
+        if (rows.length === 0) {
+            console.log(`[SKIP] month: no data for ${label}`);
+            continue;
+        }
+
+        snapshots.push({ date: endDate, monthLabel: label, leaderboard: computeLeaderboard(rows) });
+        console.log(`[OK]   month: saved ${label}`);
     }
 
-    console.log(`[month] Generating: ${label} (${startDate} → ${endDate})`);
-    const rows = await queryWindow(startDate, endDate);
-    if (rows.length === 0) { console.log(`[SKIP] month: no data for ${label}`); return; }
-
-    const entry = { date: endDate, monthLabel: label, leaderboard: computeLeaderboard(rows) };
-    snapshots.unshift(entry);
-    if (snapshots.length > MAX_SNAPSHOTS) snapshots.splice(MAX_SNAPSHOTS);
+    snapshots.sort((a, b) => b.date.localeCompare(a.date));
+    if (snapshots.length > MAX_MONTHLY_SNAPSHOTS) snapshots.splice(MAX_MONTHLY_SNAPSHOTS);
     saveSnapshots('month', snapshots);
-    console.log(`[OK]   month: saved ${label} (${entry.leaderboard.length} users)`);
 }
 
 async function run() {

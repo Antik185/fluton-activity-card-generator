@@ -48,13 +48,15 @@ async function start() {
     await initDbColumns();
     await sleep(500); // Give SQLite a moment strictly for safe altering
 
-    console.log("Starting X metrics fetcher for posts from the last 14 days...");
-
-    // Fetch metrics only for posts from the last 14 days to save API credits.
-    // Older posts will retain their existing metrics in the database.
+    // By default, refresh only the last 14 days to save API credits. A one-off
+    // historical import can override the start date via X_METRICS_FROM.
     const fourteenDaysAgo = new Date();
     fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
-    const cutoffIso = fourteenDaysAgo.toISOString();
+    const cutoffIso = process.env.X_METRICS_FROM
+        ? new Date(process.env.X_METRICS_FROM).toISOString()
+        : fourteenDaysAgo.toISOString();
+
+    console.log(`Starting X metrics fetcher for posts since ${cutoffIso}...`);
 
     db.all("SELECT url FROM x_posts WHERE timestamp >= ?", [cutoffIso], async (err, rows) => {
         if (err) {
@@ -74,6 +76,9 @@ async function start() {
 
         // We fetch in chunks of 50 to prevent URI too long or API limits
         const chunks = chunkArray(validPosts, 50);
+        const proxyAgent = process.env.X_SOCKS_PROXY
+            ? new SocksProxyAgent(process.env.X_SOCKS_PROXY)
+            : null;
         let processed = 0;
         let errors = 0;
 
@@ -84,7 +89,6 @@ async function start() {
             console.log(`Fetching chunk ${i + 1}/${chunks.length} (${ids.length} tweets)...`);
 
             try {
-                const agent = new SocksProxyAgent('socks5://127.0.0.1:10808');
                 const response = await axios.post(API_URL, { ids }, {
                     headers: {
                         'Authorization': `Bearer ${API_KEY}`,
@@ -93,7 +97,7 @@ async function start() {
                     },
                     timeout: 20000,
                     proxy: false,
-                    httpsAgent: agent
+                    ...(proxyAgent ? { httpsAgent: proxyAgent } : {})
                 });
 
                 if (response.data && response.data.tweets) {
