@@ -12,9 +12,10 @@ const { parser } = require('stream-json');
 const { pick } = require('stream-json/filters/Pick');
 const { streamArray } = require('stream-json/streamers/StreamArray');
 
-const SOURCE_DIR = path.join(__dirname, 'json', '17.08-06.09');
-const RANGE_START = '2026-08-17';
-const RANGE_END = '2026-09-06';
+const [sourceFolder = '17.08-06.09', rangeStart = '2026-08-17', rangeEnd = '2026-09-06'] = process.argv.slice(2);
+const SOURCE_DIR = path.join(__dirname, 'json', sourceFolder);
+const RANGE_START = rangeStart;
+const RANGE_END = rangeEnd;
 
 const banlist = JSON.parse(fs.readFileSync(path.join(__dirname, 'banlist.json'), 'utf8'));
 const bannedUsers = new Set(banlist.users || []);
