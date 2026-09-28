@@ -124,6 +124,32 @@ a.nav-subtitle:hover {
     }
 }
 
+@media (max-width: 900px) {
+    .global-nav {
+        padding: 0 12px;
+    }
+
+    .nav-brand {
+        display: none;
+    }
+
+    .nav-center {
+        position: static;
+        transform: none;
+        flex: 1;
+        justify-content: center;
+        margin-left: 12px;
+    }
+
+    .nav-right {
+        display: none;
+    }
+
+    .nav-item {
+        padding: 9px 12px;
+    }
+}
+
 @media (max-width: 650px) {
     .global-nav {
         padding: 0 12px;
