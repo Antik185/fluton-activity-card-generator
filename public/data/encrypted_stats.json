@@ -2,9 +2,10 @@
   "meta": {
     "periodStart": "2026-01-08",
     "periodEnd": "2026-09-13",
+    "currentDataEnd": "2026-10-04",
     "roleAwardedAt": "2026-09-16",
     "memberCount": 13,
-    "description": "Observed benchmark for the Encrypted role recipient cohort."
+    "description": "Benchmark for the Encrypted role recipient cohort."
   },
   "summary": {
     "discordMessages": {
@@ -104,6 +105,236 @@
       "maxMembers": [
         "direumateulll"
       ]
+    }
+  },
+  "benchmarks": {
+    "all": {
+      "label": "All Encrypted average",
+      "members": [
+        "zunzuncrypto",
+        "minhnhat80",
+        "ry0nx1",
+        "learning101997",
+        "direumateulll",
+        "ariseaura",
+        "killian_117",
+        "madara.233",
+        "welosu",
+        "nvphungvtvn7",
+        "radhasakhimansi",
+        "koushik_xyz",
+        "mazay1501"
+      ],
+      "summary": {
+        "discordMessages": {
+          "min": 1277,
+          "average": 3286.5,
+          "max": 7762,
+          "total": 42724,
+          "minMembers": [
+            "welosu"
+          ],
+          "maxMembers": [
+            "nvphungvtvn7"
+          ]
+        },
+        "xPosts": {
+          "min": 23,
+          "average": 55.7,
+          "max": 100,
+          "total": 724,
+          "minMembers": [
+            "welosu"
+          ],
+          "maxMembers": [
+            "direumateulll"
+          ]
+        },
+        "xScore": {
+          "min": 1571,
+          "average": 5257,
+          "max": 24354,
+          "total": 68341,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "direumateulll"
+          ]
+        },
+        "totalScore": {
+          "min": 3400,
+          "average": 8543.5,
+          "max": 26384,
+          "total": 111065,
+          "minMembers": [
+            "welosu"
+          ],
+          "maxMembers": [
+            "direumateulll"
+          ]
+        },
+        "xViews": {
+          "min": 2315,
+          "average": 11473.8,
+          "max": 72166,
+          "total": 149160,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "direumateulll"
+          ]
+        },
+        "xLikes": {
+          "min": 104,
+          "average": 676.8,
+          "max": 2641,
+          "total": 8798,
+          "minMembers": [
+            "killian_117"
+          ],
+          "maxMembers": [
+            "ariseaura"
+          ]
+        },
+        "xReplies": {
+          "min": 40,
+          "average": 351.5,
+          "max": 1919,
+          "total": 4569,
+          "minMembers": [
+            "nvphungvtvn7"
+          ],
+          "maxMembers": [
+            "ariseaura"
+          ]
+        },
+        "xReposts": {
+          "min": 0,
+          "average": 23.8,
+          "max": 136,
+          "total": 310,
+          "minMembers": [
+            "learning101997",
+            "koushik_xyz",
+            "welosu"
+          ],
+          "maxMembers": [
+            "direumateulll"
+          ]
+        }
+      }
+    },
+    "lastThree": {
+      "label": "Latest 3 eligible average",
+      "minDiscordMessages": 2000,
+      "members": [
+        "radhasakhimansi",
+        "koushik_xyz",
+        "mazay1501"
+      ],
+      "excluded": [
+        "welosu"
+      ],
+      "summary": {
+        "discordMessages": {
+          "min": 2223,
+          "average": 2905.7,
+          "max": 3887,
+          "total": 8717,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "radhasakhimansi"
+          ]
+        },
+        "xPosts": {
+          "min": 39,
+          "average": 42,
+          "max": 46,
+          "total": 126,
+          "minMembers": [
+            "radhasakhimansi"
+          ],
+          "maxMembers": [
+            "koushik_xyz"
+          ]
+        },
+        "xScore": {
+          "min": 1571,
+          "average": 1907.7,
+          "max": 2173,
+          "total": 5723,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "radhasakhimansi"
+          ]
+        },
+        "totalScore": {
+          "min": 3794,
+          "average": 4813.3,
+          "max": 6060,
+          "total": 14440,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "radhasakhimansi"
+          ]
+        },
+        "xViews": {
+          "min": 2315,
+          "average": 3362,
+          "max": 5172,
+          "total": 10086,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "radhasakhimansi"
+          ]
+        },
+        "xLikes": {
+          "min": 224,
+          "average": 276,
+          "max": 339,
+          "total": 828,
+          "minMembers": [
+            "radhasakhimansi"
+          ],
+          "maxMembers": [
+            "koushik_xyz"
+          ]
+        },
+        "xReplies": {
+          "min": 46,
+          "average": 72.3,
+          "max": 87,
+          "total": 217,
+          "minMembers": [
+            "mazay1501"
+          ],
+          "maxMembers": [
+            "koushik_xyz"
+          ]
+        },
+        "xReposts": {
+          "min": 0,
+          "average": 7.7,
+          "max": 22,
+          "total": 23,
+          "minMembers": [
+            "koushik_xyz"
+          ],
+          "maxMembers": [
+            "radhasakhimansi"
+          ]
+        }
+      }
     }
   },
   "members": [

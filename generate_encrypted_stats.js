@@ -4,6 +4,8 @@ const sqlite3 = require('sqlite3').verbose();
 
 const ROLE_AWARDED_AT = '2026-09-16';
 const PERIOD_END = '2026-09-13';
+const LAST_THREE_MIN_MESSAGES = 2000;
+// Award-list order is preserved for the latest-three benchmark.
 const MEMBERS = [
     'zunzuncrypto',
     'minhnhat80',
@@ -49,11 +51,24 @@ function summarize(members, key) {
     };
 }
 
+function buildSummary(members) {
+    return {
+        discordMessages: summarize(members, 'discordMessages'),
+        xPosts: summarize(members, 'xPosts'),
+        xScore: summarize(members, 'xScore'),
+        totalScore: summarize(members, 'totalScore'),
+        xViews: summarize(members, 'xViews'),
+        xLikes: summarize(members, 'xLikes'),
+        xReplies: summarize(members, 'xReplies'),
+        xReposts: summarize(members, 'xReposts')
+    };
+}
+
 function run() {
     db.run("ATTACH DATABASE 'database.sqlite' AS mainDb", err => {
         if (err) throw err;
 
-        db.get('SELECT MIN(date) AS minDate FROM user_daily_activity', (minErr, meta) => {
+        db.get('SELECT MIN(date) AS minDate, MAX(date) AS maxDate FROM user_daily_activity', (minErr, meta) => {
             if (minErr) throw minErr;
             const periodStart = meta.minDate;
             const placeholders = MEMBERS.map(() => '?').join(',');
@@ -107,24 +122,39 @@ function run() {
                 }).sort((a, b) => b.totalScore - a.totalScore);
 
                 members.forEach((member, index) => { member.rank = index + 1; });
+                const membersByUsername = new Map(members.map(member => [member.username.toLowerCase(), member]));
+                const awardOrder = MEMBERS.map(username => membersByUsername.get(username));
+                const excludedFromLastThree = awardOrder
+                    .filter(member => member.discordMessages < LAST_THREE_MIN_MESSAGES);
+                const lastThreeMembers = awardOrder
+                    .filter(member => member.discordMessages >= LAST_THREE_MIN_MESSAGES)
+                    .slice(-3);
+                const allSummary = buildSummary(members);
+                const lastThreeSummary = buildSummary(lastThreeMembers);
 
                 const output = {
                     meta: {
                         periodStart,
                         periodEnd: PERIOD_END,
+                        currentDataEnd: meta.maxDate,
                         roleAwardedAt: ROLE_AWARDED_AT,
                         memberCount: members.length,
-                        description: 'Observed benchmark for the Encrypted role recipient cohort.'
+                        description: 'Benchmark for the Encrypted role recipient cohort.'
                     },
-                    summary: {
-                        discordMessages: summarize(members, 'discordMessages'),
-                        xPosts: summarize(members, 'xPosts'),
-                        xScore: summarize(members, 'xScore'),
-                        totalScore: summarize(members, 'totalScore'),
-                        xViews: summarize(members, 'xViews'),
-                        xLikes: summarize(members, 'xLikes'),
-                        xReplies: summarize(members, 'xReplies'),
-                        xReposts: summarize(members, 'xReposts')
+                    summary: allSummary,
+                    benchmarks: {
+                        all: {
+                            label: 'All Encrypted average',
+                            members: awardOrder.map(member => member.username),
+                            summary: allSummary
+                        },
+                        lastThree: {
+                            label: 'Latest 3 eligible average',
+                            minDiscordMessages: LAST_THREE_MIN_MESSAGES,
+                            members: lastThreeMembers.map(member => member.username),
+                            excluded: excludedFromLastThree.map(member => member.username),
+                            summary: lastThreeSummary
+                        }
                     },
                     members
                 };

@@ -25,15 +25,62 @@
                 <div class="hero-mark"><i class="fas fa-shield-halved"></i></div>
                 <div>
                     <h1>Encrypted Analytics</h1>
-                    <p>Observed activity benchmark from the Sep 16 role recipient cohort.</p>
+                    <p>Explore role benchmarks and compare your current progress.</p>
                 </div>
             </div>
             <div class="hero-badges">
                 <span id="periodBadge"><i class="fas fa-calendar"></i> Loading period...</span>
                 <span id="cohortBadge"><i class="fas fa-users"></i> Loading cohort...</span>
-                <span><i class="fas fa-circle-info"></i> Historical benchmark, not a configured rule</span>
+                <span><i class="fas fa-circle-info"></i> Based on members before they received the role</span>
             </div>
         </header>
+
+        <section class="compare-panel" aria-labelledby="compareTitle">
+            <div class="compare-heading">
+                <div>
+                    <div class="panel-kicker">Personal progress</div>
+                    <h2 id="compareTitle">Compare Yourself</h2>
+                    <p>Find your Discord profile and see how close you are to an Encrypted benchmark.</p>
+                </div>
+                <div class="status-legend" aria-label="Comparison status legend">
+                    <span class="legend-good"><i></i> Reached</span>
+                    <span class="legend-close"><i></i> Close</span>
+                    <span class="legend-low"><i></i> Needs work</span>
+                </div>
+            </div>
+
+            <div class="compare-controls">
+                <label class="control-field">
+                    <span>Benchmark</span>
+                    <select id="benchmarkMode">
+                        <option value="all">All Encrypted average</option>
+                        <option value="lastThree">Latest 3 eligible average</option>
+                        <option value="member">Specific Encrypted member</option>
+                    </select>
+                </label>
+                <label class="control-field member-benchmark-field" id="memberBenchmarkField" hidden>
+                    <span>Encrypted member</span>
+                    <select id="memberBenchmark"></select>
+                </label>
+                <form class="compare-search" id="compareSearch">
+                    <label for="compareQuery">Your username or nickname</label>
+                    <div class="search-input-row">
+                        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                        <input id="compareQuery" type="search" autocomplete="off" placeholder="Enter Discord username or nickname" required>
+                        <button type="submit">Compare</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="benchmark-context" id="benchmarkContext"></div>
+            <div class="compare-message" id="compareMessage" role="status"></div>
+
+            <div class="compare-result" id="compareResult" hidden>
+                <div class="compare-user" id="compareUser"></div>
+                <div class="progress-grid" id="progressGrid"></div>
+                <div class="comparison-note" id="comparisonNote"></div>
+            </div>
+        </section>
 
         <section class="metric-grid" id="metricGrid" aria-label="Encrypted role benchmarks">
             <div class="loading-card">Loading Encrypted analytics...</div>
