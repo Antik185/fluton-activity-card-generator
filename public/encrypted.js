@@ -93,6 +93,16 @@
 
     function getBenchmark() {
         const mode = benchmarkMode.value;
+        if (mode === 'official') {
+            const official = data.benchmarks.official;
+            return {
+                kind: 'official',
+                label: official.label,
+                effectiveAsOf: official.effectiveAsOf,
+                summary: official.summary,
+                members: []
+            };
+        }
         if (mode === 'member') {
             const member = data.members.find(item => item.username === memberBenchmark.value) || data.members[0];
             return {
@@ -116,8 +126,12 @@
     }
 
     function renderPrimary(benchmark) {
-        const valueLabel = benchmark.kind === 'member' ? 'member result' : 'average';
-        metricGrid.innerHTML = primaryMetrics.map(metric => {
+        const valueLabel = benchmark.kind === 'member'
+            ? 'member result'
+            : benchmark.kind === 'official' ? 'official minimum' : 'average';
+        const metrics = primaryMetrics.filter(metric => benchmark.summary[metric.key]);
+        metricGrid.classList.toggle('official-grid', benchmark.kind === 'official');
+        metricGrid.innerHTML = metrics.map(metric => {
             const stat = benchmark.summary[metric.key];
             return `
                 <article class="benchmark-card accent-${metric.accent}">
@@ -134,6 +148,11 @@
     }
 
     function renderSupport(benchmark) {
+        supportGrid.hidden = benchmark.kind === 'official';
+        if (benchmark.kind === 'official') {
+            supportGrid.innerHTML = '';
+            return;
+        }
         const suffix = benchmark.kind === 'average' ? ' avg' : '';
         supportGrid.innerHTML = supportMetrics.map(metric => {
             const stat = benchmark.summary[metric.key];
@@ -150,7 +169,9 @@
     }
 
     function renderBenchmarkContext(benchmark) {
-        if (benchmarkMode.value === 'lastThree') {
+        if (benchmark.kind === 'official') {
+            benchmarkContext.innerHTML = `<i class="fas fa-certificate"></i> Official minimum requirements, effective ${formatDate(benchmark.effectiveAsOf)}.`;
+        } else if (benchmarkMode.value === 'lastThree') {
             const included = benchmark.members.map(username => `@${username}`).join(', ');
             const excluded = benchmark.excluded.length
                 ? ` Excluded under 2,000 messages: ${benchmark.excluded.map(username => `@${username}`).join(', ')}.`
@@ -204,7 +225,9 @@
             ${rank}
         `;
 
-        progressGrid.innerHTML = primaryMetrics.map(metric => {
+        const comparisonMetrics = primaryMetrics.filter(metric => benchmark.summary[metric.key]);
+        progressGrid.classList.toggle('official-grid', benchmark.kind === 'official');
+        progressGrid.innerHTML = comparisonMetrics.map(metric => {
             const current = Number(metrics[metric.key] || 0);
             const target = Number(benchmark.summary[metric.key].average || 0);
             const status = statusFor(current, target);
@@ -231,8 +254,11 @@
             `;
         }).join('');
 
-        comparisonNote.innerHTML = `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
-            + `The selected role benchmark uses recipient stats through <strong>${formatDate(data.meta.periodEnd)}</strong>.`;
+        comparisonNote.innerHTML = benchmark.kind === 'official'
+            ? `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
+                + `Official requirements are effective as of <strong>${formatDate(benchmark.effectiveAsOf)}</strong>.`
+            : `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
+                + `The selected role benchmark uses recipient stats through <strong>${formatDate(data.meta.periodEnd)}</strong>.`;
         compareResult.hidden = false;
         compareMessage.textContent = '';
     }

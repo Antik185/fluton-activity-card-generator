@@ -170,6 +170,15 @@ body.encrypted-page {
     margin-top: 22px;
 }
 
+.metric-grid.official-grid,
+.progress-grid.official-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.support-grid[hidden] {
+    display: none;
+}
+
 .benchmark-card,
 .support-card,
 .compare-panel,
@@ -862,6 +871,11 @@ button.member-cell:hover strong {
 
     .compare-controls,
     .progress-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-grid.official-grid,
+    .progress-grid.official-grid {
         grid-template-columns: 1fr;
     }
 

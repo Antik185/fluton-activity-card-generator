@@ -2,7 +2,7 @@
   "meta": {
     "periodStart": "2026-01-08",
     "periodEnd": "2026-09-13",
-    "currentDataEnd": "2026-10-04",
+    "currentDataEnd": "2026-10-11",
     "roleAwardedAt": "2026-09-16",
     "memberCount": 13,
     "description": "Benchmark for the Encrypted role recipient cohort."
@@ -108,6 +108,18 @@
     }
   },
   "benchmarks": {
+    "official": {
+      "label": "Official minimum",
+      "effectiveAsOf": "2026-10-12",
+      "summary": {
+        "discordMessages": {
+          "average": 2500
+        },
+        "xPosts": {
+          "average": 25
+        }
+      }
+    },
     "all": {
       "label": "All Encrypted average",
       "members": [
@@ -521,7 +533,7 @@
     {
       "username": "welosu",
       "nickname": "WeLoSu",
-      "avatarUrl": "https://cdn.discordapp.com/avatars/509451927462084633/9083fb81ae2efc893b494c45641e5230.png?size=512",
+      "avatarUrl": "https://cdn.discordapp.com/guilds/1323051038143418388/users/509451927462084633/avatars/5422c9425c710d16fce9daf57e9c87de.png?size=512",
       "discordMessages": 1277,
       "xPosts": 23,
       "xViews": 2807,

@@ -1,6 +1,7 @@
 /**
- * Imports json/28.09-04.10 after json/21.09-27.09.
+ * Imports one weekly JSON export after the previous weekly export.
  * Files are matched by Discord channel ID so channel renames do not duplicate data.
+ * Override the default folders with NEW_PERIOD and PREVIOUS_PERIOD.
  */
 
 const fs = require('fs');
@@ -11,8 +12,8 @@ const { parser } = require('stream-json');
 const { pick } = require('stream-json/filters/Pick');
 const { streamArray } = require('stream-json/streamers/StreamArray');
 
-const NEW_PERIOD = '28.09-04.10';
-const PREVIOUS_PERIOD = '21.09-27.09';
+const NEW_PERIOD = process.env.NEW_PERIOD || '28.09-04.10';
+const PREVIOUS_PERIOD = process.env.PREVIOUS_PERIOD || '21.09-27.09';
 const jsonDirNew = path.join(__dirname, 'json', NEW_PERIOD);
 const jsonDirOld = path.join(__dirname, 'json', PREVIOUS_PERIOD);
 const dbPath = path.join(__dirname, 'database.sqlite');

@@ -5,6 +5,11 @@ const sqlite3 = require('sqlite3').verbose();
 const ROLE_AWARDED_AT = '2026-09-16';
 const PERIOD_END = '2026-09-13';
 const LAST_THREE_MIN_MESSAGES = 2000;
+const OFFICIAL_REQUIREMENTS_EFFECTIVE = '2026-10-12';
+const OFFICIAL_REQUIREMENTS = {
+    discordMessages: 2500,
+    xPosts: 25
+};
 // Award-list order is preserved for the latest-three benchmark.
 const MEMBERS = [
     'zunzuncrypto',
@@ -143,6 +148,14 @@ function run() {
                     },
                     summary: allSummary,
                     benchmarks: {
+                        official: {
+                            label: 'Official minimum',
+                            effectiveAsOf: OFFICIAL_REQUIREMENTS_EFFECTIVE,
+                            summary: {
+                                discordMessages: { average: OFFICIAL_REQUIREMENTS.discordMessages },
+                                xPosts: { average: OFFICIAL_REQUIREMENTS.xPosts }
+                            }
+                        },
                         all: {
                             label: 'All Encrypted average',
                             members: awardOrder.map(member => member.username),
