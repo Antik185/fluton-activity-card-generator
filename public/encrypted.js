@@ -4,6 +4,7 @@
     const metricGrid = document.getElementById('metricGrid');
     const supportGrid = document.getElementById('supportGrid');
     const membersBody = document.getElementById('membersBody');
+    const membersPanelNote = document.getElementById('membersPanelNote');
     const periodBadge = document.getElementById('periodBadge');
     const cohortBadge = document.getElementById('cohortBadge');
     const benchmarkMode = document.getElementById('benchmarkMode');
@@ -108,20 +109,31 @@
             return {
                 kind: 'member',
                 label: `@${member.username}`,
+                periodEnd: member.benchmarkPeriodEnd,
                 summary: summaryFromMember(member),
                 members: [member.username]
             };
         }
 
-        const source = mode === 'lastThree'
-            ? data.benchmarks.lastThree
-            : data.benchmarks.all;
+        let source;
+        if (mode === 'current') {
+            source = data.benchmarks.current;
+        } else if (mode === 'previous') {
+            source = data.benchmarks.previous;
+        } else if (mode === 'lastThree') {
+            source = data.benchmarks.lastThree;
+        } else {
+            source = data.benchmarks.all;
+        }
         return {
             kind: 'average',
             label: source.label,
+            cohortMode: mode === 'current' || mode === 'previous',
+            periodEnd: source.periodEnd || null,
             summary: source.summary,
             members: source.members,
-            excluded: source.excluded || []
+            excluded: source.excluded || [],
+            usesIndividualCutoffs: Boolean(source.usesIndividualCutoffs)
         };
     }
 
@@ -178,9 +190,11 @@
                 : '';
             benchmarkContext.innerHTML = `<i class="fas fa-users"></i> Latest eligible members: ${escapeHtml(included)}.${escapeHtml(excluded)}`;
         } else if (benchmark.kind === 'member') {
-            benchmarkContext.innerHTML = `<i class="fas fa-user-shield"></i> Comparing against ${escapeHtml(benchmark.label)} before the role award.`;
+            benchmarkContext.innerHTML = `<i class="fas fa-user-shield"></i> Comparing against ${escapeHtml(benchmark.label)} through ${formatDate(benchmark.periodEnd)}, before the role award.`;
+        } else if (benchmark.cohortMode) {
+            benchmarkContext.innerHTML = `<i class="fas fa-users"></i> ${escapeHtml(benchmark.label)} across ${benchmark.members.length} recipients, measured through ${formatDate(benchmark.periodEnd)}.`;
         } else {
-            benchmarkContext.innerHTML = `<i class="fas fa-chart-simple"></i> Average across all ${data.meta.memberCount} Encrypted recipients.`;
+            benchmarkContext.innerHTML = `<i class="fas fa-chart-simple"></i> Average across all ${data.meta.memberCount} Encrypted recipients, each measured at their own pre-role cutoff.`;
         }
     }
 
@@ -254,19 +268,27 @@
             `;
         }).join('');
 
-        comparisonNote.innerHTML = benchmark.kind === 'official'
-            ? `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
-                + `Official requirements are effective as of <strong>${formatDate(benchmark.effectiveAsOf)}</strong>.`
-            : `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
-                + `The selected role benchmark uses recipient stats through <strong>${formatDate(data.meta.periodEnd)}</strong>.`;
+        if (benchmark.kind === 'official') {
+            comparisonNote.innerHTML = `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
+                + `Official requirements are effective as of <strong>${formatDate(benchmark.effectiveAsOf)}</strong>.`;
+        } else if (benchmark.kind === 'member') {
+            comparisonNote.innerHTML = `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
+                + `${escapeHtml(benchmark.label)} is measured through <strong>${formatDate(benchmark.periodEnd)}</strong>, before the role award.`;
+        } else if (benchmark.cohortMode) {
+            comparisonNote.innerHTML = `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
+                + `The selected cohort average uses recipient stats through <strong>${formatDate(benchmark.periodEnd)}</strong>.`;
+        } else {
+            comparisonNote.innerHTML = `Your stats include data through <strong>${formatDate(data.meta.currentDataEnd)}</strong>. `
+                + `The selected average uses each recipient's own pre-role cutoff.`;
+        }
         compareResult.hidden = false;
         compareMessage.textContent = '';
     }
 
     function renderMembers(members) {
-        membersBody.innerHTML = members.map(member => `
+        membersBody.innerHTML = members.map((member, index) => `
             <tr>
-                <td><span class="rank">${member.rank}</span></td>
+                <td><span class="rank">${index + 1}</span></td>
                 <td>
                     <button class="member-cell member-pick" type="button" data-member="${escapeHtml(member.username)}" title="Use @${escapeHtml(member.username)} as benchmark">
                         <span class="member-avatar">${memberAvatar(member)}</span>
@@ -288,12 +310,27 @@
         `).join('');
     }
 
+    function renderMembersForMode() {
+        const mode = benchmarkMode.value;
+        if (mode === 'current' || mode === 'previous') {
+            const cohort = data.benchmarks[mode];
+            const usernames = new Set(cohort.members);
+            renderMembers(data.members.filter(member => usernames.has(member.username)));
+            membersPanelNote.textContent = `${cohort.label}: ${cohort.members.length} recipients, ranked by pre-role combined score`;
+            return;
+        }
+
+        renderMembers(data.members);
+        membersPanelNote.textContent = `All ${data.meta.memberCount} recipients, ranked by combined score at each member's pre-role cutoff`;
+    }
+
     function renderSelectedBenchmark() {
         memberBenchmarkField.hidden = benchmarkMode.value !== 'member';
         const benchmark = getBenchmark();
         renderPrimary(benchmark);
         renderSupport(benchmark);
         renderBenchmarkContext(benchmark);
+        renderMembersForMode();
         renderComparison();
     }
 
@@ -328,11 +365,10 @@
             data = await response.json();
 
             periodBadge.innerHTML = `<i class="fas fa-calendar"></i> ${formatDate(data.meta.periodStart)} - ${formatDate(data.meta.periodEnd)}`;
-            cohortBadge.innerHTML = `<i class="fas fa-users"></i> ${data.meta.memberCount} role recipients`;
+            cohortBadge.innerHTML = `<i class="fas fa-users"></i> ${data.meta.memberCount} role recipients / ${data.meta.cohortCount} cohorts`;
             memberBenchmark.innerHTML = data.members
                 .map(member => `<option value="${escapeHtml(member.username)}">@${escapeHtml(member.username)} - ${escapeHtml(member.nickname)}</option>`)
                 .join('');
-            renderMembers(data.members);
             renderSelectedBenchmark();
         } catch (error) {
             console.error(error);

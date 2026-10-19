@@ -2,30 +2,65 @@ const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const ROLE_AWARDED_AT = '2026-09-16';
-const PERIOD_END = '2026-09-13';
 const LAST_THREE_MIN_MESSAGES = 2000;
 const OFFICIAL_REQUIREMENTS_EFFECTIVE = '2026-10-12';
 const OFFICIAL_REQUIREMENTS = {
     discordMessages: 2500,
     xPosts: 25
 };
-// Award-list order is preserved for the latest-three benchmark.
-const MEMBERS = [
-    'zunzuncrypto',
-    'minhnhat80',
-    'ry0nx1',
-    'learning101997',
-    'direumateulll',
-    'ariseaura',
-    'killian_117',
-    'madara.233',
-    'welosu',
-    'nvphungvtvn7',
-    'radhasakhimansi',
-    'koushik_xyz',
-    'mazay1501'
+const COHORTS = [
+    {
+        label: 'September 2026 cohort',
+        roleAwardedAt: '2026-09-16T00:00:00+02:00',
+        fullDayEnd: '2026-09-13',
+        periodEnd: '2026-09-13',
+        members: [
+            'zunzuncrypto',
+            'minhnhat80',
+            'ry0nx1',
+            'learning101997',
+            'direumateulll',
+            'ariseaura',
+            'killian_117',
+            'madara.233',
+            'welosu',
+            'nvphungvtvn7',
+            'radhasakhimansi',
+            'koushik_xyz',
+            'mazay1501'
+        ]
+    },
+    {
+        label: 'October 2026 cohort',
+        roleAwardedAt: '2026-10-15T20:35:00+02:00',
+        fullDayEnd: '2026-10-14',
+        roleDayStart: '2026-10-15T00:00:00+02:00',
+        periodEnd: '2026-10-15',
+        exportFolder: '12.10-18.10',
+        members: [
+            '_tasniya',
+            'rayleigh2109',
+            'qamarop',
+            'mary75',
+            'drkamilla3920',
+            'lumi_48903_49675',
+            'romilgi',
+            'golnooshbandani6327',
+            'mrchuoi279'
+        ]
+    }
 ];
+
+// Cohort and list order are preserved for the latest-three benchmark.
+const MEMBER_PROFILES = COHORTS.flatMap((cohort, cohortIndex) => cohort.members.map((username, memberIndex) => ({
+    username,
+    cohortIndex,
+    awardOrder: cohortIndex * 1000 + memberIndex,
+    ...cohort
+})));
+const MEMBERS = MEMBER_PROFILES.map(member => member.username);
+const banlist = JSON.parse(fs.readFileSync(path.join(__dirname, 'banlist.json'), 'utf8'));
+const bannedUsers = new Set(banlist.users);
 
 const db = new sqlite3.Database(path.join(__dirname, 'database_time.sqlite'), sqlite3.OPEN_READONLY);
 const outFile = path.join(__dirname, 'public', 'data', 'encrypted_stats.json');
@@ -69,36 +104,111 @@ function buildSummary(members) {
     };
 }
 
+function getRoleDayDiscordCounts() {
+    const counts = new Map(MEMBERS.map(username => [username, 0]));
+
+    for (const cohort of COHORTS) {
+        if (!cohort.roleDayStart || !cohort.exportFolder) continue;
+
+        const exportDir = path.join(__dirname, 'json', cohort.exportFolder);
+        const wanted = new Set(cohort.members);
+        const start = new Date(cohort.roleDayStart);
+        const end = new Date(cohort.roleAwardedAt);
+
+        for (const file of fs.readdirSync(exportDir).filter(name => name.endsWith('.json'))) {
+            const data = JSON.parse(fs.readFileSync(path.join(exportDir, file), 'utf8'));
+            for (const message of data.messages || []) {
+                const author = message.author;
+                if (!author || author.isBot || bannedUsers.has(author.name)) continue;
+
+                const username = author.name.toLowerCase();
+                if (!wanted.has(username)) continue;
+
+                const timestamp = new Date(message.timestamp);
+                if (timestamp >= start && timestamp < end) {
+                    counts.set(username, counts.get(username) + 1);
+                }
+            }
+        }
+    }
+
+    return counts;
+}
+
 function run() {
+    const roleDayDiscordCounts = getRoleDayDiscordCounts();
+
     db.run("ATTACH DATABASE 'database.sqlite' AS mainDb", err => {
         if (err) throw err;
 
         db.get('SELECT MIN(date) AS minDate, MAX(date) AS maxDate FROM user_daily_activity', (minErr, meta) => {
             if (minErr) throw minErr;
             const periodStart = meta.minDate;
-            const placeholders = MEMBERS.map(() => '?').join(',');
+            const cutoffRows = MEMBER_PROFILES.map(() => '(?, ?, ?, ?, ?, ?, ?, ?)').join(',');
+            const cutoffParams = MEMBER_PROFILES.flatMap(member => [
+                member.username,
+                member.fullDayEnd,
+                member.roleDayStart || null,
+                member.roleAwardedAt,
+                member.periodEnd,
+                member.roleAwardedAt,
+                roleDayDiscordCounts.get(member.username) || 0,
+                member.awardOrder
+            ]);
             const sql = `
+                WITH recipient_cutoffs(
+                    username,
+                    full_day_end,
+                    role_day_start,
+                    cutoff_timestamp,
+                    period_end,
+                    awarded_at,
+                    role_day_discord,
+                    award_order
+                ) AS (VALUES ${cutoffRows})
                 SELECT
                     u.id,
                     u.username,
                     u.nickname,
                     u.avatar_url AS avatarUrl,
-                    COALESCE(SUM(uda.discord_messages), 0) AS discordMessages,
-                    COALESCE(SUM(uda.x_posts), 0) AS xPosts,
-                    COALESCE(SUM(uda.x_views), 0) AS xViews,
-                    COALESCE(SUM(uda.x_likes), 0) AS xLikes,
-                    COALESCE(SUM(uda.x_reposts), 0) AS xReposts,
-                    COALESCE(SUM(uda.x_replies), 0) AS xReplies
-                FROM mainDb.users u
-                LEFT JOIN user_daily_activity uda
-                    ON uda.user_id = u.id
-                    AND uda.date >= ?
-                    AND uda.date <= ?
-                WHERE LOWER(u.username) IN (${placeholders})
-                GROUP BY u.id
+                    rc.period_end AS periodEnd,
+                    rc.awarded_at AS roleAwardedAt,
+                    rc.award_order AS awardOrder,
+                    COALESCE((
+                        SELECT SUM(uda.discord_messages)
+                        FROM user_daily_activity uda
+                        WHERE uda.user_id = u.id
+                          AND uda.date >= ?
+                          AND uda.date <= rc.full_day_end
+                    ), 0) + rc.role_day_discord AS discordMessages,
+                    COALESCE((
+                        SELECT SUM(uda.x_posts)
+                        FROM user_daily_activity uda
+                        WHERE uda.user_id = u.id
+                          AND uda.date >= ?
+                          AND uda.date <= rc.full_day_end
+                    ), 0) + COALESCE((
+                        SELECT COUNT(*)
+                        FROM mainDb.x_posts post
+                        WHERE post.user_id = u.id
+                          AND rc.role_day_start IS NOT NULL
+                          AND datetime(post.timestamp) >= datetime(rc.role_day_start)
+                          AND datetime(post.timestamp) < datetime(rc.cutoff_timestamp)
+                    ), 0) AS xPosts,
+                    COALESCE((SELECT SUM(uda.x_views) FROM user_daily_activity uda WHERE uda.user_id = u.id AND uda.date >= ? AND uda.date <= rc.full_day_end), 0)
+                        + COALESCE((SELECT SUM(post.views) FROM mainDb.x_posts post WHERE post.user_id = u.id AND rc.role_day_start IS NOT NULL AND datetime(post.timestamp) >= datetime(rc.role_day_start) AND datetime(post.timestamp) < datetime(rc.cutoff_timestamp)), 0) AS xViews,
+                    COALESCE((SELECT SUM(uda.x_likes) FROM user_daily_activity uda WHERE uda.user_id = u.id AND uda.date >= ? AND uda.date <= rc.full_day_end), 0)
+                        + COALESCE((SELECT SUM(post.likes) FROM mainDb.x_posts post WHERE post.user_id = u.id AND rc.role_day_start IS NOT NULL AND datetime(post.timestamp) >= datetime(rc.role_day_start) AND datetime(post.timestamp) < datetime(rc.cutoff_timestamp)), 0) AS xLikes,
+                    COALESCE((SELECT SUM(uda.x_reposts) FROM user_daily_activity uda WHERE uda.user_id = u.id AND uda.date >= ? AND uda.date <= rc.full_day_end), 0)
+                        + COALESCE((SELECT SUM(post.reposts) FROM mainDb.x_posts post WHERE post.user_id = u.id AND rc.role_day_start IS NOT NULL AND datetime(post.timestamp) >= datetime(rc.role_day_start) AND datetime(post.timestamp) < datetime(rc.cutoff_timestamp)), 0) AS xReposts,
+                    COALESCE((SELECT SUM(uda.x_replies) FROM user_daily_activity uda WHERE uda.user_id = u.id AND uda.date >= ? AND uda.date <= rc.full_day_end), 0)
+                        + COALESCE((SELECT SUM(post.replies) FROM mainDb.x_posts post WHERE post.user_id = u.id AND rc.role_day_start IS NOT NULL AND datetime(post.timestamp) >= datetime(rc.role_day_start) AND datetime(post.timestamp) < datetime(rc.cutoff_timestamp)), 0) AS xReplies
+                FROM recipient_cutoffs rc
+                JOIN mainDb.users u ON LOWER(u.username) = rc.username
+                ORDER BY rc.award_order
             `;
 
-            db.all(sql, [periodStart, PERIOD_END, ...MEMBERS], (queryErr, rows) => {
+            db.all(sql, [...cutoffParams, periodStart, periodStart, periodStart, periodStart, periodStart, periodStart], (queryErr, rows) => {
                 if (queryErr) throw queryErr;
 
                 const found = new Set(rows.map(row => row.username.toLowerCase()));
@@ -114,6 +224,9 @@ function run() {
                         username: row.username,
                         nickname: row.nickname || row.username,
                         avatarUrl: row.avatarUrl || null,
+                        benchmarkPeriodEnd: row.periodEnd,
+                        roleAwardedAt: row.roleAwardedAt,
+                        awardOrder: row.awardOrder,
                         discordMessages: row.discordMessages,
                         xPosts: row.xPosts,
                         xViews: row.xViews,
@@ -129,25 +242,51 @@ function run() {
                 members.forEach((member, index) => { member.rank = index + 1; });
                 const membersByUsername = new Map(members.map(member => [member.username.toLowerCase(), member]));
                 const awardOrder = MEMBERS.map(username => membersByUsername.get(username));
+                const cohortMembers = COHORTS.map(cohort => cohort.members.map(username => membersByUsername.get(username)));
+                const previousCohortMembers = cohortMembers.at(-2);
+                const currentCohortMembers = cohortMembers.at(-1);
                 const excludedFromLastThree = awardOrder
                     .filter(member => member.discordMessages < LAST_THREE_MIN_MESSAGES);
                 const lastThreeMembers = awardOrder
                     .filter(member => member.discordMessages >= LAST_THREE_MIN_MESSAGES)
                     .slice(-3);
                 const allSummary = buildSummary(members);
+                const previousCohortSummary = buildSummary(previousCohortMembers);
+                const currentCohortSummary = buildSummary(currentCohortMembers);
                 const lastThreeSummary = buildSummary(lastThreeMembers);
 
                 const output = {
                     meta: {
                         periodStart,
-                        periodEnd: PERIOD_END,
+                        periodEnd: COHORTS.at(-1).periodEnd,
                         currentDataEnd: meta.maxDate,
-                        roleAwardedAt: ROLE_AWARDED_AT,
+                        roleAwardedAt: COHORTS.at(-1).roleAwardedAt,
                         memberCount: members.length,
-                        description: 'Benchmark for the Encrypted role recipient cohort.'
+                        cohortCount: COHORTS.length,
+                        cohorts: COHORTS.map(cohort => ({
+                            label: cohort.label,
+                            periodEnd: cohort.periodEnd,
+                            roleAwardedAt: cohort.roleAwardedAt,
+                            memberCount: cohort.members.length
+                        })),
+                        description: 'Benchmark using each Encrypted recipient cohort pre-role cutoff.'
                     },
                     summary: allSummary,
                     benchmarks: {
+                        current: {
+                            label: 'Current cohort average',
+                            periodEnd: COHORTS.at(-1).periodEnd,
+                            roleAwardedAt: COHORTS.at(-1).roleAwardedAt,
+                            members: currentCohortMembers.map(member => member.username),
+                            summary: currentCohortSummary
+                        },
+                        previous: {
+                            label: 'Previous cohort average',
+                            periodEnd: COHORTS.at(-2).periodEnd,
+                            roleAwardedAt: COHORTS.at(-2).roleAwardedAt,
+                            members: previousCohortMembers.map(member => member.username),
+                            summary: previousCohortSummary
+                        },
                         official: {
                             label: 'Official minimum',
                             effectiveAsOf: OFFICIAL_REQUIREMENTS_EFFECTIVE,
@@ -159,6 +298,7 @@ function run() {
                         all: {
                             label: 'All Encrypted average',
                             members: awardOrder.map(member => member.username),
+                            usesIndividualCutoffs: true,
                             summary: allSummary
                         },
                         lastThree: {
@@ -166,6 +306,7 @@ function run() {
                             minDiscordMessages: LAST_THREE_MIN_MESSAGES,
                             members: lastThreeMembers.map(member => member.username),
                             excluded: excludedFromLastThree.map(member => member.username),
+                            usesIndividualCutoffs: true,
                             summary: lastThreeSummary
                         }
                     },
@@ -173,7 +314,7 @@ function run() {
                 };
 
                 fs.writeFileSync(outFile, JSON.stringify(output, null, 2));
-                console.log(`Encrypted analytics generated for ${members.length} members: ${periodStart} -> ${PERIOD_END}`);
+                console.log(`Encrypted analytics generated for ${members.length} members across ${COHORTS.length} cohorts: ${periodStart} -> ${COHORTS.at(-1).periodEnd}`);
                 db.close();
             });
         });

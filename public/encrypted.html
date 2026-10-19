@@ -54,7 +54,9 @@
                 <label class="control-field">
                     <span>Benchmark</span>
                     <select id="benchmarkMode">
-                        <option value="all">All Encrypted average</option>
+                        <option value="current">Current cohort average</option>
+                        <option value="previous">Previous cohort average</option>
+                        <option value="all">All cohorts average</option>
                         <option value="official">Official minimum: 2,500 DC / 25 X posts</option>
                         <option value="lastThree">Latest 3 eligible average</option>
                         <option value="member">Specific Encrypted member</option>
@@ -96,7 +98,7 @@
                     <div class="panel-kicker">Cohort breakdown</div>
                     <h2>Encrypted Members</h2>
                 </div>
-                <div class="panel-note">Ranked by combined score through Sep 13</div>
+                <div class="panel-note" id="membersPanelNote">Ranked by combined score at each member's pre-role cutoff</div>
             </div>
             <div class="table-scroll">
                 <table>
