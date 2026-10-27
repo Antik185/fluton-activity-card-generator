@@ -4,6 +4,8 @@
     const roleHolderCount = document.getElementById('roleHolderCount');
     const flaggedUserCount = document.getElementById('flaggedUserCount');
     const flaggedPostCount = document.getElementById('flaggedPostCount');
+    const lowEngagementPostCount = document.getElementById('lowEngagementPostCount');
+    const lowEngagementTabCount = document.getElementById('lowEngagementTabCount');
     const dataThrough = document.getElementById('dataThrough');
     const searchInput = document.getElementById('searchInput');
     const reasonFilter = document.getElementById('reasonFilter');
@@ -13,8 +15,11 @@
     const visibleUsers = document.getElementById('visibleUsers');
     const visiblePosts = document.getElementById('visiblePosts');
     const auditResults = document.getElementById('auditResults');
+    const sectionTabs = [...document.querySelectorAll('[data-section]')];
+    const suspiciousOnlyFilters = [...document.querySelectorAll('[data-suspicious-only]')];
 
     let data = null;
+    let currentSection = 'suspicious';
 
     function escapeHtml(value) {
         return String(value == null ? '' : value)
@@ -47,7 +52,10 @@
             if (reason === 'comments_more_than_likes') {
                 return '<span class="reason-badge reason-comments">Comments &gt; likes</span>';
             }
-            return '<span class="reason-badge reason-views">1-4 likes / 1K+ views</span>';
+            if (reason === 'low_likes_high_views') {
+                return '<span class="reason-badge reason-views">1-4 likes / 1K+ views</span>';
+            }
+            return '<span class="reason-badge reason-low-engagement">Low engagement</span>';
         }).join('');
     }
 
@@ -59,7 +67,7 @@
     }
 
     function filteredPosts(user) {
-        const reason = reasonFilter.value;
+        const reason = currentSection === 'suspicious' ? reasonFilter.value : 'all';
         const currentOnly = periodFilter.value === 'current';
         return user.posts.filter(post => {
             if (currentOnly && !post.isCurrentPeriod) return false;
@@ -89,6 +97,40 @@
     }
 
     function renderUser(user, posts, open) {
+        if (currentSection === 'low-engagement') {
+            return `
+                <details class="user-card low-engagement-mode" ${open ? 'open' : ''}>
+                    <summary>
+                        <div class="identity">
+                            <div class="avatar">${avatar(user)}</div>
+                            <div class="identity-copy">
+                                <strong>${escapeHtml(user.nickname)}</strong>
+                                <span>@${escapeHtml(user.username)}</span>
+                            </div>
+                        </div>
+                        <div class="reason-count">
+                            <span>Low engagement posts</span>
+                            <strong>${posts.length}</strong>
+                        </div>
+                        <div></div>
+                        <div class="flag-total">${posts.length} posts</div>
+                        <i class="fas fa-chevron-down chevron"></i>
+                    </summary>
+                    <div class="post-table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th><th>X post</th><th>Views</th><th>Likes</th>
+                                    <th>Comments</th><th>Reposts</th><th>Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>${renderPostRows(posts)}</tbody>
+                        </table>
+                    </div>
+                </details>
+            `;
+        }
+
         const commentsCount = posts.filter(post => post.reasons.includes('comments_more_than_likes')).length;
         const viewsCount = posts.filter(post => post.reasons.includes('low_likes_high_views')).length;
         return `
@@ -135,9 +177,12 @@
     function render() {
         if (!data) return;
         const query = searchInput.value.trim().toLowerCase().replace(/^@/, '');
-        const minimum = Number(minimumFilter.value);
+        const minimum = currentSection === 'suspicious' ? Number(minimumFilter.value) : 1;
+        const sourceUsers = currentSection === 'suspicious'
+            ? data.users
+            : (data.lowEngagementUsers || []);
 
-        const users = data.users.map(user => ({
+        const users = sourceUsers.map(user => ({
             user,
             posts: filteredPosts(user)
         })).filter(item =>
@@ -171,6 +216,19 @@
         ).join('');
     }
 
+    function setSection(section) {
+        currentSection = section;
+        sectionTabs.forEach(tab => {
+            const active = tab.dataset.section === section;
+            tab.classList.toggle('active', active);
+            tab.setAttribute('aria-pressed', String(active));
+        });
+        suspiciousOnlyFilters.forEach(filter => {
+            filter.hidden = section !== 'suspicious';
+        });
+        render();
+    }
+
     async function load() {
         try {
             const response = await fetch(`data/encrypted_audit_7c9f4d.json?t=${Date.now()}`);
@@ -180,6 +238,8 @@
             roleHolderCount.textContent = formatNumber(data.meta.encryptedRoleHolders);
             flaggedUserCount.textContent = formatNumber(data.meta.flaggedUsers);
             flaggedPostCount.textContent = formatNumber(data.meta.suspiciousPosts);
+            lowEngagementPostCount.textContent = formatNumber(data.meta.lowEngagementPosts);
+            lowEngagementTabCount.textContent = formatNumber(data.meta.lowEngagementPosts);
             dataThrough.textContent = formatDate(data.meta.dataThrough);
             render();
         } catch (error) {
@@ -193,6 +253,9 @@
     periodFilter.addEventListener('change', render);
     minimumFilter.addEventListener('change', render);
     sortFilter.addEventListener('change', render);
+    sectionTabs.forEach(tab => {
+        tab.addEventListener('click', () => setSection(tab.dataset.section));
+    });
 
     load();
 })();

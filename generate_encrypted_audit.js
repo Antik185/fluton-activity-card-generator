@@ -15,6 +15,19 @@ const outFile = path.join(
 const weekFile = path.join(__dirname, 'public', 'data', 'leaderboard_week.json');
 const MIN_FLAGS_PER_USER = 5;
 const MIN_VISIBLE_ENGAGEMENT = 10;
+const MANUAL_LOW_ENGAGEMENT = {
+    username: 'thuyhatcl',
+    nickname: 'Zuncay (Doris)',
+    avatarUrl: 'https://pbs.twimg.com/profile_images/2084281063057330177/ZuGe_1qG_normal.jpg',
+    posts: [
+        { id: '2113308554912485715', timestamp: '2026-10-22T16:36:37.000Z', likes: 2, views: 101, comments: 2, reposts: 0 },
+        { id: '2109797011595710657', timestamp: '2026-10-13T00:03:00.000Z', likes: 9, views: 244, comments: 5, reposts: 1 },
+        { id: '2112229198555406845', timestamp: '2026-10-19T17:07:38.000Z', likes: 2, views: 83, comments: 0, reposts: 0 },
+        { id: '2112588123385569590', timestamp: '2026-10-20T16:53:53.000Z', likes: 2, views: 295, comments: 5, reposts: 1 },
+        { id: '2112751091242963239', timestamp: '2026-10-21T03:41:27.000Z', likes: 9, views: 289, comments: 7, reposts: 0 },
+        { id: '2113289079177793767', timestamp: '2026-10-22T15:19:14.000Z', likes: 2, views: 87, comments: 0, reposts: 0 }
+    ]
+};
 
 function hasEncryptedRole(rolesJson) {
     try {
@@ -31,6 +44,36 @@ function getCurrentPeriod() {
     } catch {
         return { start: null, end: null };
     }
+}
+
+function getManualLowEngagement(currentPeriod) {
+    const posts = MANUAL_LOW_ENGAGEMENT.posts.map(post => {
+        const date = post.timestamp.slice(0, 10);
+        return {
+            url: `https://x.com/${MANUAL_LOW_ENGAGEMENT.username}/status/${post.id}`,
+            timestamp: post.timestamp,
+            date,
+            authorHandle: MANUAL_LOW_ENGAGEMENT.username,
+            likes: post.likes,
+            comments: post.comments,
+            views: post.views,
+            reposts: post.reposts,
+            reasons: ['low_engagement'],
+            isCurrentPeriod: Boolean(
+                currentPeriod.start && currentPeriod.end
+                && date >= currentPeriod.start && date <= currentPeriod.end
+            )
+        };
+    }).sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+
+    return [{
+        username: MANUAL_LOW_ENGAGEMENT.username,
+        nickname: MANUAL_LOW_ENGAGEMENT.nickname,
+        avatarUrl: MANUAL_LOW_ENGAGEMENT.avatarUrl,
+        suspiciousPostCount: posts.length,
+        lowEngagementCount: posts.length,
+        posts
+    }];
 }
 
 function run() {
@@ -118,6 +161,12 @@ function run() {
             0
         );
 
+        const lowEngagementUsers = getManualLowEngagement(currentPeriod);
+        const lowEngagementPostCount = lowEngagementUsers.reduce(
+            (sum, user) => sum + user.posts.length,
+            0
+        );
+
         const output = {
             meta: {
                 generatedAt: new Date().toISOString(),
@@ -126,6 +175,8 @@ function run() {
                 encryptedRoleHolders: roleHolders.size,
                 flaggedUsers: users.length,
                 suspiciousPosts: suspiciousPostCount,
+                lowEngagementUsers: lowEngagementUsers.length,
+                lowEngagementPosts: lowEngagementPostCount,
                 criteria: {
                     commentsMoreThanLikes: 'Comments are greater than likes',
                     lowLikesHighViews: '1-4 likes with at least 1,000 views',
@@ -134,7 +185,8 @@ function run() {
                 },
                 disclaimer: 'Heuristic flags for manual review, not proof of manipulation.'
             },
-            users
+            users,
+            lowEngagementUsers
         };
 
         fs.writeFileSync(outFile, JSON.stringify(output, null, 2));

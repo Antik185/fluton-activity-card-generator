@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-10-27T19:21:02.232Z",
+    "generatedAt": "2026-10-27T23:03:33.214Z",
     "dataThrough": "2026-10-25",
     "currentPeriod": {
       "start": "2026-10-19",
@@ -9,6 +9,8 @@
     "encryptedRoleHolders": 178,
     "flaggedUsers": 8,
     "suspiciousPosts": 153,
+    "lowEngagementUsers": 1,
+    "lowEngagementPosts": 6,
     "criteria": {
       "commentsMoreThanLikes": "Comments are greater than likes",
       "lowLikesHighViews": "1-4 likes with at least 1,000 views",
@@ -2235,6 +2237,101 @@
           "reposts": 2,
           "reasons": [
             "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    }
+  ],
+  "lowEngagementUsers": [
+    {
+      "username": "thuyhatcl",
+      "nickname": "Zuncay (Doris)",
+      "avatarUrl": "https://pbs.twimg.com/profile_images/2084281063057330177/ZuGe_1qG_normal.jpg",
+      "suspiciousPostCount": 6,
+      "lowEngagementCount": 6,
+      "posts": [
+        {
+          "url": "https://x.com/thuyhatcl/status/2113308554912485715",
+          "timestamp": "2026-10-22T16:36:37.000Z",
+          "date": "2026-10-22",
+          "authorHandle": "thuyhatcl",
+          "likes": 2,
+          "comments": 2,
+          "views": 101,
+          "reposts": 0,
+          "reasons": [
+            "low_engagement"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2113289079177793767",
+          "timestamp": "2026-10-22T15:19:14.000Z",
+          "date": "2026-10-22",
+          "authorHandle": "thuyhatcl",
+          "likes": 2,
+          "comments": 0,
+          "views": 87,
+          "reposts": 0,
+          "reasons": [
+            "low_engagement"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2112751091242963239",
+          "timestamp": "2026-10-21T03:41:27.000Z",
+          "date": "2026-10-21",
+          "authorHandle": "thuyhatcl",
+          "likes": 9,
+          "comments": 7,
+          "views": 289,
+          "reposts": 0,
+          "reasons": [
+            "low_engagement"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2112588123385569590",
+          "timestamp": "2026-10-20T16:53:53.000Z",
+          "date": "2026-10-20",
+          "authorHandle": "thuyhatcl",
+          "likes": 2,
+          "comments": 5,
+          "views": 295,
+          "reposts": 1,
+          "reasons": [
+            "low_engagement"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2112229198555406845",
+          "timestamp": "2026-10-19T17:07:38.000Z",
+          "date": "2026-10-19",
+          "authorHandle": "thuyhatcl",
+          "likes": 2,
+          "comments": 0,
+          "views": 83,
+          "reposts": 0,
+          "reasons": [
+            "low_engagement"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2109797011595710657",
+          "timestamp": "2026-10-13T00:03:00.000Z",
+          "date": "2026-10-13",
+          "authorHandle": "thuyhatcl",
+          "likes": 9,
+          "comments": 5,
+          "views": 244,
+          "reposts": 1,
+          "reasons": [
+            "low_engagement"
           ],
           "isCurrentPeriod": false
         }

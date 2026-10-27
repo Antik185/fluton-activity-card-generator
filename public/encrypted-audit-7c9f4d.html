@@ -36,6 +36,10 @@
                     <strong id="flaggedPostCount">-</strong>
                 </article>
                 <article>
+                    <span>Low engagement</span>
+                    <strong id="lowEngagementPostCount">-</strong>
+                </article>
+                <article>
                     <span>Data through</span>
                     <strong id="dataThrough">-</strong>
                 </article>
@@ -50,6 +54,16 @@
             </div>
         </section>
 
+        <nav class="audit-tabs" aria-label="Review section">
+            <button class="audit-tab active" type="button" data-section="suspicious">
+                <i class="fas fa-triangle-exclamation"></i> Suspicious activity
+            </button>
+            <button class="audit-tab" type="button" data-section="low-engagement">
+                <i class="fas fa-chart-line"></i> Low engagement
+                <span id="lowEngagementTabCount">0</span>
+            </button>
+        </nav>
+
         <section class="filter-panel" aria-label="Audit filters">
             <label class="search-field">
                 <span>Search user or X handle</span>
@@ -59,7 +73,7 @@
                 </div>
             </label>
 
-            <label>
+            <label data-suspicious-only>
                 <span>Reason</span>
                 <select id="reasonFilter">
                     <option value="all">All suspicious patterns</option>
@@ -76,7 +90,7 @@
                 </select>
             </label>
 
-            <label>
+            <label data-suspicious-only>
                 <span>Minimum flags</span>
                 <select id="minimumFilter">
                     <option value="5">5 or more</option>

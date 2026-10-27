@@ -122,9 +122,56 @@ h1 {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 12px;
     margin-top: 28px;
+}
+
+.audit-tabs {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 6px;
+    width: fit-content;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.audit-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 10px;
+    color: var(--muted);
+    background: transparent;
+    cursor: pointer;
+}
+
+.audit-tab:hover {
+    color: var(--text);
+}
+
+.audit-tab.active {
+    color: #f1eaff;
+    background: rgba(169, 121, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(169, 121, 255, 0.22);
+}
+
+.audit-tab span {
+    min-width: 22px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    color: #ffe3b9;
+    font-size: 10px;
+    text-align: center;
+    background: rgba(255, 175, 69, 0.13);
+}
+
+[hidden] {
+    display: none !important;
 }
 
 .summary-grid article {
@@ -420,6 +467,17 @@ tr:last-child td {
 .reason-views {
     color: #ffe3b9;
     background: rgba(255, 175, 69, 0.12);
+}
+
+.reason-low-engagement {
+    color: #ffe3b9;
+    background: rgba(255, 175, 69, 0.12);
+}
+
+.low-engagement-mode .flag-total {
+    color: #ffe3b9;
+    border-color: rgba(255, 175, 69, 0.22);
+    background: rgba(255, 175, 69, 0.1);
 }
 
 .metric-danger {
