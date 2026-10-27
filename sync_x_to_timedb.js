@@ -52,7 +52,10 @@ async function run() {
 
             for (const post of posts) {
                 if (!post.timestamp) continue;
-                const dateStr = new Date(post.timestamp).toISOString().split('T')[0];
+                // Discord exports include the server-local offset. Preserve the
+                // source calendar date so posts just after midnight do not move
+                // into the previous leaderboard week during UTC conversion.
+                const dateStr = post.timestamp.split('T')[0];
                 stmt.run(
                     post.user_id, dateStr,
                     post.likes || 0, post.reposts || 0, post.views || 0, post.replies || 0

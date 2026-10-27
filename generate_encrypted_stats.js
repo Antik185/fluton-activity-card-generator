@@ -3,10 +3,10 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 const LAST_THREE_MIN_MESSAGES = 2000;
-const OFFICIAL_REQUIREMENTS_EFFECTIVE = '2026-10-12';
+const OFFICIAL_REQUIREMENTS_EFFECTIVE = '2026-10-27';
 const OFFICIAL_REQUIREMENTS = {
     discordMessages: 2500,
-    xPosts: 25
+    xPosts: 30
 };
 const COHORTS = [
     {

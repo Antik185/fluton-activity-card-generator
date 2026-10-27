@@ -20,6 +20,9 @@ const dbPath = path.join(__dirname, 'database.sqlite');
 const dbTimePath = path.join(__dirname, 'database_time.sqlite');
 
 const SHARE_CONTENT_CHANNEL_ID = '1459068999664140453';
+const EXCLUDED_CHANNEL_IDS = new Set([
+    '1463564359174197512' // art-memes
+]);
 const banlist = JSON.parse(fs.readFileSync(path.join(__dirname, 'banlist.json'), 'utf8'));
 const bannedUsers = new Set(banlist.users);
 const bannedPosts = new Set(banlist.posts.map(post => post.split('?')[0]));
@@ -186,8 +189,13 @@ function start() {
     if (!fs.existsSync(jsonDirNew)) {
         throw new Error(`Export folder not found: ${jsonDirNew}`);
     }
-    files = fs.readdirSync(jsonDirNew).filter(file => file.endsWith('.json'));
+    const jsonFiles = fs.readdirSync(jsonDirNew).filter(file => file.endsWith('.json'));
+    const excludedFiles = jsonFiles.filter(file => EXCLUDED_CHANNEL_IDS.has(getChannelId(file)));
+    files = jsonFiles.filter(file => !EXCLUDED_CHANNEL_IDS.has(getChannelId(file)));
     console.log(`Starting ${NEW_PERIOD} import. Found ${files.length} files.`);
+    if (excludedFiles.length > 0) {
+        console.log(`Skipping excluded channels: ${excludedFiles.join(', ')}`);
+    }
     db.run('BEGIN TRANSACTION');
     dbTime.run('BEGIN TRANSACTION', processNextFile);
 }

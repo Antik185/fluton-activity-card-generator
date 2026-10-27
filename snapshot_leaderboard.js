@@ -117,15 +117,22 @@ async function takeWeeklySnapshot(anchorDate) {
         const endDate = addDays(anchorDate, -(i * 7));
         const startDate = addDays(endDate, -6);
 
-        const exists = snapshots.find(s => s.date === endDate);
-        if (exists) continue;
+        const existingIndex = snapshots.findIndex(s => s.date === endDate);
+        // Refresh the immediately previous week because its X metrics can still
+        // change inside the 14-day API window. Older snapshots stay frozen.
+        if (existingIndex >= 0 && i !== 1) continue;
 
         console.log(`[week] Backfilling: ${startDate} → ${endDate}`);
         const rows = await queryWindow(startDate, endDate);
         if (rows.length > 0) {
             const entry = { date: endDate, leaderboard: computeLeaderboard(rows) };
-            snapshots.push(entry);
-            console.log(`[OK]   week: saved ${endDate}`);
+            if (existingIndex >= 0) {
+                snapshots[existingIndex] = entry;
+                console.log(`[OK]   week: refreshed ${endDate}`);
+            } else {
+                snapshots.push(entry);
+                console.log(`[OK]   week: saved ${endDate}`);
+            }
         } else {
             console.log(`[SKIP] week: no data for ${endDate}`);
         }

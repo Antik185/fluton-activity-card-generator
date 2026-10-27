@@ -2,7 +2,7 @@
   "meta": {
     "periodStart": "2026-01-08",
     "periodEnd": "2026-10-15",
-    "currentDataEnd": "2026-10-18",
+    "currentDataEnd": "2026-10-25",
     "roleAwardedAt": "2026-10-15T20:35:00+02:00",
     "memberCount": 22,
     "cohortCount": 2,
@@ -49,9 +49,9 @@
     },
     "xScore": {
       "min": 1571,
-      "average": 5696.4,
+      "average": 5696.5,
       "max": 24354,
-      "total": 125320,
+      "total": 125324,
       "minMembers": [
         "mazay1501"
       ],
@@ -61,9 +61,9 @@
     },
     "totalScore": {
       "min": 3400,
-      "average": 9246.9,
+      "average": 9247,
       "max": 26384,
-      "total": 203431,
+      "total": 203435,
       "minMembers": [
         "welosu"
       ],
@@ -73,9 +73,9 @@
     },
     "xViews": {
       "min": 2315,
-      "average": 12032.2,
+      "average": 12033.5,
       "max": 72166,
-      "total": 264708,
+      "total": 264736,
       "minMembers": [
         "mazay1501"
       ],
@@ -165,9 +165,9 @@
         },
         "xScore": {
           "min": 3029,
-          "average": 6331,
+          "average": 6331.4,
           "max": 10747,
-          "total": 56979,
+          "total": 56983,
           "minMembers": [
             "_tasniya"
           ],
@@ -177,9 +177,9 @@
         },
         "totalScore": {
           "min": 5637,
-          "average": 10262.9,
+          "average": 10263.3,
           "max": 15771,
-          "total": 92366,
+          "total": 92370,
           "minMembers": [
             "mary75"
           ],
@@ -189,9 +189,9 @@
         },
         "xViews": {
           "min": 4018,
-          "average": 12838.7,
-          "max": 30409,
-          "total": 115548,
+          "average": 12841.8,
+          "max": 30423,
+          "total": 115576,
           "minMembers": [
             "mary75"
           ],
@@ -359,13 +359,13 @@
     },
     "official": {
       "label": "Official minimum",
-      "effectiveAsOf": "2026-10-12",
+      "effectiveAsOf": "2026-10-27",
       "summary": {
         "discordMessages": {
           "average": 2500
         },
         "xPosts": {
-          "average": 25
+          "average": 30
         }
       }
     },
@@ -423,9 +423,9 @@
         },
         "xScore": {
           "min": 1571,
-          "average": 5696.4,
+          "average": 5696.5,
           "max": 24354,
-          "total": 125320,
+          "total": 125324,
           "minMembers": [
             "mazay1501"
           ],
@@ -435,9 +435,9 @@
         },
         "totalScore": {
           "min": 3400,
-          "average": 9246.9,
+          "average": 9247,
           "max": 26384,
-          "total": 203431,
+          "total": 203435,
           "minMembers": [
             "welosu"
           ],
@@ -447,9 +447,9 @@
         },
         "xViews": {
           "min": 2315,
-          "average": 12032.2,
+          "average": 12033.5,
           "max": 72166,
-          "total": 264708,
+          "total": 264736,
           "minMembers": [
             "mazay1501"
           ],
@@ -535,10 +535,10 @@
           ]
         },
         "xScore": {
-          "min": 4878,
-          "average": 6841.3,
-          "max": 9827,
-          "total": 20524,
+          "min": 4879,
+          "average": 6842.3,
+          "max": 9829,
+          "total": 20527,
           "minMembers": [
             "golnooshbandani6327"
           ],
@@ -547,10 +547,10 @@
           ]
         },
         "totalScore": {
-          "min": 7529,
-          "average": 9468.3,
-          "max": 12483,
-          "total": 28405,
+          "min": 7530,
+          "average": 9469.3,
+          "max": 12485,
+          "total": 28408,
           "minMembers": [
             "golnooshbandani6327"
           ],
@@ -559,10 +559,10 @@
           ]
         },
         "xViews": {
-          "min": 9714,
-          "average": 17190,
-          "max": 30409,
-          "total": 51570,
+          "min": 9723,
+          "average": 17197.7,
+          "max": 30423,
+          "total": 51593,
           "minMembers": [
             "golnooshbandani6327"
           ],
@@ -691,13 +691,13 @@
       "awardOrder": 1008,
       "discordMessages": 2656,
       "xPosts": 84,
-      "xViews": 30409,
+      "xViews": 30423,
       "xLikes": 973,
       "xReposts": 82,
       "xReplies": 484,
       "erPercent": 5.06,
-      "xScore": 9827,
-      "totalScore": 12483,
+      "xScore": 9829,
+      "totalScore": 12485,
       "rank": 5
     },
     {
@@ -781,13 +781,13 @@
       "awardOrder": 1005,
       "discordMessages": 2574,
       "xPosts": 31,
-      "xViews": 14985,
+      "xViews": 14990,
       "xLikes": 649,
       "xReposts": 60,
       "xReplies": 401,
-      "erPercent": 7.41,
-      "xScore": 5760,
-      "totalScore": 8334,
+      "erPercent": 7.4,
+      "xScore": 5761,
+      "totalScore": 8335,
       "rank": 10
     },
     {
@@ -799,13 +799,13 @@
       "awardOrder": 1007,
       "discordMessages": 2651,
       "xPosts": 55,
-      "xViews": 9714,
+      "xViews": 9723,
       "xLikes": 1035,
       "xReposts": 4,
       "xReplies": 228,
-      "erPercent": 13.04,
-      "xScore": 4878,
-      "totalScore": 7529,
+      "erPercent": 13.03,
+      "xScore": 4879,
+      "totalScore": 7530,
       "rank": 11
     },
     {
@@ -936,7 +936,7 @@
     },
     {
       "username": "killian_117",
-      "nickname": "IGARA 001💪 (❖,❖)",
+      "nickname": "IGARA 001💪",
       "avatarUrl": "https://cdn.discordapp.com/avatars/1314716771693105234/3df7cb2cfb25eac3b48da5d578494515.png?size=512",
       "benchmarkPeriodEnd": "2026-09-13",
       "roleAwardedAt": "2026-09-16T00:00:00+02:00",
