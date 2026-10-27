@@ -1,0 +1,2244 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-27T19:21:02.232Z",
+    "dataThrough": "2026-10-25",
+    "currentPeriod": {
+      "start": "2026-10-19",
+      "end": "2026-10-25"
+    },
+    "encryptedRoleHolders": 178,
+    "flaggedUsers": 8,
+    "suspiciousPosts": 153,
+    "criteria": {
+      "commentsMoreThanLikes": "Comments are greater than likes",
+      "lowLikesHighViews": "1-4 likes with at least 1,000 views",
+      "minimumEngagement": "At least 10 comments or 10 likes per post",
+      "minimumFlagsPerUser": 5
+    },
+    "disclaimer": "Heuristic flags for manual review, not proof of manipulation."
+  },
+  "users": [
+    {
+      "username": "lyhuysang54119",
+      "nickname": "KunZinTV",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/1304577252171845675/9b92697b56b902d63141dd3f45c8a545.png?size=512",
+      "suspiciousPostCount": 57,
+      "commentsMoreThanLikesCount": 57,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/KunZinCrypto/status/2114303445289095477",
+          "timestamp": "2026-10-25T12:31:00.828+02:00",
+          "date": "2026-10-25",
+          "authorHandle": "KunZinCrypto",
+          "likes": 65,
+          "comments": 78,
+          "views": 217,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2112422749419503915",
+          "timestamp": "2026-10-20T07:57:19.418+02:00",
+          "date": "2026-10-20",
+          "authorHandle": "KunZinCrypto",
+          "likes": 90,
+          "comments": 101,
+          "views": 669,
+          "reposts": 4,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2108044554167525594",
+          "timestamp": "2026-10-08T05:59:50.124+02:00",
+          "date": "2026-10-08",
+          "authorHandle": "KunZinCrypto",
+          "likes": 114,
+          "comments": 123,
+          "views": 1022,
+          "reposts": 3,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2106983556723400889",
+          "timestamp": "2026-10-05T07:44:54.411+02:00",
+          "date": "2026-10-05",
+          "authorHandle": "KunZinCrypto",
+          "likes": 93,
+          "comments": 98,
+          "views": 822,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2086707287385874534",
+          "timestamp": "2026-08-10T08:53:03.452+02:00",
+          "date": "2026-08-10",
+          "authorHandle": "KunZinCrypto",
+          "likes": 48,
+          "comments": 50,
+          "views": 141,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2082352870138216939",
+          "timestamp": "2026-07-29T08:30:27.525+02:00",
+          "date": "2026-07-29",
+          "authorHandle": "KunZinCrypto",
+          "likes": 51,
+          "comments": 58,
+          "views": 275,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2077334098893512918",
+          "timestamp": "2026-07-15T12:07:21.491+02:00",
+          "date": "2026-07-15",
+          "authorHandle": "KunZinCrypto",
+          "likes": 49,
+          "comments": 60,
+          "views": 145,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2073982142007406862",
+          "timestamp": "2026-07-06T06:07:58.975+02:00",
+          "date": "2026-07-06",
+          "authorHandle": "KunZinCrypto",
+          "likes": 57,
+          "comments": 68,
+          "views": 256,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2072989820482363902",
+          "timestamp": "2026-07-03T12:25:00.614+02:00",
+          "date": "2026-07-03",
+          "authorHandle": "KunZinCrypto",
+          "likes": 47,
+          "comments": 52,
+          "views": 402,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2071107318448889948",
+          "timestamp": "2026-06-28T07:44:27.763+02:00",
+          "date": "2026-06-28",
+          "authorHandle": "KunZinCrypto",
+          "likes": 34,
+          "comments": 38,
+          "views": 648,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2069698806384623792",
+          "timestamp": "2026-06-24T10:27:25.502+02:00",
+          "date": "2026-06-24",
+          "authorHandle": "KunZinCrypto",
+          "likes": 42,
+          "comments": 48,
+          "views": 467,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2069335468450394601",
+          "timestamp": "2026-06-23T10:23:48.51+02:00",
+          "date": "2026-06-23",
+          "authorHandle": "KunZinCrypto",
+          "likes": 39,
+          "comments": 44,
+          "views": 990,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2067873110179889585",
+          "timestamp": "2026-06-19T09:33:11.049+02:00",
+          "date": "2026-06-19",
+          "authorHandle": "KunZinCrypto",
+          "likes": 38,
+          "comments": 43,
+          "views": 1404,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2066798528379396238",
+          "timestamp": "2026-06-16T10:23:18.929+02:00",
+          "date": "2026-06-16",
+          "authorHandle": "KunZinCrypto",
+          "likes": 40,
+          "comments": 45,
+          "views": 2108,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2061585942079766777",
+          "timestamp": "2026-06-02T01:09:57.546+02:00",
+          "date": "2026-06-02",
+          "authorHandle": "KunZinCrypto",
+          "likes": 44,
+          "comments": 50,
+          "views": 1294,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2060587857274957887",
+          "timestamp": "2026-05-30T07:04:51.513+02:00",
+          "date": "2026-05-30",
+          "authorHandle": "KunZinCrypto",
+          "likes": 39,
+          "comments": 42,
+          "views": 1026,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2060250322141069691",
+          "timestamp": "2026-05-29T08:43:12.055+02:00",
+          "date": "2026-05-29",
+          "authorHandle": "KunZinCrypto",
+          "likes": 45,
+          "comments": 49,
+          "views": 704,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2059836264749433090",
+          "timestamp": "2026-05-28T05:23:07.548+02:00",
+          "date": "2026-05-28",
+          "authorHandle": "KunZinCrypto",
+          "likes": 41,
+          "comments": 42,
+          "views": 633,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2059492824039764124",
+          "timestamp": "2026-05-27T06:32:19.303+02:00",
+          "date": "2026-05-27",
+          "authorHandle": "KunZinCrypto",
+          "likes": 44,
+          "comments": 47,
+          "views": 662,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2058053076226117821",
+          "timestamp": "2026-05-23T07:12:06.075+02:00",
+          "date": "2026-05-23",
+          "authorHandle": "KunZinCrypto",
+          "likes": 38,
+          "comments": 45,
+          "views": 311,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2057695030857670805",
+          "timestamp": "2026-05-22T07:28:31.041+02:00",
+          "date": "2026-05-22",
+          "authorHandle": "KunZinCrypto",
+          "likes": 40,
+          "comments": 43,
+          "views": 480,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2057285042146337064",
+          "timestamp": "2026-05-21T04:20:23.297+02:00",
+          "date": "2026-05-21",
+          "authorHandle": "KunZinCrypto",
+          "likes": 51,
+          "comments": 56,
+          "views": 574,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2056894257823359454",
+          "timestamp": "2026-05-20T02:27:20.863+02:00",
+          "date": "2026-05-20",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 58,
+          "views": 602,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2056555190875242966",
+          "timestamp": "2026-05-19T03:59:21.048+02:00",
+          "date": "2026-05-19",
+          "authorHandle": "KunZinCrypto",
+          "likes": 48,
+          "comments": 54,
+          "views": 500,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2056230161914204389",
+          "timestamp": "2026-05-18T06:27:58.985+02:00",
+          "date": "2026-05-18",
+          "authorHandle": "KunZinCrypto",
+          "likes": 50,
+          "comments": 55,
+          "views": 511,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2055832352983806154",
+          "timestamp": "2026-05-17T04:07:20.72+02:00",
+          "date": "2026-05-17",
+          "authorHandle": "KunZinCrypto",
+          "likes": 39,
+          "comments": 40,
+          "views": 435,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2055457592223346980",
+          "timestamp": "2026-05-16T03:17:50.925+02:00",
+          "date": "2026-05-16",
+          "authorHandle": "KunZinCrypto",
+          "likes": 39,
+          "comments": 41,
+          "views": 279,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2055109431604764768",
+          "timestamp": "2026-05-15T04:14:27.17+02:00",
+          "date": "2026-05-15",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 57,
+          "views": 283,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2054746568042111050",
+          "timestamp": "2026-05-14T04:14:01.921+02:00",
+          "date": "2026-05-14",
+          "authorHandle": "KunZinCrypto",
+          "likes": 50,
+          "comments": 54,
+          "views": 273,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2054386492882231656",
+          "timestamp": "2026-05-13T04:22:52.236+02:00",
+          "date": "2026-05-13",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 57,
+          "views": 698,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2054030098282795075",
+          "timestamp": "2026-05-12T04:45:47.971+02:00",
+          "date": "2026-05-12",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 53,
+          "views": 714,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2053662518787379228",
+          "timestamp": "2026-05-11T04:25:00.046+02:00",
+          "date": "2026-05-11",
+          "authorHandle": "KunZinCrypto",
+          "likes": 60,
+          "comments": 61,
+          "views": 716,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2053295512405844300",
+          "timestamp": "2026-05-10T04:07:01.223+02:00",
+          "date": "2026-05-10",
+          "authorHandle": "KunZinCrypto",
+          "likes": 54,
+          "comments": 56,
+          "views": 1066,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2052914281650520134",
+          "timestamp": "2026-05-09T02:51:38.386+02:00",
+          "date": "2026-05-09",
+          "authorHandle": "KunZinCrypto",
+          "likes": 46,
+          "comments": 51,
+          "views": 214,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2052573120826151145",
+          "timestamp": "2026-05-08T04:16:20.276+02:00",
+          "date": "2026-05-08",
+          "authorHandle": "KunZinCrypto",
+          "likes": 42,
+          "comments": 47,
+          "views": 1372,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2051586310436200642",
+          "timestamp": "2026-05-05T10:54:38.95+02:00",
+          "date": "2026-05-05",
+          "authorHandle": "KunZinCrypto",
+          "likes": 51,
+          "comments": 52,
+          "views": 517,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2051125216202678647",
+          "timestamp": "2026-05-04T04:28:20.393+02:00",
+          "date": "2026-05-04",
+          "authorHandle": "KunZinCrypto",
+          "likes": 45,
+          "comments": 56,
+          "views": 386,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2050765003868024875",
+          "timestamp": "2026-05-03T04:31:29.595+02:00",
+          "date": "2026-05-03",
+          "authorHandle": "KunZinCrypto",
+          "likes": 27,
+          "comments": 29,
+          "views": 725,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2050362350289731965",
+          "timestamp": "2026-05-02T01:51:19.542+02:00",
+          "date": "2026-05-02",
+          "authorHandle": "KunZinCrypto",
+          "likes": 27,
+          "comments": 28,
+          "views": 831,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2049141994807824466",
+          "timestamp": "2026-04-28T17:03:05.624+02:00",
+          "date": "2026-04-28",
+          "authorHandle": "KunZinCrypto",
+          "likes": 42,
+          "comments": 44,
+          "views": 285,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2048554514282865118",
+          "timestamp": "2026-04-27T02:12:31.616+02:00",
+          "date": "2026-04-27",
+          "authorHandle": "KunZinCrypto",
+          "likes": 39,
+          "comments": 51,
+          "views": 288,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2047854477454238177",
+          "timestamp": "2026-04-25T03:47:04.927+02:00",
+          "date": "2026-04-25",
+          "authorHandle": "KunZinCrypto",
+          "likes": 41,
+          "comments": 42,
+          "views": 263,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2046536983892348954",
+          "timestamp": "2026-04-21T12:31:11.931+02:00",
+          "date": "2026-04-21",
+          "authorHandle": "KunZinCrypto",
+          "likes": 38,
+          "comments": 39,
+          "views": 134,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2046143313183412680",
+          "timestamp": "2026-04-20T10:27:03.001+02:00",
+          "date": "2026-04-20",
+          "authorHandle": "KunZinCrypto",
+          "likes": 40,
+          "comments": 43,
+          "views": 167,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2045937939138691138",
+          "timestamp": "2026-04-19T20:50:12.968+02:00",
+          "date": "2026-04-19",
+          "authorHandle": "KunZinCrypto",
+          "likes": 44,
+          "comments": 48,
+          "views": 178,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2044300028488102299",
+          "timestamp": "2026-04-15T08:21:38.285+02:00",
+          "date": "2026-04-15",
+          "authorHandle": "KunZinCrypto",
+          "likes": 47,
+          "comments": 48,
+          "views": 367,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2043999766774972418",
+          "timestamp": "2026-04-14T12:29:03.472+02:00",
+          "date": "2026-04-14",
+          "authorHandle": "KunZinCrypto",
+          "likes": 42,
+          "comments": 45,
+          "views": 402,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2043354530549813445",
+          "timestamp": "2026-04-12T17:44:42.007+02:00",
+          "date": "2026-04-12",
+          "authorHandle": "KunZinCrypto",
+          "likes": 46,
+          "comments": 47,
+          "views": 368,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2042830468392087565",
+          "timestamp": "2026-04-11T07:02:11.942+02:00",
+          "date": "2026-04-11",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 54,
+          "views": 680,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2042058540198851007",
+          "timestamp": "2026-04-09T03:54:57.092+02:00",
+          "date": "2026-04-09",
+          "authorHandle": "KunZinCrypto",
+          "likes": 48,
+          "comments": 52,
+          "views": 205,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2041823971327537255",
+          "timestamp": "2026-04-08T12:24:28.483+02:00",
+          "date": "2026-04-08",
+          "authorHandle": "KunZinCrypto",
+          "likes": 33,
+          "comments": 35,
+          "views": 152,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2041374183243096225",
+          "timestamp": "2026-04-07T06:35:49.801+02:00",
+          "date": "2026-04-07",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 55,
+          "views": 188,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2041040115813032077",
+          "timestamp": "2026-04-06T08:28:53.281+02:00",
+          "date": "2026-04-06",
+          "authorHandle": "KunZinCrypto",
+          "likes": 47,
+          "comments": 51,
+          "views": 163,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2040656000961978637",
+          "timestamp": "2026-04-05T07:01:45.612+02:00",
+          "date": "2026-04-05",
+          "authorHandle": "KunZinCrypto",
+          "likes": 52,
+          "comments": 56,
+          "views": 192,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2040351170581963195",
+          "timestamp": "2026-04-04T10:52:30.539+02:00",
+          "date": "2026-04-04",
+          "authorHandle": "KunZinCrypto",
+          "likes": 39,
+          "comments": 40,
+          "views": 272,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2039939481823072546",
+          "timestamp": "2026-04-03T07:34:15.557+02:00",
+          "date": "2026-04-03",
+          "authorHandle": "KunZinCrypto",
+          "likes": 59,
+          "comments": 61,
+          "views": 222,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2039597120454631766",
+          "timestamp": "2026-04-02T08:54:11.94+02:00",
+          "date": "2026-04-02",
+          "authorHandle": "KunZinCrypto",
+          "likes": 47,
+          "comments": 52,
+          "views": 179,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "hazun2305",
+      "nickname": "Binky",
+      "avatarUrl": "https://cdn.discordapp.com/guilds/1323051038143418388/users/1021478084593057893/avatars/634f153270f1132ac350567b5d2f2ba8.png?size=512",
+      "suspiciousPostCount": 30,
+      "commentsMoreThanLikesCount": 30,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/thuyhatcl/status/2114155228576583881",
+          "timestamp": "2026-10-25T07:53:48.945+02:00",
+          "date": "2026-10-25",
+          "authorHandle": "thuyhatcl",
+          "likes": 75,
+          "comments": 77,
+          "views": 689,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2113430201359008206",
+          "timestamp": "2026-10-23T03:33:44.452+02:00",
+          "date": "2026-10-23",
+          "authorHandle": "thuyhatcl",
+          "likes": 83,
+          "comments": 84,
+          "views": 454,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2113060766979080526",
+          "timestamp": "2026-10-22T04:34:29.556+02:00",
+          "date": "2026-10-22",
+          "authorHandle": "thuyhatcl",
+          "likes": 92,
+          "comments": 94,
+          "views": 609,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2112696366329684166",
+          "timestamp": "2026-10-21T05:08:54.037+02:00",
+          "date": "2026-10-21",
+          "authorHandle": "thuyhatcl",
+          "likes": 92,
+          "comments": 95,
+          "views": 585,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2110194953515388947",
+          "timestamp": "2026-10-14T11:29:02.653+02:00",
+          "date": "2026-10-14",
+          "authorHandle": "thuyhatcl",
+          "likes": 96,
+          "comments": 102,
+          "views": 937,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2099338316227448886",
+          "timestamp": "2026-09-14T05:24:04.836+02:00",
+          "date": "2026-09-14",
+          "authorHandle": "thuyhatcl",
+          "likes": 89,
+          "comments": 95,
+          "views": 311,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2096845357347160152",
+          "timestamp": "2026-09-07T08:18:45.376+02:00",
+          "date": "2026-09-07",
+          "authorHandle": "thuyhatcl",
+          "likes": 71,
+          "comments": 74,
+          "views": 323,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2095699730886250851",
+          "timestamp": "2026-09-04T04:25:43.147+02:00",
+          "date": "2026-09-04",
+          "authorHandle": "thuyhatcl",
+          "likes": 67,
+          "comments": 74,
+          "views": 648,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2092767046522339341",
+          "timestamp": "2026-08-27T02:25:28.46+02:00",
+          "date": "2026-08-27",
+          "authorHandle": "thuyhatcl",
+          "likes": 68,
+          "comments": 70,
+          "views": 481,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2081242520248611257",
+          "timestamp": "2026-07-26T06:58:39.321+02:00",
+          "date": "2026-07-26",
+          "authorHandle": "thuyhatcl",
+          "likes": 45,
+          "comments": 50,
+          "views": 921,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2080105365459402823",
+          "timestamp": "2026-07-23T04:58:42.924+02:00",
+          "date": "2026-07-23",
+          "authorHandle": "thuyhatcl",
+          "likes": 62,
+          "comments": 66,
+          "views": 378,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2076976748739321930",
+          "timestamp": "2026-07-14T12:31:21.727+02:00",
+          "date": "2026-07-14",
+          "authorHandle": "thuyhatcl",
+          "likes": 57,
+          "comments": 66,
+          "views": 760,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2073930427429978537",
+          "timestamp": "2026-07-06T08:24:13.232+02:00",
+          "date": "2026-07-06",
+          "authorHandle": "thuyhatcl",
+          "likes": 62,
+          "comments": 73,
+          "views": 334,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2072487551357866330",
+          "timestamp": "2026-07-02T03:09:14.503+02:00",
+          "date": "2026-07-02",
+          "authorHandle": "thuyhatcl",
+          "likes": 65,
+          "comments": 72,
+          "views": 475,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2069366094306115822",
+          "timestamp": "2026-06-24T04:06:05.411+02:00",
+          "date": "2026-06-24",
+          "authorHandle": "thuyhatcl",
+          "likes": 41,
+          "comments": 46,
+          "views": 720,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2067507995144266086",
+          "timestamp": "2026-06-18T09:23:25.992+02:00",
+          "date": "2026-06-18",
+          "authorHandle": "thuyhatcl",
+          "likes": 44,
+          "comments": 50,
+          "views": 246,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2062029080917377120",
+          "timestamp": "2026-06-03T06:30:28.883+02:00",
+          "date": "2026-06-03",
+          "authorHandle": "thuyhatcl",
+          "likes": 41,
+          "comments": 50,
+          "views": 202,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2060606985037623377",
+          "timestamp": "2026-05-30T21:15:37.974+02:00",
+          "date": "2026-05-30",
+          "authorHandle": "thuyhatcl",
+          "likes": 39,
+          "comments": 45,
+          "views": 412,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2059102529712218469",
+          "timestamp": "2026-05-26T04:41:32.056+02:00",
+          "date": "2026-05-26",
+          "authorHandle": "thuyhatcl",
+          "likes": 37,
+          "comments": 40,
+          "views": 206,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2056312562082349094",
+          "timestamp": "2026-05-18T11:55:40.032+02:00",
+          "date": "2026-05-18",
+          "authorHandle": "thuyhatcl",
+          "likes": 33,
+          "comments": 36,
+          "views": 243,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2044714391476801669",
+          "timestamp": "2026-04-16T11:49:52.98+02:00",
+          "date": "2026-04-16",
+          "authorHandle": "thuyhatcl",
+          "likes": 38,
+          "comments": 39,
+          "views": 148,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2040980291150577965",
+          "timestamp": "2026-04-06T04:30:55.78+02:00",
+          "date": "2026-04-06",
+          "authorHandle": "thuyhatcl",
+          "likes": 49,
+          "comments": 50,
+          "views": 193,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2039996486340194514",
+          "timestamp": "2026-04-03T11:21:27.905+02:00",
+          "date": "2026-04-03",
+          "authorHandle": "thuyhatcl",
+          "likes": 35,
+          "comments": 37,
+          "views": 180,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2037311510972858433",
+          "timestamp": "2026-03-28T03:53:46.535+02:00",
+          "date": "2026-03-28",
+          "authorHandle": "thuyhatcl",
+          "likes": 51,
+          "comments": 59,
+          "views": 178,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2036230594464829923",
+          "timestamp": "2026-03-24T01:56:31.495+02:00",
+          "date": "2026-03-24",
+          "authorHandle": "thuyhatcl",
+          "likes": 52,
+          "comments": 55,
+          "views": 244,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2035514028458656064",
+          "timestamp": "2026-03-22T02:29:15.419+02:00",
+          "date": "2026-03-22",
+          "authorHandle": "thuyhatcl",
+          "likes": 47,
+          "comments": 50,
+          "views": 188,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2035216773629509921",
+          "timestamp": "2026-03-21T06:48:56.8+02:00",
+          "date": "2026-03-21",
+          "authorHandle": "thuyhatcl",
+          "likes": 48,
+          "comments": 54,
+          "views": 257,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2034781059867714048",
+          "timestamp": "2026-03-20T01:56:38.464+02:00",
+          "date": "2026-03-20",
+          "authorHandle": "thuyhatcl",
+          "likes": 54,
+          "comments": 58,
+          "views": 248,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2033694321162260484",
+          "timestamp": "2026-03-17T19:35:37.404+02:00",
+          "date": "2026-03-17",
+          "authorHandle": "thuyhatcl",
+          "likes": 43,
+          "comments": 49,
+          "views": 225,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2026825202890572025",
+          "timestamp": "2026-02-26T04:03:06.133+03:00",
+          "date": "2026-02-26",
+          "authorHandle": "thuyhatcl",
+          "likes": 9,
+          "comments": 11,
+          "views": 65,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "ecamli",
+      "nickname": "ecamli",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/408571574640181248/6105d89393f41a6ae4210548f0f69eda.png?size=512",
+      "suspiciousPostCount": 27,
+      "commentsMoreThanLikesCount": 27,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/ekinoks_26/status/2108165511829713133",
+          "timestamp": "2026-10-08T18:16:57.036+02:00",
+          "date": "2026-10-08",
+          "authorHandle": "ekinoks_26",
+          "likes": 94,
+          "comments": 115,
+          "views": 428,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2102367315912167552",
+          "timestamp": "2026-09-22T19:06:54.545+02:00",
+          "date": "2026-09-22",
+          "authorHandle": "ekinoks_26",
+          "likes": 107,
+          "comments": 115,
+          "views": 347,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2099830601599660420",
+          "timestamp": "2026-09-15T17:41:06.935+02:00",
+          "date": "2026-09-15",
+          "authorHandle": "ekinoks_26",
+          "likes": 122,
+          "comments": 139,
+          "views": 462,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2099029058801614862",
+          "timestamp": "2026-09-13T11:19:25.587+02:00",
+          "date": "2026-09-13",
+          "authorHandle": "ekinoks_26",
+          "likes": 133,
+          "comments": 142,
+          "views": 619,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2098698144397594823",
+          "timestamp": "2026-09-12T15:02:46.502+02:00",
+          "date": "2026-09-12",
+          "authorHandle": "ekinoks_26",
+          "likes": 176,
+          "comments": 188,
+          "views": 612,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2097203280074154362",
+          "timestamp": "2026-09-08T17:54:37.225+02:00",
+          "date": "2026-09-08",
+          "authorHandle": "ekinoks_26",
+          "likes": 129,
+          "comments": 146,
+          "views": 507,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2096478508746952762",
+          "timestamp": "2026-09-06T10:44:39.732+02:00",
+          "date": "2026-09-06",
+          "authorHandle": "ekinoks_26",
+          "likes": 121,
+          "comments": 136,
+          "views": 544,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2094440081671204949",
+          "timestamp": "2026-08-31T19:36:30.996+02:00",
+          "date": "2026-08-31",
+          "authorHandle": "ekinoks_26",
+          "likes": 107,
+          "comments": 114,
+          "views": 456,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2093284961210007853",
+          "timestamp": "2026-08-28T16:35:20.949+02:00",
+          "date": "2026-08-28",
+          "authorHandle": "ekinoks_26",
+          "likes": 161,
+          "comments": 172,
+          "views": 689,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2090770902179025303",
+          "timestamp": "2026-08-21T22:18:09.148+02:00",
+          "date": "2026-08-21",
+          "authorHandle": "ekinoks_26",
+          "likes": 144,
+          "comments": 165,
+          "views": 632,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2090000829931770239",
+          "timestamp": "2026-08-19T17:44:29.008+02:00",
+          "date": "2026-08-19",
+          "authorHandle": "ekinoks_26",
+          "likes": 167,
+          "comments": 173,
+          "views": 701,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2077387248463384685",
+          "timestamp": "2026-07-15T15:40:49.308+02:00",
+          "date": "2026-07-15",
+          "authorHandle": "ekinoks_26",
+          "likes": 138,
+          "comments": 147,
+          "views": 677,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2073083952244367663",
+          "timestamp": "2026-07-03T19:15:30.646+02:00",
+          "date": "2026-07-03",
+          "authorHandle": "ekinoks_26",
+          "likes": 94,
+          "comments": 100,
+          "views": 859,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2070782134344708525",
+          "timestamp": "2026-06-27T11:46:28.022+02:00",
+          "date": "2026-06-27",
+          "authorHandle": "ekinoks_26",
+          "likes": 140,
+          "comments": 147,
+          "views": 689,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2066415414289317976",
+          "timestamp": "2026-06-15T09:37:41.525+02:00",
+          "date": "2026-06-15",
+          "authorHandle": "ekinoks_26",
+          "likes": 141,
+          "comments": 153,
+          "views": 726,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2064648769572847689",
+          "timestamp": "2026-06-10T13:49:04.242+02:00",
+          "date": "2026-06-10",
+          "authorHandle": "ekinoks_26",
+          "likes": 119,
+          "comments": 125,
+          "views": 798,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2063205339168715233",
+          "timestamp": "2026-06-06T12:27:04.158+02:00",
+          "date": "2026-06-06",
+          "authorHandle": "ekinoks_26",
+          "likes": 121,
+          "comments": 126,
+          "views": 1567,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2061674171063742876",
+          "timestamp": "2026-06-02T07:03:04.713+02:00",
+          "date": "2026-06-02",
+          "authorHandle": "ekinoks_26",
+          "likes": 112,
+          "comments": 121,
+          "views": 413,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2059937734236443048",
+          "timestamp": "2026-05-28T14:31:35.828+02:00",
+          "date": "2026-05-28",
+          "authorHandle": "ekinoks_26",
+          "likes": 101,
+          "comments": 110,
+          "views": 495,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2059469650727952483",
+          "timestamp": "2026-05-27T07:29:23.732+02:00",
+          "date": "2026-05-27",
+          "authorHandle": "ekinoks_26",
+          "likes": 115,
+          "comments": 124,
+          "views": 574,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2058820365691085266",
+          "timestamp": "2026-05-25T13:19:20.848+02:00",
+          "date": "2026-05-25",
+          "authorHandle": "ekinoks_26",
+          "likes": 107,
+          "comments": 113,
+          "views": 468,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2057672804666130494",
+          "timestamp": "2026-05-22T08:25:42.032+02:00",
+          "date": "2026-05-22",
+          "authorHandle": "ekinoks_26",
+          "likes": 119,
+          "comments": 127,
+          "views": 432,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2057386037425385632",
+          "timestamp": "2026-05-21T11:48:06.739+02:00",
+          "date": "2026-05-21",
+          "authorHandle": "ekinoks_26",
+          "likes": 131,
+          "comments": 156,
+          "views": 456,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2056347542741250553",
+          "timestamp": "2026-05-18T14:40:20.133+02:00",
+          "date": "2026-05-18",
+          "authorHandle": "ekinoks_26",
+          "likes": 123,
+          "comments": 128,
+          "views": 477,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2054856378632540270",
+          "timestamp": "2026-05-14T11:51:09.883+02:00",
+          "date": "2026-05-14",
+          "authorHandle": "ekinoks_26",
+          "likes": 140,
+          "comments": 147,
+          "views": 520,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2053792240611610818",
+          "timestamp": "2026-05-11T13:02:53.846+02:00",
+          "date": "2026-05-11",
+          "authorHandle": "ekinoks_26",
+          "likes": 97,
+          "comments": 102,
+          "views": 387,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/ekinoks_26/status/2051616650722472443",
+          "timestamp": "2026-05-05T14:23:14.824+02:00",
+          "date": "2026-05-05",
+          "authorHandle": "ekinoks_26",
+          "likes": 120,
+          "comments": 124,
+          "views": 448,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "senjueth",
+      "nickname": "SEN JU",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/696987275078270987/f03f4ed5e4e48485abdb85599bc5fca1.png?size=512",
+      "suspiciousPostCount": 15,
+      "commentsMoreThanLikesCount": 15,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/0xSeenju/status/2112340274102108274",
+          "timestamp": "2026-10-20T02:29:59.852+02:00",
+          "date": "2026-10-20",
+          "authorHandle": "0xSeenju",
+          "likes": 91,
+          "comments": 92,
+          "views": 1763,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2109116964283318641",
+          "timestamp": "2026-10-11T05:02:21.219+02:00",
+          "date": "2026-10-11",
+          "authorHandle": "0xSeenju",
+          "likes": 93,
+          "comments": 94,
+          "views": 1804,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2100211613307699351",
+          "timestamp": "2026-09-16T15:14:34.872+02:00",
+          "date": "2026-09-16",
+          "authorHandle": "0xSeenju",
+          "likes": 86,
+          "comments": 107,
+          "views": 2749,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2074727022346317910",
+          "timestamp": "2026-07-08T07:27:36.705+02:00",
+          "date": "2026-07-08",
+          "authorHandle": "0xSeenju",
+          "likes": 63,
+          "comments": 68,
+          "views": 2109,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2064550397453476129",
+          "timestamp": "2026-06-10T05:29:30.647+02:00",
+          "date": "2026-06-10",
+          "authorHandle": "0xSeenju",
+          "likes": 52,
+          "comments": 54,
+          "views": 2262,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2063147832975003686",
+          "timestamp": "2026-06-06T08:36:08.464+02:00",
+          "date": "2026-06-06",
+          "authorHandle": "0xSeenju",
+          "likes": 85,
+          "comments": 92,
+          "views": 2295,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2059871643615596890",
+          "timestamp": "2026-05-28T07:38:00.239+02:00",
+          "date": "2026-05-28",
+          "authorHandle": "0xSeenju",
+          "likes": 117,
+          "comments": 125,
+          "views": 2279,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2058382657453773078",
+          "timestamp": "2026-05-24T05:00:54.728+02:00",
+          "date": "2026-05-24",
+          "authorHandle": "0xSeenju",
+          "likes": 78,
+          "comments": 83,
+          "views": 7597,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2051527126759961008",
+          "timestamp": "2026-05-05T07:00:08.26+02:00",
+          "date": "2026-05-05",
+          "authorHandle": "0xSeenju",
+          "likes": 91,
+          "comments": 93,
+          "views": 1141,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2047540319093473743",
+          "timestamp": "2026-04-24T06:57:20.761+02:00",
+          "date": "2026-04-24",
+          "authorHandle": "0xSeenju",
+          "likes": 42,
+          "comments": 44,
+          "views": 2498,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2038841528270176478",
+          "timestamp": "2026-03-31T06:51:30.598+02:00",
+          "date": "2026-03-31",
+          "authorHandle": "0xSeenju",
+          "likes": 62,
+          "comments": 70,
+          "views": 8109,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2038056276102729990",
+          "timestamp": "2026-03-29T06:28:25.054+02:00",
+          "date": "2026-03-29",
+          "authorHandle": "0xSeenju",
+          "likes": 46,
+          "comments": 51,
+          "views": 2446,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2038053921378508950",
+          "timestamp": "2026-03-29T02:41:48.194+02:00",
+          "date": "2026-03-29",
+          "authorHandle": "0xSeenju",
+          "likes": 45,
+          "comments": 48,
+          "views": 2440,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2037668588598022151",
+          "timestamp": "2026-03-28T01:10:35.842+02:00",
+          "date": "2026-03-28",
+          "authorHandle": "0xSeenju",
+          "likes": 44,
+          "comments": 51,
+          "views": 2363,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/0xSeenju/status/2037331004382449744",
+          "timestamp": "2026-03-27T02:49:06.578+02:00",
+          "date": "2026-03-27",
+          "authorHandle": "0xSeenju",
+          "likes": 56,
+          "comments": 60,
+          "views": 6615,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "dead_crypto",
+      "nickname": "DND",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/1156493947204538379/6baf42987580a9f795f9c229ba7966bf.png?size=512",
+      "suspiciousPostCount": 7,
+      "commentsMoreThanLikesCount": 7,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/Lakshy_x/status/2112382301300768930",
+          "timestamp": "2026-10-20T19:44:05.103+02:00",
+          "date": "2026-10-20",
+          "authorHandle": "Lakshy_x",
+          "likes": 33,
+          "comments": 36,
+          "views": 439,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/Lakshy_x/status/2072586351862788338",
+          "timestamp": "2026-07-05T08:26:18.907+02:00",
+          "date": "2026-07-05",
+          "authorHandle": "Lakshy_x",
+          "likes": 19,
+          "comments": 25,
+          "views": 605,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Lakshy_x/status/2064920547142853023",
+          "timestamp": "2026-06-12T08:55:12.06+02:00",
+          "date": "2026-06-12",
+          "authorHandle": "Lakshy_x",
+          "likes": 27,
+          "comments": 29,
+          "views": 822,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Lakshy_x/status/2060012193941475796",
+          "timestamp": "2026-05-28T17:39:50.531+02:00",
+          "date": "2026-05-28",
+          "authorHandle": "Lakshy_x",
+          "likes": 14,
+          "comments": 19,
+          "views": 706,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Lakshy_x/status/2048680607891501093",
+          "timestamp": "2026-04-27T17:35:02.622+02:00",
+          "date": "2026-04-27",
+          "authorHandle": "Lakshy_x",
+          "likes": 13,
+          "comments": 14,
+          "views": 438,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Lakshy_x/status/2047945045828100128",
+          "timestamp": "2026-04-26T10:06:32.654+02:00",
+          "date": "2026-04-26",
+          "authorHandle": "Lakshy_x",
+          "likes": 20,
+          "comments": 21,
+          "views": 445,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Lakshy_x/status/2044817366073450919",
+          "timestamp": "2026-04-17T16:12:23.978+02:00",
+          "date": "2026-04-17",
+          "authorHandle": "Lakshy_x",
+          "likes": 22,
+          "comments": 23,
+          "views": 424,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "playmanaz",
+      "nickname": "Manaz.btc🇸🇴",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/995020797657743371/f4fb99a1b7f00bca8cef7e2c1ea492a3.png?size=512",
+      "suspiciousPostCount": 6,
+      "commentsMoreThanLikesCount": 6,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/manazrealfact/status/2111791214336819578",
+          "timestamp": "2026-10-18T14:07:43.471+02:00",
+          "date": "2026-10-18",
+          "authorHandle": "Manazrealfact",
+          "likes": 16,
+          "comments": 20,
+          "views": 162,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/manazrealfact/status/2023466923502301296",
+          "timestamp": "2026-02-16T21:39:31.445+03:00",
+          "date": "2026-02-16",
+          "authorHandle": "Manazrealfact",
+          "likes": 14,
+          "comments": 19,
+          "views": 180,
+          "reposts": 4,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/manazrealfact/status/2022031467040432391",
+          "timestamp": "2026-02-12T22:34:48.07+03:00",
+          "date": "2026-02-12",
+          "authorHandle": "Manazrealfact",
+          "likes": 17,
+          "comments": 19,
+          "views": 319,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/manazrealfact/status/2016237496917451198",
+          "timestamp": "2026-01-27T23:11:44.068+03:00",
+          "date": "2026-01-27",
+          "authorHandle": "Manazrealfact",
+          "likes": 17,
+          "comments": 19,
+          "views": 501,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/manazrealfact/status/2015849562506739879",
+          "timestamp": "2026-01-26T23:42:08.914+03:00",
+          "date": "2026-01-26",
+          "authorHandle": "Manazrealfact",
+          "likes": 15,
+          "comments": 16,
+          "views": 1493,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/manazrealfact/status/2015072761224241318",
+          "timestamp": "2026-01-24T18:39:22.786+03:00",
+          "date": "2026-01-24",
+          "authorHandle": "Manazrealfact",
+          "likes": 22,
+          "comments": 25,
+          "views": 2358,
+          "reposts": 3,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "samba_vibe",
+      "nickname": "Samba 🔴",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/1031532634465116160/96a8aecd8b6a1d9a41c7f9a27c661674.png?size=512",
+      "suspiciousPostCount": 6,
+      "commentsMoreThanLikesCount": 6,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/samba_vibe/status/2114064907234939093",
+          "timestamp": "2026-10-24T20:42:43.98+02:00",
+          "date": "2026-10-24",
+          "authorHandle": "samba_vibe",
+          "likes": 74,
+          "comments": 78,
+          "views": 525,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2112986770623394199",
+          "timestamp": "2026-10-21T22:19:03.948+02:00",
+          "date": "2026-10-21",
+          "authorHandle": "samba_vibe",
+          "likes": 72,
+          "comments": 88,
+          "views": 965,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2112411884578279907",
+          "timestamp": "2026-10-20T07:14:39.981+02:00",
+          "date": "2026-10-20",
+          "authorHandle": "samba_vibe",
+          "likes": 49,
+          "comments": 53,
+          "views": 863,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2111169731311149143",
+          "timestamp": "2026-10-16T20:49:50.001+02:00",
+          "date": "2026-10-16",
+          "authorHandle": "samba_vibe",
+          "likes": 69,
+          "comments": 75,
+          "views": 968,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2105733949687570473",
+          "timestamp": "2026-10-01T20:58:31.72+02:00",
+          "date": "2026-10-01",
+          "authorHandle": "samba_vibe",
+          "likes": 93,
+          "comments": 101,
+          "views": 2186,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2100292790479671717",
+          "timestamp": "2026-09-16T20:39:09.31+02:00",
+          "date": "2026-09-16",
+          "authorHandle": "samba_vibe",
+          "likes": 44,
+          "comments": 48,
+          "views": 1403,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "holycrypts",
+      "nickname": "𝕯𝖀𝕯𝕰",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/1077572520695304214/e3b2634c88a2a7b9535cab9f11dd0179.png?size=512",
+      "suspiciousPostCount": 5,
+      "commentsMoreThanLikesCount": 5,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/OXEMMYWEB3/status/2113715851555733667",
+          "timestamp": "2026-10-24T11:07:07.819+02:00",
+          "date": "2026-10-24",
+          "authorHandle": "OXEMMYWEB3",
+          "likes": 9,
+          "comments": 10,
+          "views": 73,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/OXEMMYWEB3/status/2111884742538735736",
+          "timestamp": "2026-10-18T20:40:08.4+02:00",
+          "date": "2026-10-18",
+          "authorHandle": "OXEMMYWEB3",
+          "likes": 10,
+          "comments": 12,
+          "views": 119,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/OXEMMYWEB3/status/2109005057954082861",
+          "timestamp": "2026-10-12T20:14:00.393+02:00",
+          "date": "2026-10-12",
+          "authorHandle": "OXEMMYWEB3",
+          "likes": 11,
+          "comments": 12,
+          "views": 207,
+          "reposts": 3,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/OXEMMYWEB3/status/2039796493129773219",
+          "timestamp": "2026-04-02T22:06:31.083+02:00",
+          "date": "2026-04-02",
+          "authorHandle": "OXEMMYWEB3",
+          "likes": 10,
+          "comments": 11,
+          "views": 63,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/OXEMMYWEB3/status/2037982867880316970",
+          "timestamp": "2026-03-28T22:05:39.6+02:00",
+          "date": "2026-03-28",
+          "authorHandle": "OXEMMYWEB3",
+          "likes": 17,
+          "comments": 18,
+          "views": 189,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    }
+  ]
+}

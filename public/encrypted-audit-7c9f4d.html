@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <title>Encrypted Activity Review</title>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="encrypted-audit-7c9f4d.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="audit-background" aria-hidden="true"></div>
+
+    <main class="audit-shell">
+        <header class="audit-hero">
+            <div class="hero-copy">
+                <div class="hero-kicker"><i class="fas fa-lock"></i> Unlisted review page</div>
+                <h1>Encrypted Activity Audit</h1>
+                <p>Heuristic review of X posts shared by current Encrypted role holders.</p>
+            </div>
+            <a class="home-link" href="index.html"><i class="fas fa-arrow-left"></i> Fluton</a>
+
+            <div class="summary-grid" aria-label="Audit summary">
+                <article>
+                    <span>Encrypted holders</span>
+                    <strong id="roleHolderCount">-</strong>
+                </article>
+                <article>
+                    <span>Flagged users</span>
+                    <strong id="flaggedUserCount">-</strong>
+                </article>
+                <article>
+                    <span>Flagged posts</span>
+                    <strong id="flaggedPostCount">-</strong>
+                </article>
+                <article>
+                    <span>Data through</span>
+                    <strong id="dataThrough">-</strong>
+                </article>
+            </div>
+        </header>
+
+        <section class="review-note">
+            <i class="fas fa-triangle-exclamation"></i>
+            <div>
+                <strong>Manual review required</strong>
+                <p>These rules identify unusual metric patterns. A flag is not proof of manipulation.</p>
+            </div>
+        </section>
+
+        <section class="filter-panel" aria-label="Audit filters">
+            <label class="search-field">
+                <span>Search user or X handle</span>
+                <div>
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input id="searchInput" type="search" autocomplete="off" placeholder="Discord username, nickname, or X handle">
+                </div>
+            </label>
+
+            <label>
+                <span>Reason</span>
+                <select id="reasonFilter">
+                    <option value="all">All suspicious patterns</option>
+                    <option value="comments_more_than_likes">Comments greater than likes</option>
+                    <option value="low_likes_high_views">1-4 likes with 1,000+ views</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Period</span>
+                <select id="periodFilter">
+                    <option value="all">All history</option>
+                    <option value="current">Current leaderboard week</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Minimum flags</span>
+                <select id="minimumFilter">
+                    <option value="5">5 or more</option>
+                    <option value="10">10 or more</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Sort</span>
+                <select id="sortFilter">
+                    <option value="count">Most flagged posts</option>
+                    <option value="recent">Most recent flag</option>
+                    <option value="name">Username</option>
+                </select>
+            </label>
+        </section>
+
+        <div class="result-line">
+            <strong id="visibleUsers">0 users</strong>
+            <span id="visiblePosts">0 matching posts</span>
+        </div>
+
+        <section id="auditResults" class="audit-results" aria-live="polite">
+            <div class="loading-card"><i class="fas fa-spinner fa-spin"></i> Loading audit data...</div>
+        </section>
+    </main>
+
+    <script src="encrypted-audit-7c9f4d.js"></script>
+</body>
+
+</html>
