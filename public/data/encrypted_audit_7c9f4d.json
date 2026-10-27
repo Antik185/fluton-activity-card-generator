@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-10-27T23:03:33.214Z",
+    "generatedAt": "2026-10-27T23:05:45.115Z",
     "dataThrough": "2026-10-25",
     "currentPeriod": {
       "start": "2026-10-19",
@@ -2245,9 +2245,9 @@
   ],
   "lowEngagementUsers": [
     {
-      "username": "thuyhatcl",
-      "nickname": "Zuncay (Doris)",
-      "avatarUrl": "https://pbs.twimg.com/profile_images/2084281063057330177/ZuGe_1qG_normal.jpg",
+      "username": "hazun2305",
+      "nickname": "Binky",
+      "avatarUrl": "https://cdn.discordapp.com/guilds/1323051038143418388/users/1021478084593057893/avatars/634f153270f1132ac350567b5d2f2ba8.png?size=512",
       "suspiciousPostCount": 6,
       "lowEngagementCount": 6,
       "posts": [

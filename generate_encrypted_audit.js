@@ -16,9 +16,10 @@ const weekFile = path.join(__dirname, 'public', 'data', 'leaderboard_week.json')
 const MIN_FLAGS_PER_USER = 5;
 const MIN_VISIBLE_ENGAGEMENT = 10;
 const MANUAL_LOW_ENGAGEMENT = {
-    username: 'thuyhatcl',
-    nickname: 'Zuncay (Doris)',
-    avatarUrl: 'https://pbs.twimg.com/profile_images/2084281063057330177/ZuGe_1qG_normal.jpg',
+    username: 'hazun2305',
+    nickname: 'Binky',
+    avatarUrl: 'https://cdn.discordapp.com/guilds/1323051038143418388/users/1021478084593057893/avatars/634f153270f1132ac350567b5d2f2ba8.png?size=512',
+    xHandle: 'thuyhatcl',
     posts: [
         { id: '2113308554912485715', timestamp: '2026-10-22T16:36:37.000Z', likes: 2, views: 101, comments: 2, reposts: 0 },
         { id: '2109797011595710657', timestamp: '2026-10-13T00:03:00.000Z', likes: 9, views: 244, comments: 5, reposts: 1 },
@@ -50,10 +51,10 @@ function getManualLowEngagement(currentPeriod) {
     const posts = MANUAL_LOW_ENGAGEMENT.posts.map(post => {
         const date = post.timestamp.slice(0, 10);
         return {
-            url: `https://x.com/${MANUAL_LOW_ENGAGEMENT.username}/status/${post.id}`,
+            url: `https://x.com/${MANUAL_LOW_ENGAGEMENT.xHandle}/status/${post.id}`,
             timestamp: post.timestamp,
             date,
-            authorHandle: MANUAL_LOW_ENGAGEMENT.username,
+            authorHandle: MANUAL_LOW_ENGAGEMENT.xHandle,
             likes: post.likes,
             comments: post.comments,
             views: post.views,
