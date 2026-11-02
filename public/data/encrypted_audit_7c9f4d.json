@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generatedAt": "2026-10-27T23:05:45.115Z",
-    "dataThrough": "2026-10-25",
+    "generatedAt": "2026-11-02T21:31:45.852Z",
+    "dataThrough": "2026-11-01",
     "currentPeriod": {
-      "start": "2026-10-19",
-      "end": "2026-10-25"
+      "start": "2026-10-26",
+      "end": "2026-11-01"
     },
-    "encryptedRoleHolders": 178,
+    "encryptedRoleHolders": 191,
     "flaggedUsers": 8,
-    "suspiciousPosts": 153,
+    "suspiciousPosts": 156,
     "lowEngagementUsers": 1,
     "lowEngagementPosts": 6,
     "criteria": {
@@ -24,10 +24,24 @@
       "username": "lyhuysang54119",
       "nickname": "KunZinTV",
       "avatarUrl": "https://cdn.discordapp.com/avatars/1304577252171845675/9b92697b56b902d63141dd3f45c8a545.png?size=512",
-      "suspiciousPostCount": 57,
-      "commentsMoreThanLikesCount": 57,
+      "suspiciousPostCount": 58,
+      "commentsMoreThanLikesCount": 58,
       "lowLikesHighViewsCount": 0,
       "posts": [
+        {
+          "url": "https://x.com/KunZinCrypto/status/2115280355028791683",
+          "timestamp": "2026-10-28T05:12:28.743+02:00",
+          "date": "2026-10-28",
+          "authorHandle": "KunZinCrypto",
+          "likes": 66,
+          "comments": 69,
+          "views": 522,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
         {
           "url": "https://x.com/KunZinCrypto/status/2114303445289095477",
           "timestamp": "2026-10-25T12:31:00.828+02:00",
@@ -35,12 +49,12 @@
           "authorHandle": "KunZinCrypto",
           "likes": 65,
           "comments": 78,
-          "views": 217,
-          "reposts": 1,
+          "views": 333,
+          "reposts": 2,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/KunZinCrypto/status/2112422749419503915",
@@ -49,12 +63,12 @@
           "authorHandle": "KunZinCrypto",
           "likes": 90,
           "comments": 101,
-          "views": 669,
+          "views": 681,
           "reposts": 4,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/KunZinCrypto/status/2108044554167525594",
@@ -832,18 +846,18 @@
       "username": "hazun2305",
       "nickname": "Binky",
       "avatarUrl": "https://cdn.discordapp.com/guilds/1323051038143418388/users/1021478084593057893/avatars/634f153270f1132ac350567b5d2f2ba8.png?size=512",
-      "suspiciousPostCount": 30,
-      "commentsMoreThanLikesCount": 30,
+      "suspiciousPostCount": 31,
+      "commentsMoreThanLikesCount": 31,
       "lowLikesHighViewsCount": 0,
       "posts": [
         {
-          "url": "https://x.com/thuyhatcl/status/2114155228576583881",
-          "timestamp": "2026-10-25T07:53:48.945+02:00",
-          "date": "2026-10-25",
+          "url": "https://x.com/thuyhatcl/status/2115959366486487060",
+          "timestamp": "2026-10-30T04:18:17.764+02:00",
+          "date": "2026-10-30",
           "authorHandle": "thuyhatcl",
-          "likes": 75,
-          "comments": 77,
-          "views": 689,
+          "likes": 82,
+          "comments": 90,
+          "views": 503,
           "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
@@ -851,18 +865,32 @@
           "isCurrentPeriod": true
         },
         {
-          "url": "https://x.com/thuyhatcl/status/2113430201359008206",
-          "timestamp": "2026-10-23T03:33:44.452+02:00",
-          "date": "2026-10-23",
+          "url": "https://x.com/thuyhatcl/status/2114155228576583881",
+          "timestamp": "2026-10-25T07:53:48.945+02:00",
+          "date": "2026-10-25",
           "authorHandle": "thuyhatcl",
-          "likes": 83,
-          "comments": 84,
-          "views": 454,
+          "likes": 75,
+          "comments": 77,
+          "views": 743,
           "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2113430201359008206",
+          "timestamp": "2026-10-23T03:33:44.452+02:00",
+          "date": "2026-10-23",
+          "authorHandle": "thuyhatcl",
+          "likes": 82,
+          "comments": 84,
+          "views": 490,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2113060766979080526",
@@ -871,12 +899,12 @@
           "authorHandle": "thuyhatcl",
           "likes": 92,
           "comments": 94,
-          "views": 609,
+          "views": 635,
           "reposts": 2,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2112696366329684166",
@@ -885,12 +913,12 @@
           "authorHandle": "thuyhatcl",
           "likes": 92,
           "comments": 95,
-          "views": 585,
+          "views": 599,
           "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2110194953515388947",
@@ -1650,24 +1678,10 @@
       "username": "senjueth",
       "nickname": "SEN JU",
       "avatarUrl": "https://cdn.discordapp.com/avatars/696987275078270987/f03f4ed5e4e48485abdb85599bc5fca1.png?size=512",
-      "suspiciousPostCount": 15,
-      "commentsMoreThanLikesCount": 15,
+      "suspiciousPostCount": 14,
+      "commentsMoreThanLikesCount": 14,
       "lowLikesHighViewsCount": 0,
       "posts": [
-        {
-          "url": "https://x.com/0xSeenju/status/2112340274102108274",
-          "timestamp": "2026-10-20T02:29:59.852+02:00",
-          "date": "2026-10-20",
-          "authorHandle": "0xSeenju",
-          "likes": 91,
-          "comments": 92,
-          "views": 1763,
-          "reposts": 0,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": true
-        },
         {
           "url": "https://x.com/0xSeenju/status/2109116964283318641",
           "timestamp": "2026-10-11T05:02:21.219+02:00",
@@ -1867,6 +1881,128 @@
       ]
     },
     {
+      "username": "samba_vibe",
+      "nickname": "Samba 🔴",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/1031532634465116160/96a8aecd8b6a1d9a41c7f9a27c661674.png?size=512",
+      "suspiciousPostCount": 8,
+      "commentsMoreThanLikesCount": 8,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/samba_vibe/status/2116593518282220007",
+          "timestamp": "2026-10-31T20:18:08.57+02:00",
+          "date": "2026-10-31",
+          "authorHandle": "samba_vibe",
+          "likes": 56,
+          "comments": 58,
+          "views": 516,
+          "reposts": 3,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2115875464397123947",
+          "timestamp": "2026-10-29T20:37:41.511+02:00",
+          "date": "2026-10-29",
+          "authorHandle": "samba_vibe",
+          "likes": 63,
+          "comments": 69,
+          "views": 486,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2114064907234939093",
+          "timestamp": "2026-10-24T20:42:43.98+02:00",
+          "date": "2026-10-24",
+          "authorHandle": "samba_vibe",
+          "likes": 74,
+          "comments": 78,
+          "views": 534,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2112986770623394199",
+          "timestamp": "2026-10-21T22:19:03.948+02:00",
+          "date": "2026-10-21",
+          "authorHandle": "samba_vibe",
+          "likes": 72,
+          "comments": 88,
+          "views": 977,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2112411884578279907",
+          "timestamp": "2026-10-20T07:14:39.981+02:00",
+          "date": "2026-10-20",
+          "authorHandle": "samba_vibe",
+          "likes": 48,
+          "comments": 53,
+          "views": 865,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2111169731311149143",
+          "timestamp": "2026-10-16T20:49:50.001+02:00",
+          "date": "2026-10-16",
+          "authorHandle": "samba_vibe",
+          "likes": 69,
+          "comments": 75,
+          "views": 968,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2105733949687570473",
+          "timestamp": "2026-10-01T20:58:31.72+02:00",
+          "date": "2026-10-01",
+          "authorHandle": "samba_vibe",
+          "likes": 93,
+          "comments": 101,
+          "views": 2186,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/samba_vibe/status/2100292790479671717",
+          "timestamp": "2026-09-16T20:39:09.31+02:00",
+          "date": "2026-09-16",
+          "authorHandle": "samba_vibe",
+          "likes": 44,
+          "comments": 48,
+          "views": 1403,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
       "username": "dead_crypto",
       "nickname": "DND",
       "avatarUrl": "https://cdn.discordapp.com/avatars/1156493947204538379/6baf42987580a9f795f9c229ba7966bf.png?size=512",
@@ -1881,12 +2017,12 @@
           "authorHandle": "Lakshy_x",
           "likes": 33,
           "comments": 36,
-          "views": 439,
+          "views": 442,
           "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/Lakshy_x/status/2072586351862788338",
@@ -2069,100 +2205,6 @@
       ]
     },
     {
-      "username": "samba_vibe",
-      "nickname": "Samba 🔴",
-      "avatarUrl": "https://cdn.discordapp.com/avatars/1031532634465116160/96a8aecd8b6a1d9a41c7f9a27c661674.png?size=512",
-      "suspiciousPostCount": 6,
-      "commentsMoreThanLikesCount": 6,
-      "lowLikesHighViewsCount": 0,
-      "posts": [
-        {
-          "url": "https://x.com/samba_vibe/status/2114064907234939093",
-          "timestamp": "2026-10-24T20:42:43.98+02:00",
-          "date": "2026-10-24",
-          "authorHandle": "samba_vibe",
-          "likes": 74,
-          "comments": 78,
-          "views": 525,
-          "reposts": 1,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": true
-        },
-        {
-          "url": "https://x.com/samba_vibe/status/2112986770623394199",
-          "timestamp": "2026-10-21T22:19:03.948+02:00",
-          "date": "2026-10-21",
-          "authorHandle": "samba_vibe",
-          "likes": 72,
-          "comments": 88,
-          "views": 965,
-          "reposts": 2,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": true
-        },
-        {
-          "url": "https://x.com/samba_vibe/status/2112411884578279907",
-          "timestamp": "2026-10-20T07:14:39.981+02:00",
-          "date": "2026-10-20",
-          "authorHandle": "samba_vibe",
-          "likes": 49,
-          "comments": 53,
-          "views": 863,
-          "reposts": 2,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": true
-        },
-        {
-          "url": "https://x.com/samba_vibe/status/2111169731311149143",
-          "timestamp": "2026-10-16T20:49:50.001+02:00",
-          "date": "2026-10-16",
-          "authorHandle": "samba_vibe",
-          "likes": 69,
-          "comments": 75,
-          "views": 968,
-          "reposts": 1,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": false
-        },
-        {
-          "url": "https://x.com/samba_vibe/status/2105733949687570473",
-          "timestamp": "2026-10-01T20:58:31.72+02:00",
-          "date": "2026-10-01",
-          "authorHandle": "samba_vibe",
-          "likes": 93,
-          "comments": 101,
-          "views": 2186,
-          "reposts": 1,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": false
-        },
-        {
-          "url": "https://x.com/samba_vibe/status/2100292790479671717",
-          "timestamp": "2026-09-16T20:39:09.31+02:00",
-          "date": "2026-09-16",
-          "authorHandle": "samba_vibe",
-          "likes": 44,
-          "comments": 48,
-          "views": 1403,
-          "reposts": 1,
-          "reasons": [
-            "comments_more_than_likes"
-          ],
-          "isCurrentPeriod": false
-        }
-      ]
-    },
-    {
       "username": "holycrypts",
       "nickname": "𝕯𝖀𝕯𝕰",
       "avatarUrl": "https://cdn.discordapp.com/avatars/1077572520695304214/e3b2634c88a2a7b9535cab9f11dd0179.png?size=512",
@@ -2177,12 +2219,12 @@
           "authorHandle": "OXEMMYWEB3",
           "likes": 9,
           "comments": 10,
-          "views": 73,
+          "views": 76,
           "reposts": 2,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/OXEMMYWEB3/status/2111884742538735736",
@@ -2263,7 +2305,7 @@
           "reasons": [
             "low_engagement"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2113289079177793767",
@@ -2277,7 +2319,7 @@
           "reasons": [
             "low_engagement"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2112751091242963239",
@@ -2291,7 +2333,7 @@
           "reasons": [
             "low_engagement"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2112588123385569590",
@@ -2305,7 +2347,7 @@
           "reasons": [
             "low_engagement"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2112229198555406845",
@@ -2319,7 +2361,7 @@
           "reasons": [
             "low_engagement"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2109797011595710657",

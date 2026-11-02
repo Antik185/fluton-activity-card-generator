@@ -48,6 +48,27 @@ const COHORTS = [
             'golnooshbandani6327',
             'mrchuoi279'
         ]
+    },
+    {
+        label: 'Late October 2026 cohort',
+        roleAwardedAt: '2026-10-27T00:00:00+02:00',
+        fullDayEnd: '2026-10-25',
+        periodEnd: '2026-10-25',
+        members: [
+            'legend062322',
+            'israrbaho112_22122',
+            'saqee19',
+            'letienphu_38885',
+            'satgai',
+            'idrees1784',
+            'ngolakante.',
+            'hassan8405120',
+            'jisanur63',
+            'realpri',
+            'ashraful0129',
+            'holuwagbemegar_',
+            'baba_teeee'
+        ]
     }
 ];
 
