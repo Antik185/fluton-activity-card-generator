@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generatedAt": "2026-11-02T21:31:45.852Z",
-    "dataThrough": "2026-11-01",
+    "generatedAt": "2026-11-09T12:42:03.825Z",
+    "dataThrough": "2026-11-08",
     "currentPeriod": {
-      "start": "2026-10-26",
-      "end": "2026-11-01"
+      "start": "2026-11-02",
+      "end": "2026-11-08"
     },
-    "encryptedRoleHolders": 191,
-    "flaggedUsers": 8,
-    "suspiciousPosts": 156,
+    "encryptedRoleHolders": 193,
+    "flaggedUsers": 11,
+    "suspiciousPosts": 179,
     "lowEngagementUsers": 1,
     "lowEngagementPosts": 6,
     "criteria": {
@@ -24,10 +24,38 @@
       "username": "lyhuysang54119",
       "nickname": "KunZinTV",
       "avatarUrl": "https://cdn.discordapp.com/avatars/1304577252171845675/9b92697b56b902d63141dd3f45c8a545.png?size=512",
-      "suspiciousPostCount": 58,
-      "commentsMoreThanLikesCount": 58,
+      "suspiciousPostCount": 60,
+      "commentsMoreThanLikesCount": 60,
       "lowLikesHighViewsCount": 0,
       "posts": [
+        {
+          "url": "https://x.com/KunZinCrypto/status/2118591599727010222",
+          "timestamp": "2026-11-06T08:29:53.294+02:00",
+          "date": "2026-11-06",
+          "authorHandle": "KunZinCrypto",
+          "likes": 99,
+          "comments": 107,
+          "views": 527,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/KunZinCrypto/status/2117470309699989944",
+          "timestamp": "2026-11-03T06:14:40.259+02:00",
+          "date": "2026-11-03",
+          "authorHandle": "KunZinCrypto",
+          "likes": 118,
+          "comments": 122,
+          "views": 943,
+          "reposts": 4,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
         {
           "url": "https://x.com/KunZinCrypto/status/2115280355028791683",
           "timestamp": "2026-10-28T05:12:28.743+02:00",
@@ -35,12 +63,12 @@
           "authorHandle": "KunZinCrypto",
           "likes": 66,
           "comments": 69,
-          "views": 522,
+          "views": 552,
           "reposts": 2,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/KunZinCrypto/status/2114303445289095477",
@@ -846,10 +874,38 @@
       "username": "hazun2305",
       "nickname": "Binky",
       "avatarUrl": "https://cdn.discordapp.com/guilds/1323051038143418388/users/1021478084593057893/avatars/634f153270f1132ac350567b5d2f2ba8.png?size=512",
-      "suspiciousPostCount": 31,
-      "commentsMoreThanLikesCount": 31,
+      "suspiciousPostCount": 33,
+      "commentsMoreThanLikesCount": 33,
       "lowLikesHighViewsCount": 0,
       "posts": [
+        {
+          "url": "https://x.com/thuyhatcl/status/2118600821911007622",
+          "timestamp": "2026-11-06T09:06:44.4+02:00",
+          "date": "2026-11-06",
+          "authorHandle": "thuyhatcl",
+          "likes": 83,
+          "comments": 89,
+          "views": 483,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/thuyhatcl/status/2117045020574322846",
+          "timestamp": "2026-11-02T02:27:04.245+02:00",
+          "date": "2026-11-02",
+          "authorHandle": "thuyhatcl",
+          "likes": 89,
+          "comments": 91,
+          "views": 623,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
         {
           "url": "https://x.com/thuyhatcl/status/2115959366486487060",
           "timestamp": "2026-10-30T04:18:17.764+02:00",
@@ -857,12 +913,12 @@
           "authorHandle": "thuyhatcl",
           "likes": 82,
           "comments": 90,
-          "views": 503,
+          "views": 542,
           "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/thuyhatcl/status/2114155228576583881",
@@ -1290,10 +1346,24 @@
       "username": "ecamli",
       "nickname": "ecamli",
       "avatarUrl": "https://cdn.discordapp.com/avatars/408571574640181248/6105d89393f41a6ae4210548f0f69eda.png?size=512",
-      "suspiciousPostCount": 27,
-      "commentsMoreThanLikesCount": 27,
+      "suspiciousPostCount": 28,
+      "commentsMoreThanLikesCount": 28,
       "lowLikesHighViewsCount": 0,
       "posts": [
+        {
+          "url": "https://x.com/ekinoks_26/status/2117225217324122426",
+          "timestamp": "2026-11-02T17:50:23.439+02:00",
+          "date": "2026-11-02",
+          "authorHandle": "ekinoks_26",
+          "likes": 167,
+          "comments": 172,
+          "views": 567,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
         {
           "url": "https://x.com/ekinoks_26/status/2108165511829713133",
           "timestamp": "2026-10-08T18:16:57.036+02:00",
@@ -1881,6 +1951,128 @@
       ]
     },
     {
+      "username": "phucluc3105",
+      "nickname": "phucluc3105",
+      "avatarUrl": "https://cdn.discordapp.com/guilds/1323051038143418388/users/1220209266527309980/avatars/6e7f364253be917ed285b74a94987d94.png?size=512",
+      "suspiciousPostCount": 8,
+      "commentsMoreThanLikesCount": 8,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/phucluc0519/status/2119247281614401626",
+          "timestamp": "2026-11-08T12:12:20.772+02:00",
+          "date": "2026-11-08",
+          "authorHandle": "phucluc0519",
+          "likes": 85,
+          "comments": 91,
+          "views": 500,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2118531734174306521",
+          "timestamp": "2026-11-06T04:41:21.584+02:00",
+          "date": "2026-11-06",
+          "authorHandle": "phucluc0519",
+          "likes": 102,
+          "comments": 111,
+          "views": 810,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2117882422562058694",
+          "timestamp": "2026-11-04T11:25:41.026+02:00",
+          "date": "2026-11-04",
+          "authorHandle": "phucluc0519",
+          "likes": 67,
+          "comments": 68,
+          "views": 633,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2117126480128004186",
+          "timestamp": "2026-11-02T13:00:26.649+02:00",
+          "date": "2026-11-02",
+          "authorHandle": "phucluc0519",
+          "likes": 80,
+          "comments": 81,
+          "views": 541,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2114207321987379633",
+          "timestamp": "2026-10-25T08:38:53.021+02:00",
+          "date": "2026-10-25",
+          "authorHandle": "phucluc0519",
+          "likes": 66,
+          "comments": 70,
+          "views": 263,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2112705677156036723",
+          "timestamp": "2026-10-21T04:12:46.194+02:00",
+          "date": "2026-10-21",
+          "authorHandle": "phucluc0519",
+          "likes": 62,
+          "comments": 68,
+          "views": 412,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2110522291272421600",
+          "timestamp": "2026-10-15T02:20:21.295+02:00",
+          "date": "2026-10-15",
+          "authorHandle": "phucluc0519",
+          "likes": 81,
+          "comments": 88,
+          "views": 431,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/phucluc0519/status/2107758077227176226",
+          "timestamp": "2026-10-08T10:27:03.307+02:00",
+          "date": "2026-10-08",
+          "authorHandle": "phucluc0519",
+          "likes": 88,
+          "comments": 91,
+          "views": 524,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
       "username": "samba_vibe",
       "nickname": "Samba 🔴",
       "avatarUrl": "https://cdn.discordapp.com/avatars/1031532634465116160/96a8aecd8b6a1d9a41c7f9a27c661674.png?size=512",
@@ -1895,12 +2087,12 @@
           "authorHandle": "samba_vibe",
           "likes": 56,
           "comments": 58,
-          "views": 516,
-          "reposts": 3,
+          "views": 531,
+          "reposts": 2,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/samba_vibe/status/2115875464397123947",
@@ -1909,12 +2101,12 @@
           "authorHandle": "samba_vibe",
           "likes": 63,
           "comments": 69,
-          "views": 486,
+          "views": 489,
           "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
           ],
-          "isCurrentPeriod": true
+          "isCurrentPeriod": false
         },
         {
           "url": "https://x.com/samba_vibe/status/2114064907234939093",
@@ -2197,6 +2389,166 @@
           "comments": 25,
           "views": 2358,
           "reposts": 3,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "baoday97",
+      "nickname": "🫧🅳🅴🅼🅾🅽 🅺🅽🅸🅶🅷🆃🫧 |👹",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/838367358295736350/654ab5ea7b2e2e6fb851454992e93f7d.png?size=512",
+      "suspiciousPostCount": 5,
+      "commentsMoreThanLikesCount": 5,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/Baogk2n/status/2118161381002555514",
+          "timestamp": "2026-11-05T07:09:21.741+02:00",
+          "date": "2026-11-05",
+          "authorHandle": "Baogk2n",
+          "likes": 81,
+          "comments": 82,
+          "views": 200,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/Baogk2n/status/2117074214746284483",
+          "timestamp": "2026-11-02T05:20:29.503+02:00",
+          "date": "2026-11-02",
+          "authorHandle": "Baogk2n",
+          "likes": 86,
+          "comments": 88,
+          "views": 339,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": true
+        },
+        {
+          "url": "https://x.com/Baogk2n/status/2116049175930634708",
+          "timestamp": "2026-10-30T08:07:31.746+02:00",
+          "date": "2026-10-30",
+          "authorHandle": "Baogk2n",
+          "likes": 79,
+          "comments": 82,
+          "views": 416,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Baogk2n/status/2114963728966049901",
+          "timestamp": "2026-10-27T08:14:01.77+02:00",
+          "date": "2026-10-27",
+          "authorHandle": "Baogk2n",
+          "likes": 59,
+          "comments": 63,
+          "views": 392,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/Baogk2n/status/2112725563399884969",
+          "timestamp": "2026-10-21T05:43:23.077+02:00",
+          "date": "2026-10-21",
+          "authorHandle": "Baogk2n",
+          "likes": 74,
+          "comments": 75,
+          "views": 374,
+          "reposts": 4,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        }
+      ]
+    },
+    {
+      "username": "direumateulll",
+      "nickname": "! H. Nat Die (kamalz) (❖,❖)",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/966699747761061908/ecf863e6cc9a8a1b2c130bf9658c5324.png?size=512",
+      "suspiciousPostCount": 5,
+      "commentsMoreThanLikesCount": 5,
+      "lowLikesHighViewsCount": 0,
+      "posts": [
+        {
+          "url": "https://x.com/direumatteul/status/2116334346688983179",
+          "timestamp": "2026-10-31T08:21:29.551+02:00",
+          "date": "2026-10-31",
+          "authorHandle": "direumatteul",
+          "likes": 28,
+          "comments": 29,
+          "views": 304,
+          "reposts": 2,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/direumatteul/status/2106776358458216845",
+          "timestamp": "2026-10-05T14:48:17.627+02:00",
+          "date": "2026-10-05",
+          "authorHandle": "direumatteul",
+          "likes": 11,
+          "comments": 13,
+          "views": 249,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/direumatteul/status/2097384479413133765",
+          "timestamp": "2026-09-08T23:13:47.533+02:00",
+          "date": "2026-09-08",
+          "authorHandle": "direumatteul",
+          "likes": 10,
+          "comments": 12,
+          "views": 296,
+          "reposts": 0,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/direumatteul/status/2092537538804056451",
+          "timestamp": "2026-08-26T17:12:56.019+02:00",
+          "date": "2026-08-26",
+          "authorHandle": "direumatteul",
+          "likes": 22,
+          "comments": 23,
+          "views": 775,
+          "reposts": 1,
+          "reasons": [
+            "comments_more_than_likes"
+          ],
+          "isCurrentPeriod": false
+        },
+        {
+          "url": "https://x.com/direumatteul/status/2070009090357829672",
+          "timestamp": "2026-06-25T11:27:36.692+02:00",
+          "date": "2026-06-25",
+          "authorHandle": "direumatteul",
+          "likes": 21,
+          "comments": 23,
+          "views": 462,
+          "reposts": 1,
           "reasons": [
             "comments_more_than_likes"
           ],
